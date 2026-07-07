@@ -109,6 +109,24 @@
     display:block; margin-top:14px;
   }
 
+  .result-hit{
+    background:#f6f2e6; border:1px solid var(--line); border-left:4px solid var(--gold);
+    padding:22px 26px;
+  }
+  .result-hit .hit-count{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:#8a8062;
+    letter-spacing:.04em; margin-bottom:16px; display:block;
+  }
+  .result-hit .hit-url{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:#5a8a5a;
+    margin-bottom:4px;
+  }
+  .result-hit .hit-title{
+    font-family:'Noto Serif JP', serif; font-size:17px; font-weight:600; margin:0 0 8px;
+  }
+  .result-hit .hit-title a{color:var(--navy);}
+  .result-hit .hit-snippet{margin:0; font-size:13.5px; color:#4a453a;}
+
   .retry-form{
     display:flex; gap:10px; margin-top:22px; flex-wrap:wrap;
   }
@@ -247,7 +265,6 @@
         <li><a href="index.html#structure">組織構造</a></li>
         <li><a href="grimoire.html">魔術書について</a></li>
         <li><a href="index.html#news">お知らせ</a></li>
-        <li><a href="login.html">構成員専用ページ</a></li>
       </ul>
     </div>
     <div>
@@ -280,21 +297,36 @@
     var query = params.get('q');
 
     var heading = document.getElementById('result-heading');
-    var message = document.getElementById('result-message');
-    var codeNote = document.createElement('span');
-    codeNote.className = 'code';
+    var resultBox = document.getElementById('result-box');
+
+    // 検索インデックス(現状はこの1件のみヒットする)
+    var SPECIAL_MATCH = '構成員専用ページ';
 
     if(query && query.trim() !== ''){
       var q = query.trim();
       var safeQ = escapeHtml(q);
       heading.innerHTML = '「' + safeQ + '」の検索結果';
-      message.innerHTML = '「' + safeQ + '」に一致する情報は見つかりませんでした。';
-      codeNote.textContent = 'QUERY: "' + q + '" — 0 件ヒット';
-      document.getElementById('result-box').appendChild(codeNote);
       document.title = '「' + q + '」の検索結果 | 大陸魔導協会';
+
+      if(q === SPECIAL_MATCH){
+        resultBox.outerHTML =
+          '<div class="result-hit" id="result-box">' +
+            '<span class="hit-count">1件の情報が見つかりました。</span>' +
+            '<div class="hit-url">caa.example / login.html</div>' +
+            '<h3 class="hit-title"><a href="login.html">構成員専用ページ ログイン | 大陸魔導協会</a></h3>' +
+            '<p class="hit-snippet">認定を受けた構成員のみアクセス可能な内部ページです。構成員IDおよびパスワードを入力してログインしてください。</p>' +
+          '</div>';
+      } else {
+        var message = document.getElementById('result-message');
+        var codeNote = document.createElement('span');
+        codeNote.className = 'code';
+        message.innerHTML = '「' + safeQ + '」に一致する情報は見つかりませんでした。';
+        codeNote.textContent = 'QUERY: "' + q + '" — 0 件ヒット';
+        resultBox.appendChild(codeNote);
+      }
     } else {
       heading.textContent = '検索結果';
-      message.textContent = '検索キーワードが指定されていません。上部の検索ボックスよりキーワードを入力してください。';
+      document.getElementById('result-message').textContent = '検索キーワードが指定されていません。上部の検索ボックスよりキーワードを入力してください。';
     }
 
     document.getElementById('retry-form').addEventListener('submit', function(e){
