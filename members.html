@@ -35,12 +35,24 @@
 
   .sys-bar{
     background:#05060a; color:#828798; font-size:11px; letter-spacing:.06em;
-    padding:6px 24px; display:flex; justify-content:space-between; gap:16px;
+    padding:6px 24px; display:flex; justify-content:space-between; align-items:center; gap:16px;
     font-family:'IBM Plex Mono', monospace;
     border-bottom:1px solid var(--line);
   }
   .sys-bar .status{color:var(--ok);}
   .sys-bar .status::before{content:"● "; }
+  .sys-search{display:flex; align-items:center; gap:6px;}
+  .sys-search input{
+    background:#05060a; border:1px solid var(--line); color:var(--text);
+    font-family:'IBM Plex Mono', monospace; font-size:11px; padding:4px 8px; width:200px;
+  }
+  .sys-search input::placeholder{color:#4d5266;}
+  .sys-search input:focus-visible{outline:1px solid var(--accent); outline-offset:1px;}
+  .sys-search button{
+    background:transparent; border:1px solid var(--line); color:#828798;
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; padding:4px 10px; cursor:pointer;
+  }
+  .sys-search button:hover{border-color:var(--accent); color:var(--text);}
 
   header.mem-header{
     background:var(--panel); border-bottom:1px solid var(--line); padding:20px 24px;
@@ -182,6 +194,10 @@
 
 <div class="sys-bar">
   <span class="status">CAA INTERNAL NETWORK — CONNECTED</span>
+  <form class="sys-search" action="search.html" method="get" role="search">
+    <input type="text" name="q" placeholder="内部データベースを検索" aria-label="内部データベース検索" autocomplete="off">
+    <button type="submit" aria-label="検索">検索</button>
+  </form>
   <span>SESSION: ACTIVE</span>
 </div>
 
@@ -286,7 +302,7 @@
       <li>
         <time>2026.06.14</time>
         <span class="tag">支部</span>
-        <a href="#">第9支部 新規構成員向けオリエンテーション開催のお知らせ</a>
+        <a href="#">日本支部 新規構成員向けオリエンテーション開催のお知らせ</a>
       </li>
     </ul>
     <div class="access-note">
