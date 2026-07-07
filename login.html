@@ -37,8 +37,22 @@
     padding:5px 24px; display:flex; justify-content:flex-end; gap:16px;
     font-family:'IBM Plex Mono', monospace;
   }
+  .lang-bar{justify-content:space-between;}
   .lang-bar a{color:#cfd3dd; opacity:.75;}
   .lang-bar a.current{opacity:1; text-decoration:underline;}
+  .lang-links{display:flex; gap:16px;}
+  .site-search{display:flex; align-items:center; gap:6px;}
+  .site-search input{
+    background:transparent; border:1px solid rgba(255,255,255,.25); color:#cfd3dd;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; padding:3px 8px; width:170px;
+  }
+  .site-search input::placeholder{color:#7d8298;}
+  .site-search input:focus{outline:1px solid var(--gold-bright); background:rgba(255,255,255,.05);}
+  .site-search button{
+    background:transparent; border:1px solid rgba(255,255,255,.25); color:#cfd3dd;
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; padding:3px 10px; cursor:pointer;
+  }
+  .site-search button:hover{border-color:var(--gold-bright); color:#fff;}
 
   header.site-header{background:var(--navy); color:#e9e5d8; padding:22px 24px 0;}
   .header-inner{
@@ -143,10 +157,16 @@
 <body>
 
 <div class="lang-bar">
-  <a href="#" class="current">日本語</a>
-  <a href="#">EN</a>
-  <a href="#">DE</a>
-  <a href="#">FR</a>
+  <form class="site-search" action="search.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit" aria-label="検索">検索</button>
+  </form>
+  <div class="lang-links">
+    <a href="#" class="current">日本語</a>
+    <a href="#">EN</a>
+    <a href="#">DE</a>
+    <a href="#">FR</a>
+  </div>
 </div>
 
 <header class="site-header">
