@@ -34,7 +34,7 @@
   a{color:var(--accent); text-decoration:none;}
   a:hover{text-decoration:underline;}
   a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
-
+ 
   .sys-bar{
     background:#05060a; color:#828798; font-size:11px; letter-spacing:.06em;
     padding:6px 24px; display:flex; justify-content:space-between; align-items:center; gap:16px;
@@ -53,7 +53,7 @@
     font-family:'IBM Plex Mono', monospace; font-size:10.5px; padding:4px 10px; cursor:pointer;
   }
   .sys-search button:hover{border-color:var(--accent); color:var(--text);}
-
+ 
   header.mem-header{background:var(--panel); border-bottom:1px solid var(--line); padding:20px 24px;}
   .header-inner{
     max-width:1080px; margin:0 auto; display:flex; align-items:center; justify-content:space-between;
@@ -75,7 +75,7 @@
   }
   .session-info strong{color:var(--text); font-weight:500;}
   .session-info a{color:var(--alert); margin-left:10px;}
-
+ 
   nav.mem-nav{
     max-width:1080px; margin:0 auto; display:flex; gap:2px; margin-top:16px;
     border-top:1px solid var(--line); padding-top:2px;
@@ -86,14 +86,14 @@
   }
   nav.mem-nav a:hover{color:var(--text); text-decoration:none; border-bottom:2px solid var(--accent-dim);}
   nav.mem-nav a.current{color:#eceefb; border-bottom:2px solid var(--accent);}
-
+ 
   main{max-width:1080px; margin:0 auto; padding:0 24px;}
-
+ 
   .breadcrumb{
     padding:16px 0 0; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted);
   }
   .breadcrumb a{color:var(--muted);}
-
+ 
   /* プロフィールヘッダー */
   .profile-head{
     padding:32px 0 30px; border-bottom:1px solid var(--line);
@@ -130,7 +130,7 @@
   .badge.dept{color:var(--alert); border-color:var(--alert);}
   .badge.clearance{color:var(--lock); border-color:var(--lock);}
   .badge.active{color:var(--ok); border-color:var(--ok);}
-
+ 
   section{padding:32px 0; border-bottom:1px solid var(--line);}
   section:last-of-type{border-bottom:none;}
   .section-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:20px; gap:16px; flex-wrap:wrap;}
@@ -142,7 +142,7 @@
     font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--accent);
     letter-spacing:.1em; font-weight:400;
   }
-
+ 
   /* 基本情報テーブル */
   .data-table{width:100%; border-collapse:collapse; font-size:13.5px;}
   .data-table tr{border-bottom:1px solid var(--line);}
@@ -154,7 +154,7 @@
   }
   .data-table td{padding:11px 0; color:var(--text); vertical-align:top;}
   .data-table td .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:.03em;}
-
+ 
   /* 機密ロックセクション */
   .locked-block{
     background:var(--lock-bg); border:1px solid #3a3016; position:relative; overflow:hidden;
@@ -194,7 +194,7 @@
     padding:16px 22px 20px; font-size:12px; color:#8a7a4a; border-top:1px solid #3a3016; margin-top:4px;
   }
   .lock-foot .req{color:var(--lock); font-family:'IBM Plex Mono', monospace; font-size:11px;}
-
+ 
   /* 認証ボックス */
   .auth-box{margin-top:16px; display:flex; flex-direction:column; gap:10px;}
   .auth-box .auth-label{
@@ -217,14 +217,14 @@
   }
   .auth-msg.err{display:block; background:var(--alert-bg); border:1px solid #4a2224; color:var(--alert);}
   .auth-msg.ok{display:block; background:#0f1f18; border:1px solid #1f4535; color:var(--ok);}
-
+ 
   footer{background:#05060a; color:var(--muted); margin-top:20px; border-top:1px solid var(--line);}
   .footer-bottom{
     padding:16px 24px; max-width:1080px; margin:0 auto;
     font-size:11px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
     font-family:'IBM Plex Mono', monospace;
   }
-
+ 
   @media (max-width:760px){
     .profile-head{grid-template-columns:1fr; gap:20px; justify-items:start;}
     .data-table th{width:auto; display:block; padding-bottom:2px;}
@@ -240,7 +240,7 @@
 </style>
 </head>
 <body>
-
+ 
 <div class="sys-bar">
   <span class="status">CAA INTERNAL NETWORK — CONNECTED</span>
   <form class="sys-search" action="search.html" method="get" role="search">
@@ -249,7 +249,7 @@
   </form>
   <span>SESSION: ACTIVE</span>
 </div>
-
+ 
 <header class="mem-header">
   <div class="header-inner">
     <div class="brand">
@@ -277,13 +277,13 @@
     <a href="index.html">公式サイトへ戻る</a>
   </nav>
 </header>
-
+ 
 <main>
-
+ 
   <div class="breadcrumb">
     <a href="members.html">ダッシュボード</a> / 個人記録 / J-006137
   </div>
-
+ 
   <div class="profile-head">
     <div class="avatar">
       <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#7c8cff" stroke-width="1">
@@ -305,7 +305,7 @@
       </div>
     </div>
   </div>
-
+ 
   <section id="basic">
     <div class="section-head">
       <h2>基本情報 <span class="en">Basic Information</span></h2>
@@ -324,12 +324,12 @@
       <tr><th>セキュリティクリアランス</th><td><span class="mono">Class-A 相当</span>(強行回収要員)</td></tr>
     </table>
   </section>
-
+ 
   <section id="classified">
     <div class="section-head">
       <h2>機密記録 <span class="en">Classified Records</span></h2>
     </div>
-
+ 
     <div class="locked-block">
       <div class="lock-head">
         <div class="lock-icon">
@@ -343,7 +343,7 @@
           <div class="sub">SECTION LOCKED — CLEARANCE INSUFFICIENT</div>
         </div>
       </div>
-
+ 
       <div class="lock-foot">
         本セクションの閲覧には <span class="req">クリアランス Class-S 以上</span>、または <span class="req">本人生体認証コード</span> が必要です。<br>
         アクセス権限をお持ちの場合は、下記に認証コードを入力してください。
@@ -359,16 +359,16 @@
       </div>
     </div>
   </section>
-
+ 
 </main>
-
+ 
 <footer>
   <div class="footer-bottom">
     <span>Continental Arcane Authority — Internal Network</span>
     <span>Record ID: PR-J006137 / Access log: LOG-2026-0706-J006137</span>
   </div>
 </footer>
-
+ 
 <script>
   (function(){
     // 機密セクション解錠コード(ARG用・今後の手がかりで解読させる想定)
@@ -377,7 +377,7 @@
     var input = document.getElementById('auth-code');
     var err = document.getElementById('auth-err');
     var ok = document.getElementById('auth-ok');
-
+ 
     function attempt(){
       var v = input.value.trim();
       if(v === UNLOCK_CODE){
@@ -395,6 +395,6 @@
     input.addEventListener('keydown', function(e){ if(e.key === 'Enter') attempt(); });
   })();
 </script>
-
+ 
 </body>
 </html>
