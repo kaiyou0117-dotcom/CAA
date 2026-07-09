@@ -32,7 +32,7 @@
   a{color:var(--accent); text-decoration:none;}
   a:hover{text-decoration:underline;}
   a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
-
+ 
   .sys-bar{
     background:#05060a; color:#828798; font-size:11px; letter-spacing:.06em;
     padding:6px 24px; display:flex; justify-content:space-between; align-items:center; gap:16px;
@@ -53,7 +53,7 @@
     font-family:'IBM Plex Mono', monospace; font-size:10.5px; padding:4px 10px; cursor:pointer;
   }
   .sys-search button:hover{border-color:var(--accent); color:var(--text);}
-
+ 
   header.mem-header{
     background:var(--panel); border-bottom:1px solid var(--line); padding:20px 24px;
   }
@@ -77,7 +77,7 @@
   }
   .session-info strong{color:var(--text); font-weight:500;}
   .session-info a{color:var(--alert); margin-left:10px;}
-
+ 
   nav.mem-nav{
     max-width:1080px; margin:0 auto; display:flex; gap:2px; margin-top:16px;
     border-top:1px solid var(--line); padding-top:2px;
@@ -88,9 +88,9 @@
   }
   nav.mem-nav a:hover{color:var(--text); text-decoration:none; border-bottom:2px solid var(--accent-dim);}
   nav.mem-nav a.current{color:#eceefb; border-bottom:2px solid var(--accent);}
-
+ 
   main{max-width:1080px; margin:0 auto; padding:0 24px;}
-
+ 
   .welcome{padding:40px 0 32px; border-bottom:1px solid var(--line);}
   .welcome .eyebrow{
     font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.14em;
@@ -100,7 +100,7 @@
     font-family:'Noto Serif JP', serif; font-size:26px; font-weight:600; margin:0 0 10px; color:#eceefb;
   }
   .welcome p{margin:0; color:var(--muted); font-size:13.5px; max-width:64ch;}
-
+ 
   section{padding:36px 0; border-bottom:1px solid var(--line);}
   section:last-of-type{border-bottom:none;}
   .section-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:22px; gap:16px; flex-wrap:wrap;}
@@ -112,7 +112,7 @@
     font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--accent);
     letter-spacing:.1em; font-weight:400;
   }
-
+ 
   /* ステータスグリッド */
   .stat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
   .stat-card{
@@ -126,7 +126,7 @@
     font-family:'IBM Plex Mono', monospace; font-size:22px; color:#eceefb; font-weight:500;
   }
   .stat-card .value.accent{color:var(--accent);}
-
+ 
   /* 許可証テーブル */
   .license-list{display:flex; flex-direction:column; gap:10px;}
   .license-row{
@@ -143,7 +143,7 @@
     border:1px solid var(--ok); padding:2px 8px; white-space:nowrap; justify-self:end;
   }
   .license-row .valid.pending{color:#c9a24a; border-color:#c9a24a;}
-
+ 
   /* 内部通達 */
   .memo-list{list-style:none; margin:0; padding:0;}
   .memo-list li{
@@ -162,7 +162,7 @@
   .memo-list li.redacted .bar{
     display:inline-block; background:#000; color:transparent; user-select:none; padding:0 3px;
   }
-
+ 
   .access-note{
     background:var(--alert-bg); border:1px solid #4a2224; border-left:4px solid var(--alert);
     padding:16px 20px; font-size:12.5px; color:#e2b8b8; margin-top:20px;
@@ -171,14 +171,14 @@
     font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.1em;
     color:var(--alert); display:block; margin-bottom:6px;
   }
-
+ 
   footer{background:#05060a; color:var(--muted); margin-top:20px; border-top:1px solid var(--line);}
   .footer-bottom{
     padding:16px 24px; max-width:1080px; margin:0 auto;
     font-size:11px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
     font-family:'IBM Plex Mono', monospace;
   }
-
+ 
   @media (max-width:760px){
     .stat-grid{grid-template-columns:1fr;}
     .license-row{grid-template-columns:1fr; gap:6px;}
@@ -191,7 +191,7 @@
 </style>
 </head>
 <body>
-
+ 
 <div class="sys-bar">
   <span class="status">CAA INTERNAL NETWORK — CONNECTED</span>
   <form class="sys-search" action="search.html" method="get" role="search">
@@ -200,7 +200,7 @@
   </form>
   <span>SESSION: ACTIVE</span>
 </div>
-
+ 
 <header class="mem-header">
   <div class="header-inner">
     <div class="brand">
@@ -228,15 +228,15 @@
     <a href="index.html">公式サイトへ戻る</a>
   </nav>
 </header>
-
+ 
 <main>
-
+ 
   <section id="dashboard" class="welcome">
     <div class="eyebrow">Dashboard</div>
     <h1>ようこそ、構成員 J-006137 様</h1>
     <p>本ページは大陸魔導協会の認定構成員のみアクセス可能です。すべての操作ログは内部監察班により記録・監査されています。</p>
   </section>
-
+ 
   <section id="status">
     <div class="section-head">
       <h2>ステータス概要 <span class="en">Status</span></h2>
@@ -257,7 +257,7 @@
       </div>
     </div>
   </section>
-
+ 
   <section id="licenses">
     <div class="section-head">
       <h2>保有許可証 <span class="en">Licenses</span></h2>
@@ -280,7 +280,7 @@
       </div>
     </div>
   </section>
-
+ 
   <section id="memos">
     <div class="section-head">
       <h2>内部通達 <span class="en">Internal Memos</span></h2>
@@ -312,15 +312,15 @@
       現在の許可レベルでは一部の内部通達が閲覧できません。上位区分の情報が必要な場合は、所属支部の担当窓口へ許可証の追加申請を行ってください。
     </div>
   </section>
-
+ 
 </main>
-
+ 
 <footer>
   <div class="footer-bottom">
     <span>Continental Arcane Authority — Internal Network</span>
     <span>Access log ID: LOG-2026-0706-J006137</span>
   </div>
 </footer>
-
+ 
 </body>
 </html>
