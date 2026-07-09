@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせ | 大陸魔導協会 | Continental Arcane Authority</title>
+<meta name="description" content="大陸魔導協会(大魔協/CAA)へのお問い合わせ窓口。部門別連絡先とお問い合わせフォームを掲載しています。">
+<!-- 緊急案件(Class-X相当を含む)は本フォームではなく各支部の緊急連絡先へ直接連絡すること -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Serif+JP:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #1b2438;
+    --navy-deep: #10182a;
+    --parchment: #efe9dc;
+    --parchment-2: #e4dcc9;
+    --ink: #201d18;
+    --gold: #9c7f3c;
+    --gold-bright: #b8974f;
+    --line: #c9bfa4;
+    --alert: #6f2f2f;
+    --alert-bg: #f3e7de;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--parchment); color:var(--ink);
+    font-family:'Zen Kaku Gothic New', 'Noto Serif JP', sans-serif;
+    line-height:1.8; font-size:15px;
+  }
+  a{color:var(--navy); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
+    outline:2px solid var(--gold-bright); outline-offset:2px;
+  }
+
+  .lang-bar{
+    background:var(--navy-deep); color:#cfd3dd; font-size:11px; letter-spacing:.04em;
+    padding:5px 24px; display:flex; justify-content:flex-end; gap:16px;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .lang-bar{justify-content:space-between;}
+  .lang-bar a{color:#cfd3dd; opacity:.75;}
+  .lang-bar a.current{opacity:1; text-decoration:underline;}
+  .lang-links{display:flex; gap:16px;}
+  .site-search{display:flex; align-items:center; gap:6px;}
+  .site-search input{
+    background:transparent; border:1px solid rgba(255,255,255,.25); color:#cfd3dd;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; padding:3px 8px; width:170px;
+  }
+  .site-search input::placeholder{color:#7d8298;}
+  .site-search input:focus{outline:1px solid var(--gold-bright); background:rgba(255,255,255,.05);}
+  .site-search button{
+    background:transparent; border:1px solid rgba(255,255,255,.25); color:#cfd3dd;
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; padding:3px 10px; cursor:pointer;
+  }
+  .site-search button:hover{border-color:var(--gold-bright); color:#fff;}
+
+  header.site-header{background:var(--navy); color:#e9e5d8; padding:22px 24px 0;}
+  .header-inner{
+    max-width:1080px; margin:0 auto; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:16px; padding-bottom:20px;
+  }
+  .brand{display:flex; align-items:center; gap:14px;}
+  .brand svg{flex-shrink:0;}
+  .brand-text .en{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.16em;
+    color:#a9b0c4; text-transform:uppercase;
+  }
+  .brand-text .jp{
+    font-family:'Noto Serif JP', serif; font-size:20px; font-weight:600;
+    letter-spacing:.04em; color:#f2eee0;
+  }
+  nav.main-nav{
+    max-width:1080px; margin:0 auto; display:flex; gap:2px;
+    border-top:1px solid rgba(255,255,255,.12);
+  }
+  nav.main-nav a{
+    color:#cfd3dd; font-size:13.5px; padding:13px 16px;
+    letter-spacing:.02em; border-bottom:2px solid transparent;
+  }
+  nav.main-nav a:hover{color:#fff; text-decoration:none; border-bottom:2px solid var(--gold-bright);}
+  nav.main-nav a.current{color:#fff; border-bottom:2px solid var(--gold-bright);}
+
+  .breadcrumb{
+    max-width:1080px; margin:0 auto; padding:14px 24px 0;
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:#948a6d;
+  }
+  .breadcrumb a{color:#6b6250;}
+  .breadcrumb span{color:#948a6d;}
+
+  .notice{
+    background:var(--alert-bg); border-top:1px solid #d8c3ae; border-bottom:1px solid #d8c3ae; margin-top:20px;
+  }
+  .notice-inner{
+    max-width:1080px; margin:0 auto; padding:10px 24px;
+    display:flex; align-items:baseline; gap:10px; font-size:13px;
+  }
+  .notice-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.06em;
+    color:var(--alert); border:1px solid var(--alert); padding:1px 6px; flex-shrink:0;
+  }
+  .notice-inner p{margin:0; color:#4a3226;}
+
+  main{max-width:1080px; margin:0 auto; padding:0 24px;}
+
+  .hero{padding:44px 0 40px; border-bottom:1px solid var(--line);}
+  .hero .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.12em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:14px;
+  }
+  .hero h1{
+    font-family:'Noto Serif JP', serif; font-size:30px; line-height:1.5;
+    font-weight:600; margin:0 0 18px; letter-spacing:.02em;
+  }
+  .hero p{max-width:62ch; color:#3a362e; margin:0;}
+
+  section{padding:40px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:24px; gap:16px; flex-wrap:wrap;}
+  .section-head h2{
+    font-family:'Noto Serif JP', serif; font-size:19px; font-weight:600; margin:0;
+    display:flex; align-items:baseline; gap:10px;
+  }
+  .section-head h2 .en{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--gold);
+    letter-spacing:.1em; font-weight:400;
+  }
+
+  .about-text{max-width:72ch; font-size:14px; color:#3a362e;}
+  .about-text p{margin:0 0 14px;}
+
+  /* 部門別連絡先 */
+  .contact-list{display:flex; flex-direction:column; gap:12px;}
+  .contact-row{
+    display:grid; grid-template-columns:140px 1fr 1fr; gap:20px;
+    background:#f6f2e6; border:1px solid var(--line); padding:16px 22px; align-items:center;
+    font-size:13.5px;
+  }
+  .contact-row .dept{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--gold);
+    letter-spacing:.06em; text-transform:uppercase;
+  }
+  .contact-row .role{color:#3a362e; font-weight:500;}
+  .contact-row .mail{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--navy); justify-self:end;
+  }
+
+  .emergency-box{
+    background:var(--alert-bg); border:1px solid #d8c3ae; border-left:4px solid var(--alert);
+    padding:20px 24px; margin-top:20px;
+  }
+  .emergency-box .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.1em;
+    color:var(--alert); display:block; margin-bottom:8px;
+  }
+  .emergency-box p{margin:0; font-size:13.5px; color:#4a3226;}
+
+  /* フォーム */
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .form-field{display:flex; flex-direction:column; gap:6px;}
+  .form-field.full{grid-column:1 / -1;}
+  .form-field label{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.05em; color:#6b6250;
+  }
+  .form-field label .req{color:var(--alert); margin-left:4px;}
+  .form-field input, .form-field select, .form-field textarea{
+    font-family:'Zen Kaku Gothic New', sans-serif; font-size:14px; color:var(--ink);
+    background:#faf8f2; border:1px solid var(--line); padding:10px 12px;
+  }
+  .form-field textarea{resize:vertical; min-height:120px;}
+  .form-note{
+    grid-column:1 / -1; font-size:12px; color:#8a8062; margin-top:-6px;
+  }
+  .form-submit{
+    grid-column:1 / -1; display:flex; align-items:center; gap:16px; margin-top:8px; flex-wrap:wrap;
+  }
+  .submit-btn{
+    background:var(--navy); color:#f2eee0; font-weight:600; border:none;
+    padding:12px 30px; font-size:14px; letter-spacing:.03em; cursor:pointer;
+    font-family:'Zen Kaku Gothic New', sans-serif;
+  }
+  .submit-btn:hover{background:var(--navy-deep);}
+  .form-submit .disclaimer{font-size:11.5px; color:#8a8062;}
+
+  footer{background:var(--navy-deep); color:#9aa0b3; margin-top:20px;}
+  .footer-inner{
+    max-width:1080px; margin:0 auto; padding:40px 24px 28px;
+    display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px; font-size:12.5px;
+  }
+  .footer-inner h4{color:#d5d8e2; font-size:12px; letter-spacing:.06em; margin:0 0 12px; font-weight:500;}
+  .footer-inner ul{list-style:none; margin:0; padding:0;}
+  .footer-inner li{margin-bottom:7px;}
+  .footer-inner a{color:#9aa0b3;}
+  .footer-inner a:hover{color:#fff;}
+  .footer-addr{line-height:1.9; font-family:'IBM Plex Mono', monospace; font-size:11.5px;}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,.08); padding:14px 24px; max-width:1080px; margin:0 auto;
+    font-size:11px; color:#6c7284; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media (max-width:760px){
+    .contact-row{grid-template-columns:1fr; gap:4px;}
+    .contact-row .mail{justify-self:start;}
+    .form-grid{grid-template-columns:1fr;}
+    .footer-inner{grid-template-columns:1fr; gap:24px;}
+    nav.main-nav{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  }
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <form class="site-search" action="search.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit" aria-label="検索">検索</button>
+  </form>
+  <div class="lang-links">
+    <a href="#" class="current">日本語</a>
+    <a href="#">EN</a>
+    <a href="#">DE</a>
+    <a href="#">FR</a>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18.5" stroke="#b8974f" stroke-width="1"/>
+        <path d="M20 6 L20 34 M8 14 L32 26 M8 26 L32 14" stroke="#b8974f" stroke-width="0.75"/>
+        <circle cx="20" cy="20" r="3" fill="#b8974f"/>
+      </svg>
+      <div class="brand-text">
+        <div class="en">Continental Arcane Authority</div>
+        <div class="jp">大陸魔導協会</div>
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav">
+    <a href="index.html">協会概要</a>
+    <a href="index.html#structure">組織構造</a>
+    <a href="grimoire.html">魔術書について</a>
+    <a href="index.html#news">お知らせ</a>
+    <a href="recruit.html">採用情報</a>
+    <a href="contact.html" class="current">お問い合わせ</a>
+  </nav>
+</header>
+
+<div class="breadcrumb">
+  <a href="index.html">トップ</a> <span>/</span> お問い合わせ
+</div>
+
+<div class="notice">
+  <div class="notice-inner">
+    <span class="notice-tag">重要</span>
+    <p>Class-X 相当の魔術書・異産を発見した場合、本フォームではなく最寄りの支部の緊急連絡先へ直接ご連絡ください。</p>
+  </div>
+</div>
+
+<main>
+
+  <section class="hero">
+    <div class="eyebrow">Contact</div>
+    <h1>お問い合わせ</h1>
+    <p>大陸魔導協会に関するお問い合わせは、内容に応じて担当部門が異なります。以下の連絡先一覧、またはフォームよりご連絡ください。</p>
+  </section>
+
+  <section id="departments">
+    <div class="section-head">
+      <h2>部門別連絡先 <span class="en">Departments</span></h2>
+    </div>
+    <div class="contact-list">
+      <div class="contact-row">
+        <div class="dept">Wisdom</div>
+        <div class="role">魔術書の鑑定・分類に関するお問い合わせ</div>
+        <div class="mail">wisdom-inquiry@caa.example</div>
+      </div>
+      <div class="contact-row">
+        <div class="dept">Temperantia</div>
+        <div class="role">禁書・許可証申請に関するお問い合わせ</div>
+        <div class="mail">license-office@caa.example</div>
+      </div>
+      <div class="contact-row">
+        <div class="dept">Spera</div>
+        <div class="role">他組織との連携・提携に関するお問い合わせ</div>
+        <div class="mail">external-affairs@caa.example</div>
+      </div>
+      <div class="contact-row">
+        <div class="dept">General</div>
+        <div class="role">採用情報・その他一般的なお問い合わせ</div>
+        <div class="mail">info@caa.example</div>
+      </div>
+    </div>
+
+    <div class="emergency-box">
+      <span class="tag">緊急連絡について</span>
+      <p>Class-X相当の未確認物件の発見、異能犯罪の目撃など、緊急性を要する事案については、フォームでの受付を行っておりません。最寄りの支部へ直接ご連絡ください。</p>
+    </div>
+  </section>
+
+  <section id="form">
+    <div class="section-head">
+      <h2>お問い合わせフォーム <span class="en">Inquiry Form</span></h2>
+    </div>
+    <form class="form-grid" action="#" method="get" onsubmit="return false;">
+      <div class="form-field">
+        <label for="name">お名前<span class="req">必須</span></label>
+        <input type="text" id="name" name="name" placeholder="山田 太郎">
+      </div>
+      <div class="form-field">
+        <label for="email">メールアドレス<span class="req">必須</span></label>
+        <input type="email" id="email" name="email" placeholder="example@mail.com">
+      </div>
+      <div class="form-field full">
+        <label for="category">お問い合わせ区分<span class="req">必須</span></label>
+        <select id="category" name="category">
+          <option>魔術書の鑑定・分類について</option>
+          <option>禁書・許可証申請について</option>
+          <option>採用情報について</option>
+          <option>他組織との連携について</option>
+          <option>その他</option>
+        </select>
+      </div>
+      <div class="form-field full">
+        <label for="message">お問い合わせ内容<span class="req">必須</span></label>
+        <textarea id="message" name="message" placeholder="お問い合わせ内容をご記入ください"></textarea>
+      </div>
+      <div class="form-note">※ 本フォームはモックアップです。実際の送信機能は今後実装予定です。</div>
+      <div class="form-submit">
+        <button type="submit" class="submit-btn">送信する</button>
+        <span class="disclaimer">通常3〜5営業日以内に担当部門よりご連絡いたします。</span>
+      </div>
+    </form>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h4>大陸魔導協会</h4>
+      <div class="footer-addr">
+        Continental Arcane Authority<br>
+        Prague — HQ(詳細所在地は別紙参照)
+      </div>
+    </div>
+    <div>
+      <h4>サイトマップ</h4>
+      <ul>
+        <li><a href="index.html#about">協会概要</a></li>
+        <li><a href="index.html#structure">組織構造</a></li>
+        <li><a href="grimoire.html">魔術書について</a></li>
+        <li><a href="index.html#news">お知らせ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>その他</h4>
+      <ul>
+        <li><a href="#">プライバシーポリシー</a></li>
+        <li><a href="recruit.html">採用情報</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© Continental Arcane Authority. All rights reserved.</span>
+    <span>Site last verified: 2026.06.28</span>
+  </div>
+</footer>
+
+</body>
+</html>
