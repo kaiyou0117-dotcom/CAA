@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V-2005-1042 | memory_processing_log</title>
+<meta name="description" content="大陸魔導協会 内部データベース。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0d; --surface:#111318; --surface-2:#161922; --border:#242730;
+    --text:#c7cbd1; --dim:#666b75; --accent:#59d9c4; --ok:#59d9a0; --watch:#d9b559; --closed:#666b75;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'IBM Plex Mono', 'Noto Sans JP', monospace; font-size:13px; line-height:1.7;
+  }
+
+  .doc-top-bar{background:#000; padding:8px 16px; display:flex; justify-content:center; border-bottom:1px solid var(--border);}
+  .doc-search{display:flex; align-items:center; gap:6px;}
+  .doc-search input{
+    background:#0a0b0d; border:1px solid var(--border); color:var(--text);
+    font-family:'IBM Plex Mono',monospace; font-size:11px; padding:5px 10px; width:220px;
+  }
+  .doc-search input::placeholder{color:var(--dim);}
+  .doc-search button{
+    background:transparent; border:1px solid var(--border); color:var(--dim);
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 12px; cursor:pointer;
+  }
+  .doc-search button:hover{border-color:var(--accent); color:var(--accent);}
+
+  .console{max-width:880px; margin:0 auto; padding:24px 20px 60px;}
+
+  .query-bar{
+    font-size:11.5px; color:var(--dim); margin-bottom:6px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+  .query-bar .path{color:var(--accent);}
+
+  .record{
+    background:var(--surface); border:1px solid var(--border);
+  }
+  .record-head{
+    padding:14px 18px; border-bottom:1px solid var(--border);
+    display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px;
+  }
+  .record-head .table-name{font-size:11px; color:var(--dim); letter-spacing:.05em;}
+  .record-head .table-name span{color:var(--accent);}
+  .record-head .record-id{font-size:11px; color:var(--dim);}
+
+  .kv{padding:14px 18px; border-bottom:1px solid var(--border);}
+  .kv-row{display:grid; grid-template-columns:150px 1fr; gap:14px; padding:3px 0; font-size:12.5px;}
+  .kv-row .k{color:var(--dim);}
+  .kv-row .k::before{content:"";}
+  .kv-row .v{color:var(--text);}
+  .kv-row .v.hl{color:var(--accent);}
+
+  .table-wrap{padding:16px 18px 18px; overflow-x:auto;}
+  table.data-grid{width:100%; border-collapse:collapse; font-size:12px; white-space:nowrap;}
+  table.data-grid th{
+    text-align:left; color:var(--dim); font-weight:500; padding:6px 12px; border-bottom:1px solid var(--border);
+    font-size:10.5px; letter-spacing:.04em; position:sticky; top:0; background:var(--surface);
+  }
+  table.data-grid td{padding:6px 12px; border-bottom:1px solid #1c1f27; color:var(--text);}
+  table.data-grid tr:nth-child(even) td{background:var(--surface-2);}
+  table.data-grid tr:hover td{background:#1a1d26;}
+  .st{font-weight:500;}
+  .st.done{color:var(--ok);}
+  .st.watch{color:var(--watch);}
+  .st.closed{color:var(--closed);}
+
+  .note-block{
+    padding:14px 18px 18px; font-size:12px; color:var(--dim); border-top:1px solid var(--border);
+  }
+  .note-block .tag{color:var(--accent); margin-right:6px;}
+  .note-block .body{color:var(--text);}
+
+  .exec-block{padding:14px 18px 18px;}
+  .exec-block .row{display:flex; gap:10px; font-size:12px; padding:2px 0;}
+  .exec-block .row .k{color:var(--dim); width:130px; flex-shrink:0;}
+  .exec-block .row .v{color:var(--text);}
+
+  .section-tag{
+    padding:10px 18px; font-size:10.5px; color:var(--dim); letter-spacing:.08em;
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:#0d0f14;
+    text-transform:uppercase;
+  }
+
+  .query-footer{
+    margin-top:8px; font-size:11px; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+  .query-footer .ok{color:var(--ok);}
+
+  @media (max-width:640px){
+    .kv-row{grid-template-columns:120px 1fr;}
+    .exec-block .row .k{width:100px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-top-bar">
+  <form class="doc-search" action="search-internal.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit">検索</button>
+  </form>
+</div>
+
+<div class="console">
+
+  <div class="query-bar">
+    <span><span class="path">caa-internal-db</span> &gt; <span class="path">veritas</span> &gt; <span class="path">memory_processing_log</span> &gt; WHERE case_id = 'V-2005-1042'</span>
+    <span>1 record found</span>
+  </div>
+
+  <div class="record">
+    <div class="record-head">
+      <span class="table-name">TABLE: <span>memory_processing_log</span></span>
+      <span class="record-id">record_id: V-2005-1042</span>
+    </div>
+
+    <div class="kv">
+      <div class="kv-row"><span class="k">case_name</span><span class="v">霞坂神社 秋季例大祭中断事案</span></div>
+      <div class="kv-row"><span class="k">incident_date</span><span class="v">2005-10-09</span></div>
+      <div class="kv-row"><span class="k">logged_date</span><span class="v">2005-10-12</span></div>
+      <div class="kv-row"><span class="k">executing_dept</span><span class="v hl">VERITAS(愛部門) — 記憶処理・事後経過観察</span></div>
+      <div class="kv-row"><span class="k">field_response_dept</span><span class="v">FAITH(信仰部門) — 結界再構築</span></div>
+      <div class="kv-row"><span class="k">approved_by</span><span class="v">七枢冠(VERITAS代表)</span></div>
+    </div>
+
+    <div class="section-tag">subjects [14 rows]</div>
+    <div class="table-wrap">
+      <table class="data-grid">
+        <tr><th>no</th><th>age</th><th>processing_type</th><th>status</th></tr>
+        <tr><td>001</td><td>8</td><td>部分処理(該当時間帯のみ)</td><td class="st done">経過観察終了</td></tr>
+        <tr><td>002</td><td>34</td><td>部分処理(該当時間帯のみ)</td><td class="st done">経過観察終了</td></tr>
+        <tr><td>003</td><td>9</td><td>部分処理(該当時間帯のみ)</td><td class="st done">経過観察終了</td></tr>
+        <tr><td>004</td><td>41</td><td>全体処理(当日全記憶)</td><td class="st watch">経過観察中</td></tr>
+        <tr><td>005</td><td>7</td><td>部分処理(該当時間帯のみ)</td><td class="st done">経過観察終了</td></tr>
+        <tr><td>006</td><td>—</td><td>継承者(死亡につき対象外)</td><td class="st closed">案件終結</td></tr>
+        <tr><td>007</td><td>10</td><td>部分処理(該当時間帯のみ)</td><td class="st done">経過観察終了</td></tr>
+        <tr><td>008</td><td>38</td><td>部分処理(該当時間帯のみ)</td><td class="st done">経過観察終了</td></tr>
+        <tr><td>009</td><td>8</td><td>部分処理(該当時間帯のみ)</td><td class="st done">経過観察終了</td></tr>
+        <tr><td>010</td><td>29</td><td>部分処理(該当時間帯のみ)</td><td class="st done">経過観察終了</td></tr>
+        <tr><td>011</td><td>9</td><td>部分処理(該当時間帯のみ)</td><td class="st done">経過観察終了</td></tr>
+        <tr><td>012</td><td>45</td><td>部分処理(該当時間帯のみ)</td><td class="st done">経過観察終了</td></tr>
+        <tr><td>013</td><td>7</td><td>部分処理(該当時間帯のみ)</td><td class="st done">経過観察終了</td></tr>
+        <tr><td>014</td><td>12</td><td>部分処理(該当時間帯のみ)</td><td class="st done">経過観察終了</td></tr>
+      </table>
+    </div>
+
+    <div class="note-block">
+      <span class="tag">note:</span><span class="body">対象No.004については記憶処理後も軽微な既視感の訴えあり。継続監視対象とする。対象No.006(継承者)の死亡時期は例大祭当日以前であり、本案件の直接の処理対象には含まれない。詳細は担当医療班記録を参照。</span>
+    </div>
+
+    <div class="section-tag">execution_timeline</div>
+    <div class="exec-block">
+      <div class="row"><span class="k">arrival</span><span class="v">2005-10-09 08:47</span></div>
+      <div class="row"><span class="k">containment_set</span><span class="v">2005-10-09 09:15</span></div>
+      <div class="row"><span class="k">processing_start</span><span class="v">2005-10-09 14:20</span></div>
+      <div class="row"><span class="k">processing_end</span><span class="v">2005-10-09 19:05</span></div>
+      <div class="row"><span class="k">withdrawal</span><span class="v">2005-10-09 21:40</span></div>
+      <div class="row"><span class="k">case_closed</span><span class="v">2005-10-12</span></div>
+    </div>
+  </div>
+
+  <div class="query-footer">
+    <span class="ok">QUERY OK</span>
+    <span>1 record / 14 rows in subjects ／ fetched in 0.014s</span>
+  </div>
+
+</div>
+
+</body>
+</html>
