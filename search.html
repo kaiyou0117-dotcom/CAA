@@ -299,11 +299,17 @@
     var heading = document.getElementById('result-heading');
     var resultBox = document.getElementById('result-box');
 
-    // 検索インデックス(現状はこの1件のみヒットする)
-    var SPECIAL_MATCH = '構成員専用ページ';
+    // 検索インデックス(現状ヒットするのはこの1件のみ)
+    var SPECIAL_MATCHES = {
+      '構成員専用ページ': {
+        url: 'login.html',
+        title: '構成員専用ページ ログイン | 大陸魔導協会',
+        snippet: '認定を受けた構成員のみアクセス可能な内部ページです。構成員IDおよびパスワードを入力してログインしてください。'
+      }
+    };
 
     // 内部データベース側にのみヒットが存在するキーワード(検出時は黒基調の検索結果へ転送)
-    var INTERNAL_REDIRECTS = ['第一級指名手配対象'];
+    var INTERNAL_REDIRECTS = ['第一級指名手配対象', '秋季例大祭'];
 
     if(query && INTERNAL_REDIRECTS.indexOf(query.trim()) !== -1){
       window.location.replace('search-internal.html?q=' + encodeURIComponent(query.trim()));
@@ -316,13 +322,15 @@
       heading.innerHTML = '「' + safeQ + '」の検索結果';
       document.title = '「' + q + '」の検索結果 | 大陸魔導協会';
 
-      if(q === SPECIAL_MATCH){
+      var hit = SPECIAL_MATCHES[q];
+
+      if(hit){
         resultBox.outerHTML =
           '<div class="result-hit" id="result-box">' +
             '<span class="hit-count">1件の情報が見つかりました。</span>' +
-            '<div class="hit-url">caa.example / login.html</div>' +
-            '<h3 class="hit-title"><a href="login.html">構成員専用ページ ログイン | 大陸魔導協会</a></h3>' +
-            '<p class="hit-snippet">認定を受けた構成員のみアクセス可能な内部ページです。構成員IDおよびパスワードを入力してログインしてください。</p>' +
+            '<div class="hit-url">caa.example / ' + hit.url + '</div>' +
+            '<h3 class="hit-title"><a href="' + hit.url + '">' + escapeHtml(hit.title) + '</a></h3>' +
+            '<p class="hit-snippet">' + escapeHtml(hit.snippet) + '</p>' +
           '</div>';
       } else {
         var message = document.getElementById('result-message');
