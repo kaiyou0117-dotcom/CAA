@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案件概要書 ― 霞坂神社 秋季例大祭中断事案</title>
+<meta name="description" content="大陸魔導協会 内部文書。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fafaf7; --ink:#1a1a1a; --line:#1a1a1a; --gray:#6b6b68; --hair:#d8d6cf;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#e4e2da; color:var(--ink);
+    font-family:'Noto Serif JP', serif; line-height:1.9; font-size:14px;
+  }
+  .doc-top-bar{background:#1a1a1a; padding:8px 16px; display:flex; justify-content:center;}
+  .doc-search{display:flex; align-items:center; gap:6px;}
+  .doc-search input{
+    background:#2a2a28; border:1px solid #444; color:#e8e6de;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; padding:5px 10px; width:220px;
+  }
+  .doc-search input::placeholder{color:#8a8880;}
+  .doc-search button{
+    background:transparent; border:1px solid #444; color:#c9c7bf;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 12px; cursor:pointer;
+  }
+  .doc-search button:hover{border-color:#888; color:#fff;}
+
+  .sheet{
+    max-width:760px; margin:32px auto; background:var(--paper);
+    box-shadow:0 0 0 1px #cfccc2, 0 8px 24px rgba(0,0,0,.08);
+    padding:44px 52px 60px;
+  }
+
+  .letterhead{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:20px;
+    padding-bottom:16px; border-bottom:2px solid var(--line);
+  }
+  .letterhead .org{display:flex; align-items:center; gap:12px;}
+  .letterhead .org-text .en{font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.14em; color:var(--gray); text-transform:uppercase;}
+  .letterhead .org-text .jp{font-size:14px; font-weight:600;}
+  .letterhead .doc-code{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gray); text-align:right; line-height:1.8;
+  }
+  .letterhead .doc-code span{color:var(--ink);}
+
+  .doc-title{padding:26px 0 20px; text-align:center; border-bottom:1px solid var(--hair);}
+  .doc-title .kind{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.2em; color:var(--gray);
+    margin-bottom:10px; text-transform:uppercase;
+  }
+  .doc-title h1{font-size:19px; margin:0; font-weight:700; letter-spacing:.02em; line-height:1.6;}
+
+  .meta-table{width:100%; border-collapse:collapse; margin:22px 0 8px; font-size:12.5px;}
+  .meta-table th{
+    text-align:left; font-weight:500; color:var(--gray); padding:7px 12px 7px 0;
+    width:130px; vertical-align:top; border-bottom:1px solid var(--hair);
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+  }
+  .meta-table td{padding:7px 0; border-bottom:1px solid var(--hair); vertical-align:top;}
+
+  section{padding-top:28px;}
+  section h2{
+    font-size:14.5px; font-weight:700; margin:0 0 14px; padding-bottom:6px; border-bottom:1px solid var(--ink);
+  }
+  section p{font-size:13.5px; margin:0 0 13px; text-align:justify;}
+
+  .redacted{
+    display:inline-block; background:#111; color:transparent; user-select:none;
+    padding:1px 5px; border-radius:1px;
+  }
+  .redacted-line{
+    display:block; height:13px; background:#111; margin:5px 0; border-radius:1px;
+  }
+  .redacted-para{display:flex; flex-direction:column; gap:5px; margin:10px 0;}
+
+  .related-list{display:flex; flex-direction:column; gap:10px;}
+  .related-row{
+    display:grid; grid-template-columns:150px 1fr; gap:16px;
+    border:1px solid var(--hair); padding:14px 16px; align-items:start; font-size:13px;
+  }
+  .related-row .tag{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--gray); letter-spacing:.04em;
+  }
+  .related-row .title{font-weight:600; margin-bottom:4px;}
+  .related-row .title a{color:var(--ink);}
+  .related-row .desc{font-size:12px; color:var(--gray);}
+
+  .doc-footer{
+    margin-top:36px; padding-top:14px; border-top:1px solid var(--ink);
+    display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px; color:var(--gray);
+  }
+
+  @media print{
+    body{background:#fff;}
+    .sheet{box-shadow:none; margin:0;}
+    .doc-top-bar{display:none;}
+  }
+  @media (max-width:640px){
+    .sheet{padding:28px 20px 40px; margin:0;}
+    .letterhead{flex-direction:column; gap:12px;}
+    .letterhead .doc-code{text-align:left;}
+    .related-row{grid-template-columns:1fr; gap:4px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-top-bar">
+  <form class="doc-search" action="search-internal.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit">検索</button>
+  </form>
+</div>
+
+<div class="sheet">
+
+  <div class="letterhead">
+    <div class="org">
+      <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18.5" stroke="#1a1a1a" stroke-width="1"/>
+        <path d="M20 6 L20 34 M8 14 L32 26 M8 26 L32 14" stroke="#1a1a1a" stroke-width="0.75"/>
+        <circle cx="20" cy="20" r="3" fill="#1a1a1a"/>
+      </svg>
+      <div class="org-text">
+        <div class="en">Continental Arcane Authority</div>
+        <div class="jp">大陸魔導協会</div>
+      </div>
+    </div>
+    <div class="doc-code">
+      関連番号:<span>V-2005-1042</span><br>
+      作成:<span>節制部門 記録管理班</span>
+    </div>
+  </div>
+
+  <div class="doc-title">
+    <div class="kind">Case Overview</div>
+    <h1>案件概要書<br>霞坂神社 秋季例大祭中断事案</h1>
+  </div>
+
+  <table class="meta-table">
+    <tr><th>発生日</th><td>2005年10月9日</td></tr>
+    <tr><th>発生場所</th><td>霞坂神社(霞坂三丁目)</td></tr>
+    <tr><th>案件区分</th><td>信仰結界 綻び事案</td></tr>
+    <tr><th>対応部門</th><td>信仰部門(現場対応)／ 愛部門(記憶処理・事後経過観察)</td></tr>
+    <tr><th>状態</th><td>案件終結(2005.10.12)</td></tr>
+  </table>
+
+  <section>
+    <h2>概要</h2>
+    <p>2005年10月9日、霞坂神社にて執り行われていた秋季例大祭の最中、境内にいた参拝者数名が一時的な知覚異常を訴える事態が発生した。当日は悪天候のため祭礼の一部が縮小されており、対外的にはこの荒天が中止の理由として説明されている。</p>
+    <p>本件は、当該地域において長年維持されてきた信仰結界に綻びが生じたことに起因するものと判断されている。綻びの発生要因としては、氏子の高齢化に伴う信仰係数の低下、及び神楽継承者の急逝による儀礼継承の不備が複合的に関与したと見られる。</p>
+    <p>現地調査において確認された術式反応は、既存のグリモワール分類基準(Class-A〜D)のいずれにも合致せず、後年の照合により<span class="redacted">████████</span>との関連が指摘されている。境内一帯で一時的に知覚された事象について、複数の証言は「<span class="redacted">████</span>」という共通の表現を用いており、これは<span class="redacted">██████████████</span>に該当する可能性がある。</p>
+    <div class="redacted-para">
+      <span class="redacted-line" style="width:92%;"></span>
+      <span class="redacted-line" style="width:78%;"></span>
+      <span class="redacted-line" style="width:85%;"></span>
+      <span class="redacted-line" style="width:41%;"></span>
+    </div>
+    <p>信仰部門及び愛部門が現地対応にあたり、結界の再構築と、症状を訴えた対象者への記憶処理を実施した。被害の拡大は確認されておらず、本件は同年10月12日付で案件終結処理がなされている。ただし、本件と<span class="redacted">████████</span>との関連性については、節制部門による継続調査の対象となっている。</p>
+  </section>
+
+  <div class="doc-footer">
+    <span>CAA / TEMPERANTIA-DEPT / DOC-MGMT</span>
+    <span>CASE-OVERVIEW-V2005-1042 ／ 1 / 1</span>
+  </div>
+
+</div>
+
+</body>
+</html>
