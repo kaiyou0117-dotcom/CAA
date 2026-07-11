@@ -24,6 +24,20 @@
   a{color:var(--red);}
 
   /* サイト全体の帯 */
+  .search-bar{
+    background:#1c1c1c; padding:8px 16px; display:flex; justify-content:center;
+  }
+  .search-bar form{display:flex; align-items:center; gap:6px;}
+  .search-bar input{
+    background:#2a2a2a; border:1px solid #4a4a46; color:#e8e6de;
+    font-family:'Zen Kaku Gothic New',sans-serif; font-size:11.5px; padding:5px 10px; width:220px;
+  }
+  .search-bar input::placeholder{color:#9c9890;}
+  .search-bar button{
+    background:transparent; border:1px solid #4a4a46; color:#c9c7bf;
+    font-family:'Zen Kaku Gothic New',sans-serif; font-size:11px; padding:5px 12px; cursor:pointer;
+  }
+
   .site-top{
     background:var(--ink); color:#cfcabb; font-size:11px; letter-spacing:.04em;
     padding:6px 16px; font-family:'Zen Kaku Gothic New', sans-serif;
@@ -98,7 +112,6 @@
   }
   .article-photo{
     display:block; width:100%; height:auto;
-    filter:grayscale(35%) contrast(1.05) brightness(.97) sepia(8%);
   }
   .photo-cap{padding:8px 10px; font-size:11px; color:var(--ink-soft); line-height:1.6;}
 
@@ -155,6 +168,13 @@
 </style>
 </head>
 <body>
+
+<div class="search-bar">
+  <form action="search.html" method="get" role="search">
+    <input type="text" name="q" placeholder="データ内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit">検索</button>
+  </form>
+</div>
 
 <div class="site-top">
   <span>霞坂民報デジタルアーカイブ(1998〜2009年紙面)</span>
