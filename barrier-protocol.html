@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>結界維持プロトコル | FAITH-PROTO-004</title>
+<meta name="description" content="大陸魔導協会 内部文書。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fafaf7; --ink:#1a1a1a; --line:#1a1a1a; --gray:#6b6b68; --hair:#d8d6cf;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#e4e2da; color:var(--ink);
+    font-family:'Noto Serif JP', serif; line-height:1.9; font-size:14px;
+  }
+  .doc-top-bar{
+    background:#1a1a1a; padding:8px 16px; display:flex; justify-content:center;
+  }
+  .doc-search{display:flex; align-items:center; gap:6px;}
+  .doc-search input{
+    background:#2a2a28; border:1px solid #444; color:#e8e6de;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; padding:5px 10px; width:220px;
+  }
+  .doc-search input::placeholder{color:#8a8880;}
+  .doc-search button{
+    background:transparent; border:1px solid #444; color:#c9c7bf;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 12px; cursor:pointer;
+  }
+  .doc-search button:hover{border-color:#888; color:#fff;}
+
+  .sheet{
+    max-width:760px; margin:32px auto; background:var(--paper);
+    box-shadow:0 0 0 1px #cfccc2, 0 8px 24px rgba(0,0,0,.08);
+    padding:44px 52px 60px;
+  }
+
+  .letterhead{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:20px;
+    padding-bottom:16px; border-bottom:2px solid var(--line);
+  }
+  .letterhead .org{display:flex; align-items:center; gap:12px;}
+  .letterhead .org svg{flex-shrink:0;}
+  .letterhead .org-text .en{font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.14em; color:var(--gray); text-transform:uppercase;}
+  .letterhead .org-text .jp{font-size:14px; font-weight:600;}
+  .letterhead .doc-code{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gray); text-align:right; line-height:1.8;
+  }
+  .letterhead .doc-code span{color:var(--ink);}
+
+  .doc-title{padding:26px 0 20px; text-align:center; border-bottom:1px solid var(--hair);}
+  .doc-title .kind{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.2em; color:var(--gray);
+    margin-bottom:10px; text-transform:uppercase;
+  }
+  .doc-title h1{font-size:20px; margin:0; font-weight:700; letter-spacing:.04em;}
+
+  .meta-table{width:100%; border-collapse:collapse; margin:22px 0 8px; font-size:12.5px;}
+  .meta-table th{
+    text-align:left; font-weight:500; color:var(--gray); padding:7px 12px 7px 0;
+    width:130px; vertical-align:top; border-bottom:1px solid var(--hair);
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+  }
+  .meta-table td{padding:7px 0; border-bottom:1px solid var(--hair); vertical-align:top;}
+
+  article{padding-top:28px;}
+  article h2{
+    font-size:14.5px; font-weight:700; margin:32px 0 12px; padding-bottom:6px;
+    border-bottom:1px solid var(--ink);
+  }
+  article h2:first-child{margin-top:0;}
+  article p{margin:0 0 13px; font-size:13.5px; text-align:justify;}
+  article ol, article ul{margin:0 0 13px; padding-left:1.6em; font-size:13.5px;}
+  article li{margin-bottom:9px;}
+
+  .term-table{width:100%; border-collapse:collapse; margin:14px 0 18px; font-size:12.5px;}
+  .term-table th, .term-table td{border:1px solid var(--hair); padding:9px 12px; vertical-align:top; text-align:left;}
+  .term-table th{background:#f0efe9; font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:500; width:130px;}
+
+  .flow-list{counter-reset:step; padding-left:0; margin:16px 0;}
+  .flow-list li{
+    list-style:none; position:relative; padding:0 0 0 2.4em; margin-bottom:14px; font-size:13.5px;
+  }
+  .flow-list li::before{
+    counter-increment:step; content:counter(step);
+    position:absolute; left:0; top:0; width:1.7em; height:1.7em;
+    border:1px solid var(--ink); font-family:'IBM Plex Mono',monospace; font-size:11px;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  .doc-footer{
+    margin-top:40px; padding-top:14px; border-top:1px solid var(--ink);
+    display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px; color:var(--gray);
+  }
+
+  @media print{
+    body{background:#fff;}
+    .sheet{box-shadow:none; margin:0;}
+  }
+  @media (max-width:640px){
+    .sheet{padding:28px 20px 40px; margin:0;}
+    .letterhead{flex-direction:column; gap:12px;}
+    .letterhead .doc-code{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-top-bar">
+  <form class="doc-search" action="search.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit">検索</button>
+  </form>
+</div>
+
+<div class="sheet">
+
+  <div class="letterhead">
+    <div class="org">
+      <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18.5" stroke="#1a1a1a" stroke-width="1"/>
+        <path d="M20 6 L20 34 M8 14 L32 26 M8 26 L32 14" stroke="#1a1a1a" stroke-width="0.75"/>
+        <circle cx="20" cy="20" r="3" fill="#1a1a1a"/>
+      </svg>
+      <div class="org-text">
+        <div class="en">Continental Arcane Authority</div>
+        <div class="jp">大陸魔導協会 信仰部門</div>
+      </div>
+    </div>
+    <div class="doc-code">
+      文書番号:<span>FAITH-PROTO-004</span><br>
+      制定:<span>1987.03</span> ／ 最終改定:<span>2019.11</span>
+    </div>
+  </div>
+
+  <div class="doc-title">
+    <div class="kind">Internal Protocol</div>
+    <h1>結界維持プロトコル</h1>
+  </div>
+
+  <table class="meta-table">
+    <tr><th>所管</th><td>信仰部門</td></tr>
+    <tr><th>事後対応連携</th><td>節制部門</td></tr>
+  </table>
+
+  <article>
+    <h2>第1章 総則</h2>
+    <p>本プロトコルは、地域共同体の信仰行為によって長期的に維持されている抑制構造(以下「信仰結界」)の状態監視、及び綻び発生時の対応手順について定めるものである。</p>
+    <p>信仰結界は、協会が直接構築した術式結界とは性質を異にする。協会の役割は結界の「構築」ではなく、既存の結界の「観測」及び「補修」に限定される。</p>
+
+    <h2>第2章 用語の定義</h2>
+    <table class="term-table">
+      <tr><th>信仰係数</th><td>特定地域における、対象への継続的な注意・信仰行為の密度を数値化したもの。参拝者数、祭礼の継続年数、儀礼の正確な継承度等を要素として算出される。</td></tr>
+      <tr><th>綻び</th><td>信仰係数の低下等により、抑制構造の一部が機能不全を起こしている状態。</td></tr>
+      <tr><th>漏出</th><td>綻びが進行し、対象の性質の一部が現実側に滲出している状態。知覚異常、精神汚染等の直接的な人的被害を伴う場合がある。</td></tr>
+    </table>
+
+    <h2>第3章 基本原則</h2>
+    <ol>
+      <li>信仰結界は、可能な限り地域共同体による自律的な維持を尊重し、協会による直接介入は最小限にとどめる。</li>
+      <li>信仰係数の定期監視を行い、低下傾向が確認された地域については、優先監視対象に指定する。</li>
+      <li>儀礼の継承者が不在となった、又は継承が不完全になったと判断される場合、速やかに信仰部門へ報告する。</li>
+    </ol>
+
+    <h2>第4章 綻び発生時の対応フロー</h2>
+    <ol class="flow-list">
+      <li>現地からの一報を受け、信仰部門現地対応班を招集する。</li>
+      <li>必要に応じ、愛部門(医療支援)及び節制部門(事後封鎖)へ協力要請を行う。</li>
+      <li>現地到着後、術式反応の測定により綻びの規模を確認する。</li>
+      <li>被害拡大防止のため、現場一帯を規制する。</li>
+      <li>知覚異常等の症状を訴える者について、個別に聞き取り及び状態確認を行う。</li>
+      <li>結界の再構築を実施する。再構築後は信仰係数が平常値まで回復したことを確認する。</li>
+      <li>症状を訴えた対象者について、医療班の判断のもと必要な処置を行う。</li>
+      <li>現場関係者に対し、今後の運営上の留意事項を伝達する(対応の詳細に関する説明は行わない)。</li>
+      <li>一連の対応について本部へ報告し、案件を終結処理する。</li>
+    </ol>
+
+    <h2>第5章 情報統制</h2>
+    <p>本プロトコルに基づく対応の詳細は、対応にあたった構成員及び関連部門の間でのみ共有される。現場関係者及び一般社会への説明は、被害拡大防止及び対象者本人の福祉を目的とした必要最小限の内容にとどめるものとする。</p>
+  </article>
+
+  <div class="doc-footer">
+    <span>CAA / FAITH-DEPT / DOC-MGMT</span>
+    <span>FAITH-PROTO-004 ／ 1 / 1</span>
+  </div>
+
+</div>
+
+</body>
+</html>
