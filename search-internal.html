@@ -178,23 +178,34 @@
     var resultBox = document.getElementById('result-box');
     var queryBar = document.getElementById('query-bar');
 
-    // 検索インデックス(現状ヒットするのはこの3件のみ)
+    // 検索インデックス(値は配列。1キーワードに複数ヒットを持たせられる)
     var SPECIAL_MATCHES = {
-      '第一級指名手配対象': {
-        url: 'wanted-list.html',
-        title: '指名手配対象リスト | CAA Internal Network',
-        snippet: '正義部門が管轄する、日本支部管轄区域内の追跡対象一覧です。危険度別に案件を確認できます。'
-      },
-      '霞坂地区三丁目': {
-        url: 'news-kasumizaka-2005.html',
-        title: '秋季例大祭、荒天のため中止に|霞坂民報デジタルアーカイブ',
-        snippet: '2005年10月10日付 霞坂民報朝刊記事。霞坂神社の秋季例大祭に関する当時の報道アーカイブ。'
-      },
-      '秋季例大祭': {
-        url: 'case-overview-2005.html',
-        title: '案件概要書 ― 霞坂神社 秋季例大祭中断事案',
-        snippet: '2005年に霞坂神社で発生した事案の概要をまとめた内部文書。一部区画はクリアランス不足により非表示。'
-      }
+      '第一級指名手配対象': [
+        {
+          url: 'wanted-list.html',
+          title: '指名手配対象リスト | CAA Internal Network',
+          snippet: '正義部門が管轄する、日本支部管轄区域内の追跡対象一覧です。危険度別に案件を確認できます。'
+        }
+      ],
+      '霞坂地区三丁目': [
+        {
+          url: 'news-kasumizaka-2005.html',
+          title: '秋季例大祭、荒天のため中止に|霞坂民報デジタルアーカイブ',
+          snippet: '2005年10月10日付 霞坂民報朝刊記事。霞坂神社の秋季例大祭に関する当時の報道アーカイブ。'
+        }
+      ],
+      '秋季例大祭': [
+        {
+          url: 'case-overview-2005.html',
+          title: '案件概要書 ― 霞坂神社 秋季例大祭中断事案',
+          snippet: '2005年に霞坂神社で発生した事案の概要をまとめた内部文書。一部区画はクリアランス不足により非表示。'
+        },
+        {
+          url: 'faith-ops-log-2005.html',
+          title: '現場対応記録 ― 霞坂神社 秋季例大祭中断事案',
+          snippet: '2005年10月9日、信仰部門・愛部門による現地対応を時系列で記録した現場報告書。'
+        }
+      ]
     };
 
     if(query && query.trim() !== ''){
@@ -204,15 +215,23 @@
       document.title = '「' + q + '」の検索結果 | CAA Internal Network';
       queryBar.innerHTML = '<span class="path">caa-internal-db</span> &gt; search &gt; query: "' + safeQ + '"';
 
-      var hit = SPECIAL_MATCHES[q];
+      var hits = SPECIAL_MATCHES[q];
 
-      if(hit){
+      if(hits && hits.length > 0){
+        var hitsHtml = hits.map(function(hit){
+          return (
+            '<div class="result-hit">' +
+              '<div class="hit-url">caa-internal-db / ' + hit.url + '</div>' +
+              '<h3 class="hit-title"><a href="' + hit.url + '">' + escapeHtml(hit.title) + '</a></h3>' +
+              '<p class="hit-snippet">' + escapeHtml(hit.snippet) + '</p>' +
+            '</div>'
+          );
+        }).join('<div style="height:12px;"></div>');
+
         resultBox.outerHTML =
-          '<div class="result-hit" id="result-box">' +
-            '<span class="hit-count">1件の情報が見つかりました。</span>' +
-            '<div class="hit-url">caa-internal-db / ' + hit.url + '</div>' +
-            '<h3 class="hit-title"><a href="' + hit.url + '">' + escapeHtml(hit.title) + '</a></h3>' +
-            '<p class="hit-snippet">' + escapeHtml(hit.snippet) + '</p>' +
+          '<div id="result-box">' +
+            '<span class="hit-count" style="display:block; font-family:\'IBM Plex Mono\',monospace; font-size:11px; color:var(--dim); letter-spacing:.04em; margin-bottom:10px;">' + hits.length + '件の情報が見つかりました。</span>' +
+            hitsHtml +
           '</div>';
       } else {
         var message = document.getElementById('result-message');
