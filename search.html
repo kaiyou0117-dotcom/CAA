@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>検索結果 | 大陸魔導協会 | Continental Arcane Authority</title>
+<meta name="description" content="大陸魔導協会 公式サイト内検索結果ページ。">
+<!-- 索引班注記:全文検索インデックスは一部文書のみ対象。詳細は英知部門システム管理班まで -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Serif+JP:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #1b2438;
+    --navy-deep: #10182a;
+    --parchment: #efe9dc;
+    --ink: #201d18;
+    --gold: #9c7f3c;
+    --gold-bright: #b8974f;
+    --line: #c9bfa4;
+    --alert: #6f2f2f;
+    --alert-bg: #f3e7de;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--parchment); color:var(--ink);
+    font-family:'Zen Kaku Gothic New', 'Noto Serif JP', sans-serif;
+    line-height:1.8; font-size:15px;
+  }
+  a{color:var(--navy); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--gold-bright); outline-offset:2px;}
+
+  .lang-bar{
+    background:var(--navy-deep); color:#cfd3dd; font-size:11px; letter-spacing:.04em;
+    padding:5px 24px; display:flex; justify-content:space-between; gap:16px;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .lang-bar a{color:#cfd3dd; opacity:.75;}
+  .lang-bar a.current{opacity:1; text-decoration:underline;}
+  .lang-links{display:flex; gap:16px;}
+  .site-search{display:flex; align-items:center; gap:6px;}
+  .site-search input{
+    background:transparent; border:1px solid rgba(255,255,255,.25); color:#cfd3dd;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; padding:3px 8px; width:170px;
+  }
+  .site-search input::placeholder{color:#7d8298;}
+  .site-search input:focus{outline:1px solid var(--gold-bright); background:rgba(255,255,255,.05);}
+  .site-search button{
+    background:transparent; border:1px solid rgba(255,255,255,.25); color:#cfd3dd;
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; padding:3px 10px; cursor:pointer;
+  }
+  .site-search button:hover{border-color:var(--gold-bright); color:#fff;}
+
+  header.site-header{background:var(--navy); color:#e9e5d8; padding:22px 24px 0;}
+  .header-inner{
+    max-width:1080px; margin:0 auto; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:16px; padding-bottom:20px;
+  }
+  .brand{display:flex; align-items:center; gap:14px;}
+  .brand svg{flex-shrink:0;}
+  .brand-text .en{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.16em;
+    color:#a9b0c4; text-transform:uppercase;
+  }
+  .brand-text .jp{
+    font-family:'Noto Serif JP', serif; font-size:20px; font-weight:600;
+    letter-spacing:.04em; color:#f2eee0;
+  }
+  nav.main-nav{
+    max-width:1080px; margin:0 auto; display:flex; gap:2px;
+    border-top:1px solid rgba(255,255,255,.12);
+  }
+  nav.main-nav a{
+    color:#cfd3dd; font-size:13.5px; padding:13px 16px;
+    letter-spacing:.02em; border-bottom:2px solid transparent;
+  }
+  nav.main-nav a:hover{color:#fff; text-decoration:none; border-bottom:2px solid var(--gold-bright);}
+
+  .breadcrumb{
+    max-width:1080px; margin:0 auto; padding:14px 24px 0;
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:#948a6d;
+  }
+  .breadcrumb a{color:#6b6250;}
+  .breadcrumb span{color:#948a6d;}
+
+  main{max-width:1080px; margin:0 auto; padding:0 24px;}
+
+  .hero{padding:44px 0 36px; border-bottom:1px solid var(--line);}
+  .hero .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.12em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:14px;
+  }
+  .hero h1{
+    font-family:'Noto Serif JP', serif; font-size:24px; line-height:1.5;
+    font-weight:600; margin:0; letter-spacing:.02em; word-break:break-word;
+  }
+
+  section{padding:36px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+
+  .no-result-box{
+    background:#f6f2e6; border:1px solid var(--line); border-left:4px solid var(--alert);
+    padding:24px 26px;
+  }
+  .no-result-box p{margin:0 0 12px; font-size:14.5px; color:#3a2a24;}
+  .no-result-box p:last-child{margin-bottom:0;}
+  .no-result-box .code{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:#8a8062; letter-spacing:.04em;
+    display:block; margin-top:14px;
+  }
+
+  .result-hit{
+    background:#f6f2e6; border:1px solid var(--line); border-left:4px solid var(--gold);
+    padding:22px 26px;
+  }
+  .result-hit .hit-count{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:#8a8062;
+    letter-spacing:.04em; margin-bottom:16px; display:block;
+  }
+  .result-hit .hit-url{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:#5a8a5a;
+    margin-bottom:4px;
+  }
+  .result-hit .hit-title{
+    font-family:'Noto Serif JP', serif; font-size:17px; font-weight:600; margin:0 0 8px;
+  }
+  .result-hit .hit-title a{color:var(--navy);}
+  .result-hit .hit-snippet{margin:0; font-size:13.5px; color:#4a453a;}
+
+  .retry-form{
+    display:flex; gap:10px; margin-top:22px; flex-wrap:wrap;
+  }
+  .retry-form input{
+    flex:1; min-width:200px; font-family:'IBM Plex Mono', monospace; font-size:14px;
+    color:var(--ink); background:#faf8f2; border:1px solid var(--line); padding:11px 12px;
+  }
+  .retry-form button{
+    background:var(--navy); color:#f2eee0; font-weight:600; border:none;
+    padding:11px 24px; font-size:14px; letter-spacing:.02em; cursor:pointer;
+    font-family:'Zen Kaku Gothic New', sans-serif;
+  }
+  .retry-form button:hover{background:var(--navy-deep);}
+
+  .about-text{max-width:70ch; font-size:14px; color:#3a362e;}
+  .about-text p{margin:0 0 12px;}
+
+  .link-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:18px;}
+  .link-card{
+    background:#f6f2e6; border:1px solid var(--line); padding:16px 18px;
+    font-size:13px; text-align:center;
+  }
+  .link-card a{color:var(--navy); font-weight:500;}
+
+  footer{background:var(--navy-deep); color:#9aa0b3; margin-top:20px;}
+  .footer-inner{
+    max-width:1080px; margin:0 auto; padding:40px 24px 28px;
+    display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px; font-size:12.5px;
+  }
+  .footer-inner h4{color:#d5d8e2; font-size:12px; letter-spacing:.06em; margin:0 0 12px; font-weight:500;}
+  .footer-inner ul{list-style:none; margin:0; padding:0;}
+  .footer-inner li{margin-bottom:7px;}
+  .footer-inner a{color:#9aa0b3;}
+  .footer-inner a:hover{color:#fff;}
+  .footer-addr{line-height:1.9; font-family:'IBM Plex Mono', monospace; font-size:11.5px;}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,.08); padding:14px 24px; max-width:1080px; margin:0 auto;
+    font-size:11px; color:#6c7284; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media (max-width:760px){
+    .footer-inner{grid-template-columns:1fr; gap:24px;}
+    .link-grid{grid-template-columns:1fr 1fr;}
+    nav.main-nav{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  }
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <form class="site-search" action="search.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit" aria-label="検索">検索</button>
+  </form>
+  <div class="lang-links">
+    <a href="#" class="current">日本語</a>
+    <a href="#">EN</a>
+    <a href="#">DE</a>
+    <a href="#">FR</a>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18.5" stroke="#b8974f" stroke-width="1"/>
+        <path d="M20 6 L20 34 M8 14 L32 26 M8 26 L32 14" stroke="#b8974f" stroke-width="0.75"/>
+        <circle cx="20" cy="20" r="3" fill="#b8974f"/>
+      </svg>
+      <div class="brand-text">
+        <div class="en">Continental Arcane Authority</div>
+        <div class="jp">大陸魔導協会</div>
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav">
+    <a href="index.html">協会概要</a>
+    <a href="index.html#structure">組織構造</a>
+    <a href="grimoire.html">魔術書について</a>
+    <a href="index.html#news">お知らせ</a>
+    <a href="recruit.html">採用情報</a>
+    <a href="contact.html">お問い合わせ</a>
+  </nav>
+</header>
+
+<div class="breadcrumb">
+  <a href="index.html">トップ</a> <span>/</span> 検索結果
+</div>
+
+<main>
+
+  <section class="hero">
+    <div class="eyebrow">Search Results</div>
+    <h1 id="result-heading">検索結果</h1>
+  </section>
+
+  <section id="result-body">
+    <div class="no-result-box" id="result-box">
+      <p id="result-message">検索キーワードが指定されていません。</p>
+    </div>
+
+    <form class="retry-form" id="retry-form">
+      <input type="text" id="retry-input" placeholder="別のキーワードで再検索" autocomplete="off">
+      <button type="submit">再検索</button>
+    </form>
+  </section>
+
+  <section id="suggestions">
+    <div class="about-text">
+      <p>本サイトの検索機能は、現在一部の索引文書にのみ対応しております。お探しの情報が見つからない場合は、以下のページを直接ご確認いただくか、お問い合わせフォームよりご連絡ください。</p>
+    </div>
+    <div class="link-grid">
+      <div class="link-card"><a href="index.html">協会概要</a></div>
+      <div class="link-card"><a href="grimoire.html">魔術書について</a></div>
+      <div class="link-card"><a href="recruit.html">採用情報</a></div>
+      <div class="link-card"><a href="contact.html">お問い合わせ</a></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h4>大陸魔導協会</h4>
+      <div class="footer-addr">
+        Continental Arcane Authority<br>
+        Prague — HQ(詳細所在地は別紙参照)
+      </div>
+    </div>
+    <div>
+      <h4>サイトマップ</h4>
+      <ul>
+        <li><a href="index.html#about">協会概要</a></li>
+        <li><a href="index.html#structure">組織構造</a></li>
+        <li><a href="grimoire.html">魔術書について</a></li>
+        <li><a href="index.html#news">お知らせ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>その他</h4>
+      <ul>
+        <li><a href="#">プライバシーポリシー</a></li>
+        <li><a href="recruit.html">採用情報</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© Continental Arcane Authority. All rights reserved.</span>
+    <span>Site last verified: 2026.06.28</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    function escapeHtml(str){
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var query = params.get('q');
+
+    var heading = document.getElementById('result-heading');
+    var resultBox = document.getElementById('result-box');
+
+    // 検索インデックス(現状はこの1件のみヒットする)
+    var SPECIAL_MATCH = '構成員専用ページ';
+
+    // 内部データベース側にのみヒットが存在するキーワード(検出時は黒基調の検索結果へ転送)
+    var INTERNAL_REDIRECTS = ['第一級指名手配対象'];
+
+    if(query && INTERNAL_REDIRECTS.indexOf(query.trim()) !== -1){
+      window.location.replace('search-internal.html?q=' + encodeURIComponent(query.trim()));
+      return;
+    }
+
+    if(query && query.trim() !== ''){
+      var q = query.trim();
+      var safeQ = escapeHtml(q);
+      heading.innerHTML = '「' + safeQ + '」の検索結果';
+      document.title = '「' + q + '」の検索結果 | 大陸魔導協会';
+
+      if(q === SPECIAL_MATCH){
+        resultBox.outerHTML =
+          '<div class="result-hit" id="result-box">' +
+            '<span class="hit-count">1件の情報が見つかりました。</span>' +
+            '<div class="hit-url">caa.example / login.html</div>' +
+            '<h3 class="hit-title"><a href="login.html">構成員専用ページ ログイン | 大陸魔導協会</a></h3>' +
+            '<p class="hit-snippet">認定を受けた構成員のみアクセス可能な内部ページです。構成員IDおよびパスワードを入力してログインしてください。</p>' +
+          '</div>';
+      } else {
+        var message = document.getElementById('result-message');
+        var codeNote = document.createElement('span');
+        codeNote.className = 'code';
+        message.innerHTML = '「' + safeQ + '」に一致する情報は見つかりませんでした。';
+        codeNote.textContent = 'QUERY: "' + q + '" — 0 件ヒット';
+        resultBox.appendChild(codeNote);
+      }
+    } else {
+      heading.textContent = '検索結果';
+      document.getElementById('result-message').textContent = '検索キーワードが指定されていません。上部の検索ボックスよりキーワードを入力してください。';
+    }
+
+    document.getElementById('retry-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      var val = document.getElementById('retry-input').value.trim();
+      window.location.href = 'search.html?q=' + encodeURIComponent(val);
+    });
+  })();
+</script>
+
+</body>
+</html>
