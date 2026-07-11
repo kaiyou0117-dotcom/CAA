@@ -157,8 +157,9 @@
     padding:1px 6px; justify-self:start; white-space:nowrap; font-family:'IBM Plex Mono', monospace;
   }
   .memo-list .tag.alt{color:var(--alert); border-color:var(--alert);}
-  .memo-list a{color:var(--text);}
-  .memo-list li.redacted a{color:var(--muted);}
+  .memo-list .memo-text{color:var(--text);}
+  .memo-list .memo-text strong{color:#eceefb; font-weight:700;}
+  .memo-list li.redacted .memo-text{color:var(--muted);}
   .memo-list li.redacted .bar{
     display:inline-block; background:#000; color:transparent; user-select:none; padding:0 3px;
   }
@@ -289,22 +290,22 @@
       <li>
         <time>2026.07.02</time>
         <span class="tag">人事</span>
-        <a href="#">節制部門における新規保管施設の運用開始について</a>
+        <span class="memo-text">節制部門における新規保管施設の運用開始について</span>
       </li>
       <li>
         <time>2026.06.30</time>
         <span class="tag alt">重要</span>
-        <a href="#">第9支部にて確認された第一級指名手配対象の追跡状況について</a>
+        <span class="memo-text">第9支部にて確認された<strong>第一級指名手配対象</strong>の追跡状況について</span>
       </li>
       <li>
         <time>2026.06.25</time>
         <span class="tag">制度</span>
-        <a href="#">許可証更新手続きのオンライン化について(2026年8月開始予定)</a>
+        <span class="memo-text">許可証更新手続きのオンライン化について(2026年8月開始予定)</span>
       </li>
       <li>
         <time>2026.06.14</time>
         <span class="tag">支部</span>
-        <a href="#">日本支部 新規構成員向けオリエンテーション開催のお知らせ</a>
+        <span class="memo-text">日本支部 新規構成員向けオリエンテーション開催のお知らせ</span>
       </li>
     </ul>
     <div class="access-note">
