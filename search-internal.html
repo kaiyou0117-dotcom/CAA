@@ -178,12 +178,18 @@
     var resultBox = document.getElementById('result-box');
     var queryBar = document.getElementById('query-bar');
 
-    // 検索インデックス(現状はこの1件のみヒットする)
-    var SPECIAL_MATCH = '第一級指名手配対象';
-    var HIT = {
-      url: 'wanted-list.html',
-      title: '指名手配対象リスト | CAA Internal Network',
-      snippet: '正義部門が管轄する、日本支部管轄区域内の追跡対象一覧です。危険度別に案件を確認できます。'
+    // 検索インデックス(現状ヒットするのはこの2件のみ)
+    var SPECIAL_MATCHES = {
+      '第一級指名手配対象': {
+        url: 'wanted-list.html',
+        title: '指名手配対象リスト | CAA Internal Network',
+        snippet: '正義部門が管轄する、日本支部管轄区域内の追跡対象一覧です。危険度別に案件を確認できます。'
+      },
+      '霞坂地区三丁目': {
+        url: 'news-kasumizaka-2005.html',
+        title: '秋季例大祭、荒天のため中止に|霞坂民報デジタルアーカイブ',
+        snippet: '2005年10月10日付 霞坂民報朝刊記事。霞坂神社の秋季例大祭に関する当時の報道アーカイブ。'
+      }
     };
 
     if(query && query.trim() !== ''){
@@ -193,13 +199,15 @@
       document.title = '「' + q + '」の検索結果 | CAA Internal Network';
       queryBar.innerHTML = '<span class="path">caa-internal-db</span> &gt; search &gt; query: "' + safeQ + '"';
 
-      if(q === SPECIAL_MATCH){
+      var hit = SPECIAL_MATCHES[q];
+
+      if(hit){
         resultBox.outerHTML =
           '<div class="result-hit" id="result-box">' +
             '<span class="hit-count">1件の情報が見つかりました。</span>' +
-            '<div class="hit-url">caa-internal-db / ' + HIT.url + '</div>' +
-            '<h3 class="hit-title"><a href="' + HIT.url + '">' + escapeHtml(HIT.title) + '</a></h3>' +
-            '<p class="hit-snippet">' + escapeHtml(HIT.snippet) + '</p>' +
+            '<div class="hit-url">caa-internal-db / ' + hit.url + '</div>' +
+            '<h3 class="hit-title"><a href="' + hit.url + '">' + escapeHtml(hit.title) + '</a></h3>' +
+            '<p class="hit-snippet">' + escapeHtml(hit.snippet) + '</p>' +
           '</div>';
       } else {
         var message = document.getElementById('result-message');
