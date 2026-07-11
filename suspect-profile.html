@@ -69,6 +69,7 @@
   table.data-grid tr.latest td{background:rgba(89,217,196,.06);}
   table.data-grid tr.latest .loc{color:var(--accent);}
   .loc{font-weight:600; margin-bottom:2px; display:block;}
+  .loc .emphasis{text-decoration:underline; text-underline-offset:3px;}
   .detail{color:var(--dim); font-size:11.5px;}
 
   .quote-block{padding:16px 18px;}
@@ -95,7 +96,7 @@
 <body>
 
 <div class="doc-top-bar">
-  <form class="doc-search" action="search.html" method="get" role="search">
+  <form class="doc-search" action="search-internal.html" method="get" role="search">
     <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
     <button type="submit">検索</button>
   </form>
@@ -152,7 +153,7 @@
         <tr class="latest">
           <td>2026-06</td>
           <td>
-            <span class="loc">霞坂地区周辺</span>
+            <span class="loc"><strong class="emphasis">霞坂地区三丁目</strong></span>
             <span class="detail">複数の住民より、神社周辺を頻繁に訪れる不審な人物の通報あり。地元紙にも関連する報道が確認されている。現在、当該地区のパトロールを強化中。</span>
           </td>
         </tr>
