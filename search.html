@@ -302,6 +302,14 @@
     // 検索インデックス(現状はこの1件のみヒットする)
     var SPECIAL_MATCH = '構成員専用ページ';
 
+    // 内部データベース側にのみヒットが存在するキーワード(検出時は黒基調の検索結果へ転送)
+    var INTERNAL_REDIRECTS = ['第一級指名手配対象'];
+
+    if(query && INTERNAL_REDIRECTS.indexOf(query.trim()) !== -1){
+      window.location.replace('search-internal.html?q=' + encodeURIComponent(query.trim()));
+      return;
+    }
+
     if(query && query.trim() !== ''){
       var q = query.trim();
       var safeQ = escapeHtml(q);
