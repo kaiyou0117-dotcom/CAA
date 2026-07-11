@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WL-2026-014 | subject_dossier</title>
+<meta name="description" content="大陸魔導協会 内部データベース。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0d; --surface:#111318; --surface-2:#161922; --border:#242730;
+    --text:#c7cbd1; --dim:#666b75; --accent:#59d9c4; --ok:#59d9a0; --watch:#d9b559; --alert:#e07a7a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'IBM Plex Mono', 'Noto Sans JP', monospace; font-size:13px; line-height:1.7;
+  }
+
+  .doc-top-bar{background:#000; padding:8px 16px; display:flex; justify-content:center; border-bottom:1px solid var(--border);}
+  .doc-search{display:flex; align-items:center; gap:6px;}
+  .doc-search input{
+    background:#0a0b0d; border:1px solid var(--border); color:var(--text);
+    font-family:'IBM Plex Mono',monospace; font-size:11px; padding:5px 10px; width:220px;
+  }
+  .doc-search input::placeholder{color:var(--dim);}
+  .doc-search button{
+    background:transparent; border:1px solid var(--border); color:var(--dim);
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 12px; cursor:pointer;
+  }
+  .doc-search button:hover{border-color:var(--accent); color:var(--accent);}
+
+  .console{max-width:880px; margin:0 auto; padding:24px 20px 60px;}
+
+  .query-bar{
+    font-size:11.5px; color:var(--dim); margin-bottom:6px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+  .query-bar .path{color:var(--accent);}
+
+  .record{background:var(--surface); border:1px solid var(--border);}
+  .record-head{
+    padding:14px 18px; border-bottom:1px solid var(--border);
+    display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px;
+  }
+  .record-head .table-name{font-size:11px; color:var(--dim); letter-spacing:.05em;}
+  .record-head .table-name span{color:var(--accent);}
+  .record-head .record-id{font-size:11px; color:var(--dim);}
+
+  .kv{padding:14px 18px; border-bottom:1px solid var(--border);}
+  .kv-row{display:grid; grid-template-columns:170px 1fr; gap:14px; padding:3px 0; font-size:12.5px;}
+  .kv-row .k{color:var(--dim);}
+  .kv-row .v{color:var(--text);}
+  .kv-row .v.hl{color:var(--alert); font-weight:600;}
+
+  .section-tag{
+    padding:10px 18px; font-size:10.5px; color:var(--dim); letter-spacing:.08em;
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:#0d0f14;
+    text-transform:uppercase;
+  }
+
+  .table-wrap{padding:16px 18px 18px; overflow-x:auto;}
+  table.data-grid{width:100%; border-collapse:collapse; font-size:12px;}
+  table.data-grid th{
+    text-align:left; color:var(--dim); font-weight:500; padding:6px 12px; border-bottom:1px solid var(--border);
+    font-size:10.5px; letter-spacing:.04em; white-space:nowrap;
+  }
+  table.data-grid td{padding:8px 12px; border-bottom:1px solid #1c1f27; color:var(--text); vertical-align:top;}
+  table.data-grid tr:nth-child(even) td{background:var(--surface-2);}
+  table.data-grid tr.latest td{background:rgba(89,217,196,.06);}
+  table.data-grid tr.latest .loc{color:var(--accent);}
+  .loc{font-weight:600; margin-bottom:2px; display:block;}
+  .detail{color:var(--dim); font-size:11.5px;}
+
+  .quote-block{padding:16px 18px;}
+  .quote-block .line{
+    border-left:2px solid var(--accent); padding-left:14px; font-style:italic; color:var(--text); font-size:12.5px;
+  }
+  .quote-block .src{display:block; margin-top:6px; font-style:normal; color:var(--dim); font-size:11px;}
+
+  .note-block{padding:14px 18px 18px; font-size:12px; color:var(--dim); border-top:1px solid var(--border);}
+  .note-block .tag{color:var(--alert); margin-right:6px;}
+  .note-block .body{color:var(--text);}
+
+  .query-footer{
+    margin-top:8px; font-size:11px; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+  .query-footer .ok{color:var(--ok);}
+
+  @media (max-width:640px){
+    .kv-row{grid-template-columns:130px 1fr;}
+    table.data-grid{font-size:11px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-top-bar">
+  <form class="doc-search" action="search.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit">検索</button>
+  </form>
+</div>
+
+<div class="console">
+
+  <div class="query-bar">
+    <span><span class="path">caa-internal-db</span> &gt; <span class="path">internal-affairs</span> &gt; <span class="path">subject_dossier</span> &gt; WHERE id = 'WL-2026-014'</span>
+    <span>1 record found</span>
+  </div>
+
+  <div class="record">
+    <div class="record-head">
+      <span class="table-name">TABLE: <span>subject_dossier</span></span>
+      <span class="record-id">record_id: WL-2026-014</span>
+    </div>
+
+    <div class="kv">
+      <div class="kv-row"><span class="k">alias</span><span class="v">「巡礼者」</span></div>
+      <div class="kv-row"><span class="k">estimated_age</span><span class="v">20代後半〜40代(複数の目撃情報に幅があり、単独犯とは断定できていない)</span></div>
+      <div class="kv-row"><span class="k">gender</span><span class="v">不明</span></div>
+      <div class="kv-row"><span class="k">ex_member_flag</span><span class="v hl">あり(未確認) — CAA内部用語に類似した言い回しを用いるとの目撃証言複数あり</span></div>
+      <div class="kv-row"><span class="k">charge</span><span class="v">神格関連区域への不法侵入及び接触の疑い</span></div>
+      <div class="kv-row"><span class="k">handled_by</span><span class="v">希望部門 監察班</span></div>
+      <div class="kv-row"><span class="k">last_updated</span><span class="v">2026-07-02</span></div>
+    </div>
+
+    <div class="section-tag">sightings [4 rows]</div>
+    <div class="table-wrap">
+      <table class="data-grid">
+        <tr><th>date</th><th>location / detail</th></tr>
+        <tr>
+          <td>2024-02</td>
+          <td>
+            <span class="loc">白鴎游園地跡地(閉鎖区域)</span>
+            <span class="detail">廃墟内で単独行動する人物の目撃情報。声をかけられた第三者に「ここには視るべきものがある」と発言したとの証言。</span>
+          </td>
+        </tr>
+        <tr>
+          <td>2024-11</td>
+          <td>
+            <span class="loc">桔梗団地 四号棟付近</span>
+            <span class="detail">立入制限区域への侵入を試みたところを住民に目撃される。誰何され、逃走。</span>
+          </td>
+        </tr>
+        <tr>
+          <td>2025-06</td>
+          <td>
+            <span class="loc">配信関連事案 現地(山中)</span>
+            <span class="detail">当該事案のアーカイブ削除対応時、現場周辺で不審な人影の目撃情報あり。同一人物か断定はできていない。</span>
+          </td>
+        </tr>
+        <tr class="latest">
+          <td>2026-06</td>
+          <td>
+            <span class="loc">霞坂地区周辺</span>
+            <span class="detail">複数の住民より、神社周辺を頻繁に訪れる不審な人物の通報あり。地元紙にも関連する報道が確認されている。現在、当該地区のパトロールを強化中。</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section-tag">testimony</div>
+    <div class="quote-block">
+      <div class="line">
+        「にこにこしながら、"あなたも視ればわかる"みたいなことを言われて……正直、ちょっと怖かったです。」
+        <span class="src">— 桔梗団地 住民(2024-11 聴取記録より)</span>
+      </div>
+    </div>
+
+    <div class="note-block">
+      <span class="tag">note:</span><span class="body">対象の行動パターンは、既知のClass-X隣接事案の現場に周期的に出現している点で一致する。単なる興味本位の不法侵入者ではなく、何らかの目的意識に基づいて行動している可能性が高い。引き続き行動確認を継続する。</span>
+    </div>
+  </div>
+
+  <div class="query-footer">
+    <span class="ok">QUERY OK</span>
+    <span>1 record / 4 rows in sightings ／ fetched in 0.011s</span>
+  </div>
+
+</div>
+
+</body>
+</html>
