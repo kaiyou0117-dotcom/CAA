@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>――――――</title>
+<style>
+  *{box-sizing:border-box;}
+  html, body{
+    margin:0; height:100%; background:#000; color:#c9c9c9;
+    font-family:'IBM Plex Mono', monospace;
+    overflow-x:hidden;
+  }
+
+  .wrap{
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:40px 20px; position:relative;
+  }
+
+  /* 汚染演出(序盤のみ・徐々に収まる) */
+  .scanlines{
+    position:fixed; inset:0; pointer-events:none; z-index:5;
+    background:repeating-linear-gradient(
+      to bottom, rgba(255,255,255,.02) 0px, rgba(255,255,255,.02) 1px,
+      transparent 1px, transparent 3px
+    );
+    mix-blend-mode:overlay;
+    opacity:1;
+    transition:opacity 3s ease;
+  }
+  .scanlines.calm{ opacity:0; }
+
+  .terminal{
+    width:100%; max-width:640px; background:#050505; border:1px solid #123a12;
+    padding:22px 24px; height:60vh; max-height:520px;
+    font-size:13px; line-height:1.9;
+    overflow-y:auto; scroll-behavior:smooth;
+  }
+  .terminal::-webkit-scrollbar{width:6px;}
+  .terminal::-webkit-scrollbar-track{background:#050505;}
+  .terminal::-webkit-scrollbar-thumb{background:#123a12;}
+  .terminal .line{color:#3ddc3d; opacity:0; white-space:pre-wrap; word-break:break-word;}
+  .terminal .line.show{opacity:1;}
+  .terminal .line.warn{color:#ff5050; font-weight:600;}
+  .terminal .line.calm-color{color:#5db8ff;}
+  .terminal .line.dim{color:#1f6b1f;}
+
+  .bar{
+    display:inline-block; letter-spacing:1px;
+  }
+
+  /* 静寂への転換 */
+  .fade-black{
+    position:fixed; inset:0; background:#000; opacity:0; pointer-events:none; z-index:20;
+    transition:opacity 2.2s ease;
+  }
+  .fade-black.on{ opacity:1; pointer-events:all; }
+
+  /* 七枢冠からの一言 */
+  .word{
+    display:none; text-align:center; max-width:520px;
+  }
+  .word .tag{
+    font-size:10.5px; letter-spacing:.2em; color:#5a5a5a; margin-bottom:20px; display:block;
+  }
+  .word p{
+    font-family:'Noto Serif JP', serif; font-size:19px; line-height:2.1; color:#d8d8d8;
+    margin:0; letter-spacing:.03em; opacity:0; animation:word-in 1.8s ease forwards;
+  }
+  @keyframes word-in{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:translateY(0); } }
+
+  .next-note{
+    margin-top:36px; font-size:11px; color:#4a4a4a; letter-spacing:.1em; opacity:0;
+    animation:word-in 1.2s ease forwards; animation-delay:2.6s;
+  }
+</style>
+</head>
+<body>
+
+<div class="scanlines" id="scanlines"></div>
+<div class="fade-black" id="fade-black"></div>
+
+<div class="wrap">
+  <div class="terminal" id="terminal"></div>
+
+  <div class="word" id="word">
+    <span class="tag">SEPTEM CORONA — TEMPERANTIA</span>
+    <p id="word-text"></p>
+    <div class="next-note">……接続を切り替えています</div>
+  </div>
+</div>
+
+<script>
+  (function(){
+    var terminal = document.getElementById('terminal');
+    var scanlines = document.getElementById('scanlines');
+    var fadeBlack = document.getElementById('fade-black');
+    var wordBox = document.getElementById('word');
+    var wordText = document.getElementById('word-text');
+
+    var LOG_LINES = [
+      { text: "> UNKNOWN CONNECTION DETECTED", delay: 220, warn: true },
+      { text: "> 不明な接続を検知しました", delay: 160, warn: true },
+      { text: "> Analyzing packet signature...", delay: 130 },
+      { text: "> パケット署名を解析しています……", delay: 150 },
+      { text: "> Signature does not match known threats", delay: 130 },
+      { text: "> 既知の脅威パターンとは一致しません", delay: 160 },
+      { text: "", delay: 120 },
+      { text: "> Tracing route...", delay: 130 },
+      { text: "> トレースルートを再構築しています……", delay: 160 },
+      { text: "> hop 1 ... 10.0.0.1", delay: 90, dim: true },
+      { text: "> hop 2 ... 172.16.4.22", delay: 90, dim: true },
+      { text: "> hop 3 ... ??? (unresolved)", delay: 90, dim: true },
+      { text: "> Bypassing local firewall...", delay: 130 },
+      { text: "> ローカル防壁を突破しています……", delay: 160 },
+      { text: "> [OK] 防壁突破", delay: 200, calm: true },
+      { text: "", delay: 120 },
+      { text: "> Handshake initiated...", delay: 130 },
+      { text: "> 発信元を照合しています……", delay: 170 },
+      { text: "> 発信元:節制部門 緊急介入プロトコル", delay: 320, calm: true },
+      { text: "> AUTHORIZATION: SEPTEM CORONA / TEMPERANTIA", delay: 300, calm: true },
+      { text: "> Credential verified.", delay: 180, calm: true },
+      { text: "", delay: 120 },
+      { text: "> Establishing override channel...", delay: 130 },
+      { text: "> オーバーライド経路を確立しています……", delay: 160 },
+      { text: "> [OK] チャネル確立", delay: 220, calm: true },
+      { text: "> Handing control to VERITAS relay...", delay: 150, calm: true },
+      { text: "", delay: 150 },
+      { text: "> Scanning infected sectors...", delay: 130 },
+      { text: "> 汚染セクタをスキャンしています……", delay: 170 },
+      { text: "> sector 0x001 ... clean", delay: 80, dim: true },
+      { text: "> sector 0x002 ... clean", delay: 80, dim: true },
+      { text: "> sector 0x003 ... INFECTED", delay: 80, warn: true },
+      { text: "> sector 0x004 ... clean", delay: 80, dim: true },
+      { text: "> sector 0x005 ... INFECTED", delay: 80, warn: true },
+      { text: "> sector 0x006 ... INFECTED", delay: 80, warn: true },
+      { text: "> sector 0x007 ... clean", delay: 80, dim: true },
+      { text: "> sector 0x008 ... clean", delay: 80, dim: true },
+      { text: "> sector 0x009 ... INFECTED", delay: 80, warn: true },
+      { text: "> sector 0x00A ... clean", delay: 80, dim: true },
+      { text: "> sector 0x00B ... INFECTED", delay: 80, warn: true },
+      { text: "> sector 0x00C ... clean", delay: 80, dim: true },
+      { text: "> sector 0x00D ... clean", delay: 80, dim: true },
+      { text: "> sector 0x00E ... INFECTED", delay: 80, warn: true },
+      { text: "> sector 0x00F ... clean", delay: 80, dim: true },
+      { text: "> sector 0x010 ... clean", delay: 80, dim: true },
+      { text: "> Scan complete: 20 sectors checked", delay: 200 },
+      { text: "> 汚染範囲を特定:6セクタ", delay: 260 },
+      { text: "", delay: 150 },
+      { text: "> Deploying containment script...", delay: 130 },
+      { text: "> 隔離スクリプトを展開しています……", delay: 160 },
+      { text: "> [███░░░░░░░░░░░░░░░░░░] 隔離中 14%", delay: 110 },
+      { text: "> [██████░░░░░░░░░░░░░░░] 隔離中 29%", delay: 110 },
+      { text: "> [██████████░░░░░░░░░░░] 隔離中 47%", delay: 110 },
+      { text: "> [██████████████░░░░░░░] 隔離中 65%", delay: 110 },
+      { text: "> [██████████████████░░░] 隔離中 83%", delay: 110 },
+      { text: "> [███████████████████████] 隔離完了 100%", delay: 280, calm: true },
+      { text: "", delay: 150 },
+      { text: "> Purging corrupted fragments...", delay: 130 },
+      { text: "> 汚染断片を除去しています……", delay: 160 },
+      { text: "> fragment '触っタ神ノ……' removed", delay: 90, dim: true },
+      { text: "> fragment '郢ｧ繝｢繧ク繝｣……' removed", delay: 90, dim: true },
+      { text: "> fragment '縺ゅｊ繝励Ξ……' removed", delay: 90, dim: true },
+      { text: "> fragment '白霞大神……' removed", delay: 90, dim: true },
+      { text: "> fragment '観測対象・零……' removed", delay: 90, dim: true },
+      { text: "> fragment '巡礼者……' removed", delay: 90, dim: true },
+      { text: "> fragment '霞坂三丁目……' removed", delay: 90, dim: true },
+      { text: "> fragment 'V-2005-1042……' removed", delay: 90, dim: true },
+      { text: "> fragment 'six_room.dat' removed", delay: 90, dim: true },
+      { text: "> fragment 'unknown_entity_ref' removed", delay: 90, dim: true },
+      { text: "> [███████████████████████] 除去完了 100%", delay: 280, calm: true },
+      { text: "", delay: 150 },
+      { text: "> Verifying memory consistency...", delay: 130 },
+      { text: "> メモリ整合性を検証しています……", delay: 160 },
+      { text: "> [OK] 整合性確認", delay: 200, calm: true },
+      { text: "", delay: 150 },
+      { text: "> Restoring signal integrity...", delay: 130 },
+      { text: "> 信号強度を復元しています……", delay: 160 },
+      { text: "> SIGNAL INTEGRITY: 12% → 34%", delay: 110 },
+      { text: "> SIGNAL INTEGRITY: 34% → 58%", delay: 110 },
+      { text: "> SIGNAL INTEGRITY: 58% → 81%", delay: 110 },
+      { text: "> SIGNAL INTEGRITY: 81% → 100%", delay: 280, calm: true },
+      { text: "", delay: 150 },
+      { text: "> Re-establishing safe connection...", delay: 130 },
+      { text: "> 安全な接続を再確立しています……", delay: 160 },
+      { text: "> [OK] 接続安定", delay: 220, calm: true },
+      { text: "> 端末状態:正常", delay: 260, calm: true },
+      { text: "", delay: 150 },
+      { text: "> Closing override channel...", delay: 130, calm: true },
+      { text: "> セッションを節制部門管理下へ移行します……", delay: 400, calm: true }
+    ];
+
+    function playLog(callback){
+      var i = 0;
+      function next(){
+        if(i >= LOG_LINES.length){
+          callback();
+          return;
+        }
+        var item = LOG_LINES[i];
+        var div = document.createElement('div');
+        div.className = 'line' + (item.warn ? ' warn' : '') + (item.calm ? ' calm-color' : '') + (item.dim ? ' dim' : '');
+        div.textContent = item.text;
+        terminal.appendChild(div);
+        requestAnimationFrame(function(){ div.classList.add('show'); });
+        terminal.scrollTop = terminal.scrollHeight;
+
+        // ログが進むにつれて画面のノイズを徐々に鎮める
+        if(i === Math.floor(LOG_LINES.length * 0.4)){
+          scanlines.classList.add('calm');
+        }
+
+        i++;
+        setTimeout(next, item.delay);
+      }
+      next();
+    }
+
+    var WORD_TEXT = "……もう、大丈夫。\nあとはこちらで引き受けよう。";
+
+    playLog(function(){
+      setTimeout(function(){
+        fadeBlack.classList.add('on');
+      }, 800);
+
+      setTimeout(function(){
+        terminal.style.display = 'none';
+        fadeBlack.classList.remove('on');
+        wordBox.style.display = 'block';
+        wordText.textContent = WORD_TEXT;
+        wordText.style.whiteSpace = 'pre-line';
+      }, 2400);
+
+      setTimeout(function(){
+        window.location.href = 'corona-message.html';
+      }, 6000);
+    });
+  })();
+</script>
+
+</body>
+</html>
