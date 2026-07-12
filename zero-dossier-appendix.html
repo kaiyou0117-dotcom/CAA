@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>観測対象・零 補遺資料 | OBS-000-APX</title>
+<meta name="description" content="大陸魔導協会 内部文書。">
+<!-- 本文書のアクセスログは全件、七枢冠へ即時通知される -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#141212; --ink:#d8d2d2; --line:#3a2f2f; --gray:#8a7d7d; --hair:#2e2626; --stamp:#c94444;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#0a0808; color:var(--ink);
+    font-family:'Noto Serif JP', serif; line-height:1.9; font-size:14px;
+  }
+  .doc-top-bar{background:#000; padding:8px 16px; display:flex; justify-content:center; border-bottom:1px solid var(--hair);}
+  .doc-search{display:flex; align-items:center; gap:6px;}
+  .doc-search input{
+    background:#141212; border:1px solid var(--hair); color:var(--ink);
+    font-family:'IBM Plex Mono',monospace; font-size:11px; padding:5px 10px; width:220px;
+  }
+  .doc-search input::placeholder{color:#5a5050;}
+  .doc-search button{
+    background:transparent; border:1px solid var(--hair); color:var(--gray);
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 12px; cursor:pointer;
+  }
+  .doc-search button:hover{border-color:var(--stamp); color:#e8a0a0;}
+
+  /* ゲート */
+  .gate{
+    max-width:480px; margin:60px auto; background:var(--paper);
+    box-shadow:0 0 0 1px var(--hair), 0 8px 32px rgba(0,0,0,.5);
+    padding:38px 40px 44px; text-align:center;
+  }
+  .gate .gate-tag{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.14em; color:#e8a0a0;
+    border:1px solid var(--stamp); padding:3px 10px; display:inline-block; margin-bottom:16px;
+  }
+  .gate h1{font-size:17px; margin:0 0 10px; font-weight:700; color:var(--ink);}
+  .gate p{font-size:12.5px; color:var(--gray); margin:0 0 24px; line-height:1.9;}
+
+  .gate-form{display:flex; flex-direction:column; gap:12px;}
+  .gate-form input{
+    font-family:'IBM Plex Mono',monospace; font-size:14px; letter-spacing:.06em; text-align:center;
+    padding:12px 14px; border:1px solid var(--hair); background:#0a0808; color:var(--ink);
+  }
+  .gate-form button{
+    background:var(--stamp); color:#1a0a0a; font-family:'Noto Serif JP',serif; font-weight:700;
+    font-size:14px; padding:12px 20px; border:none; cursor:pointer; letter-spacing:.04em;
+  }
+  .gate-form button:hover{background:#e05a5a;}
+
+  .gate-error{
+    display:none; margin-top:14px; padding:10px 14px; background:#241414;
+    border:1px solid var(--stamp); color:#e8a0a0; font-size:12px; font-family:'IBM Plex Mono',monospace;
+  }
+
+  /* ターミナル(汚染シーケンス) */
+  .terminal-wrap{
+    display:none; max-width:760px; margin:32px auto; padding:0 20px 60px;
+  }
+  .terminal{
+    background:#000; border:1px solid #123a12; padding:22px 24px; min-height:200px;
+    font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:1.85;
+  }
+  .terminal .line{color:#3ddc3d; opacity:0; white-space:pre-wrap; word-break:break-word;}
+  .terminal .line.show{opacity:1;}
+  .terminal .line.warn{color:#ff5050; font-weight:600;}
+  .terminal .line.dim{color:#1f6b1f;}
+  .terminal .cursor{display:inline-block; width:8px; height:14px; background:#3ddc3d; vertical-align:middle; animation:blink 1s step-end infinite;}
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .notice-box{
+    display:none; margin-top:20px; background:#1e0e0e; border:1px solid var(--stamp);
+    padding:20px 24px; font-family:'IBM Plex Mono',monospace; font-size:13px; line-height:2;
+  }
+  .notice-box .nb-title{color:#ff6a6a; font-weight:700; font-size:13px; margin-bottom:10px;}
+  .notice-box .nb-body{color:#3ddc3d;}
+  .notice-box .nb-body strong{color:#ff6a6a;}
+
+  .redirect-note{
+    display:none; margin-top:16px; text-align:center; font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px; color:var(--gray); letter-spacing:.05em;
+  }
+
+  @media (max-width:640px){
+    .gate{margin:36px auto; padding:30px 24px 36px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-top-bar">
+  <form class="doc-search" action="search-internal.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit">検索</button>
+  </form>
+</div>
+
+<div class="gate" id="gate">
+  <span class="gate-tag">ACCESS LOCKED</span>
+  <h1>観測対象・零 補遺資料</h1>
+  <p>本資料の閲覧には、通常のクリアランスに加えて個別のアクセスコードが必要です。</p>
+
+  <form class="gate-form" id="gate-form">
+    <input type="text" id="gate-input" placeholder="アクセスコードを入力" autocomplete="off">
+    <button type="submit">認証</button>
+  </form>
+  <div class="gate-error" id="gate-error">ACCESS DENIED — アクセスコードが正しくありません。</div>
+</div>
+
+<div class="terminal-wrap" id="terminal-wrap">
+  <div class="terminal" id="terminal"></div>
+  <div class="notice-box" id="notice-box">
+    <div class="nb-title">システム通知</div>
+    <div class="nb-body">
+      あなたのアクセスは記録されました。<br><br>
+      本資料への接触は、既知の抑制手段の対象外です。<br>
+      観測対象・零は、<strong>すでにあなたを認識しています。</strong>
+    </div>
+  </div>
+  <div class="redirect-note" id="redirect-note">接続が不安定です……しばらくお待ちください……</div>
+</div>
+
+<script>
+  (function(){
+    var VALID_PASSWORD = "NOLITANGERE";
+
+    var gate = document.getElementById('gate');
+    var form = document.getElementById('gate-form');
+    var input = document.getElementById('gate-input');
+    var error = document.getElementById('gate-error');
+    var terminalWrap = document.getElementById('terminal-wrap');
+    var terminal = document.getElementById('terminal');
+    var noticeBox = document.getElementById('notice-box');
+    var redirectNote = document.getElementById('redirect-note');
+
+    var LOG_LINES = [
+      { text: "> 認証サーバーに接続しました", delay: 300 },
+      { text: "> アクセスコードを検証しています……", delay: 500 },
+      { text: "> 認証成功", delay: 700 },
+      { text: "> ようこそ、節制部門 記録保管庫へ", delay: 400 },
+      { text: "> アクセスログを記録しました", delay: 500 },
+      { text: "> 資料 OBS-000-APX を読み込んでいます……", delay: 900 },
+      { text: "", delay: 200 },
+      { text: "> [WARNING] 想定外の応答を検出", delay: 600, warn: true },
+      { text: "> 接続経路を再解析しています……", delay: 800 },
+      { text: "", delay: 200 },
+      { text: "> [ALERT] 観測反応を検出", delay: 500, warn: true },
+      { text: "> Status: CONTACT DETECTED", delay: 500, warn: true },
+      { text: "", delay: 300 },
+      { text: "> 警告:本アクセスは通常の経路と一致しません", delay: 700 },
+      { text: "> 対象の特定を試みています……", delay: 600 },
+      { text: "> Collecting session data...", delay: 400, dim: true },
+      { text: "> Cross-referencing with observation log...", delay: 500, dim: true },
+      { text: "", delay: 300 },
+      { text: "> [COMPLETE] 対象特定 完了", delay: 500 },
+      { text: "> あなたの情報を取得しました", delay: 700, warn: true },
+      { text: "", delay: 300 },
+      { text: "> データを転送しています……", delay: 500 },
+      { text: "> 節制部門へ通知しています……", delay: 600 },
+      { text: "", delay: 200 },
+      { text: "> しばらくお待ちください", delay: 400 }
+    ];
+
+    function playLog(callback){
+      var i = 0;
+      function next(){
+        if(i >= LOG_LINES.length){
+          callback();
+          return;
+        }
+        var item = LOG_LINES[i];
+        var div = document.createElement('div');
+        div.className = 'line' + (item.warn ? ' warn' : '') + (item.dim ? ' dim' : '');
+        div.textContent = item.text;
+        terminal.appendChild(div);
+        requestAnimationFrame(function(){ div.classList.add('show'); });
+        terminal.scrollTop = terminal.scrollHeight;
+        i++;
+        setTimeout(next, item.delay);
+      }
+      next();
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var value = input.value.trim();
+
+      if(value !== VALID_PASSWORD){
+        error.style.display = 'block';
+        input.value = '';
+        input.focus();
+        return;
+      }
+
+      // パスワードが正しくても、本文は表示されず追跡シーケンスへ移行する
+      gate.style.display = 'none';
+      terminalWrap.style.display = 'block';
+
+      playLog(function(){
+        noticeBox.style.display = 'block';
+        setTimeout(function(){
+          redirectNote.style.display = 'block';
+        }, 1200);
+        setTimeout(function(){
+          window.location.href = 'contaminated.html';
+        }, 3400);
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
