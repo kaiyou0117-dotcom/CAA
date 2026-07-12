@@ -150,6 +150,17 @@
     border:1px solid #c99b98; color:var(--stamp); font-size:12px; font-family:'IBM Plex Mono',monospace;
   }
 
+  .gate-loading{
+    display:none; align-items:center; justify-content:center; gap:10px;
+    padding:16px 14px; margin-top:6px;
+    font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.05em; color:var(--gray);
+  }
+  .gate-loading .spinner{
+    width:14px; height:14px; border:2px solid var(--hair); border-top-color:var(--ink);
+    border-radius:50%; animation:gate-spin .8s linear infinite;
+  }
+  @keyframes gate-spin{ to{ transform:rotate(360deg); } }
+
   .doc-wrap{display:none;}
 </style>
 </head>
@@ -175,6 +186,7 @@
     <button type="submit">認証</button>
   </form>
   <div class="gate-error" id="gate-error">ACCESS DENIED — アクセスコードが正しくありません。</div>
+  <div class="gate-loading" id="gate-loading"><span class="spinner"></span>認証中……</div>
 </div>
 
 <div class="doc-wrap" id="doc-wrap">
@@ -297,6 +309,7 @@
     var form = document.getElementById('gate-form');
     var input = document.getElementById('gate-input');
     var error = document.getElementById('gate-error');
+    var loading = document.getElementById('gate-loading');
 
     form.addEventListener('submit', function(e){
       e.preventDefault();
@@ -304,8 +317,13 @@
 
       if(value === VALID_PASSWORD){
         error.style.display = 'none';
-        gate.style.display = 'none';
-        docWrap.style.display = 'block';
+        form.style.display = 'none';
+        loading.style.display = 'flex';
+
+        setTimeout(function(){
+          gate.style.display = 'none';
+          docWrap.style.display = 'block';
+        }, 2600);
       } else {
         error.style.display = 'block';
         input.value = '';
