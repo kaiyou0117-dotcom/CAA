@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>――――――</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#0f0f0d; --ink:#d6d0c4; --line:#3a352c; --gray:#8a8378; --hair:#2a261f; --warn:#c94444;
+  }
+  *{box-sizing:border-box;}
+  html, body{min-height:100vh;}
+  body{
+    margin:0; background:#050504; color:var(--ink);
+    font-family:'Noto Serif JP', serif; line-height:2; font-size:14.5px;
+    display:flex; align-items:center; justify-content:center; padding:40px 20px;
+  }
+
+  .scanlines{
+    position:fixed; inset:0; pointer-events:none; z-index:5;
+    background:repeating-linear-gradient(
+      to bottom, rgba(255,255,255,.015) 0px, rgba(255,255,255,.015) 1px,
+      transparent 1px, transparent 3px
+    );
+    mix-blend-mode:overlay;
+  }
+  .flicker-overlay{
+    position:fixed; inset:0; pointer-events:none; z-index:6;
+    background:#fff; opacity:0; animation:flicker-random 9s infinite;
+  }
+  @keyframes flicker-random{
+    0%, 97%, 100%{ opacity:0; }
+    97.4%{ opacity:.05; }
+    97.7%{ opacity:0; }
+    98.2%{ opacity:.08; }
+    98.4%{ opacity:0; }
+  }
+
+  .sheet{
+    max-width:660px; width:100%; background:var(--paper);
+    border:1px solid var(--hair); box-shadow:0 0 60px rgba(0,0,0,.6);
+    padding:44px 46px 40px; position:relative;
+  }
+
+  .leak-tag{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.14em; color:var(--warn);
+    border:1px solid var(--warn); padding:3px 10px; display:inline-block; margin-bottom:18px;
+  }
+  .leak-note{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--gray); line-height:1.9;
+    margin-bottom:30px; padding-bottom:22px; border-bottom:1px dashed var(--hair);
+  }
+
+  .doc-title{margin-bottom:8px;}
+  .doc-title .kind{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.2em; color:var(--gray);
+    text-transform:uppercase; margin-bottom:10px;
+  }
+  .doc-title h1{font-size:19px; margin:0 0 4px; font-weight:700; color:#efe9d8; letter-spacing:.03em;}
+  .doc-title .sub{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gray);}
+
+  .body-text{margin-top:30px;}
+  .body-text p{font-size:14px; margin:0 0 20px; color:#d0cabb; text-align:justify;}
+  .body-text p.first::first-letter{
+    font-size:2.1em; font-weight:700; float:left; line-height:1; padding-right:6px; color:#efe9d8;
+  }
+
+  .glitch-word{
+    display:inline-block; position:relative; color:#efe9d8;
+  }
+  .glitch-word::before{
+    content:attr(data-text); position:absolute; left:0; top:0; color:var(--warn);
+    opacity:0; animation:word-glitch 5s infinite;
+  }
+  @keyframes word-glitch{
+    0%, 93%, 100%{ opacity:0; transform:translate(0,0); }
+    94%{ opacity:.7; transform:translate(-2px,1px); }
+    95%{ opacity:0; }
+  }
+
+  .signature{
+    margin-top:36px; padding-top:20px; border-top:1px dashed var(--hair);
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gray); text-align:right; line-height:1.9;
+  }
+
+  .continue-row{
+    margin-top:38px; padding-top:22px; border-top:1px solid var(--hair);
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;
+  }
+  .continue-row .timer{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gray); letter-spacing:.05em;
+  }
+  .continue-row a{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.05em;
+    color:#efe9d8; border:1px solid var(--gray); padding:9px 20px; text-decoration:none;
+  }
+  .continue-row a:hover{border-color:#efe9d8;}
+
+  /* 画面全体に自由に散らばるノイズ・侵入テキストのレイヤー */
+  .fx-layer{
+    position:fixed; inset:0; pointer-events:none; z-index:40; overflow:hidden;
+  }
+  .fx-noise{
+    position:absolute; opacity:.5;
+  }
+  .fx-intrusion{
+    position:absolute; font-family:'IBM Plex Mono',monospace; color:var(--warn);
+    white-space:nowrap; opacity:0; font-weight:600; transition:opacity .7s ease;
+  }
+  .fx-intrusion.show{opacity:var(--target-op, .8);}
+
+  @media (max-width:640px){
+    .sheet{padding:32px 24px 30px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="scanlines"></div>
+<div class="flicker-overlay"></div>
+<div class="fx-layer" id="fx-layer"></div>
+
+<div class="sheet">
+
+  <span class="leak-tag">UNCENSORED — 検閲破損により流出</span>
+  <div class="leak-note">
+    検閲プロセスが機能不全を起こしているため、本来非表示化されているはずの記録が表示されています。<br>
+    この状態は一時的なものです。接続が復旧され次第、本ページへは再びアクセスできなくなります。
+  </div>
+
+  <div class="doc-title">
+    <div class="kind">Unclassified Fragment / Origin Unknown</div>
+    <h1>無題の記録</h1>
+    <div class="sub">推定作成時期:協会設立以前 ／ 分類:不能 ／ 検閲状態:破損</div>
+  </div>
+
+  <div class="body-text">
+    <p class="first">あれは、神ではない。少なくとも、我々が「神」という言葉に込めてきた意味においては。土地の者たちが長く祀ってきたのは、意志を持って人を害する何かではなく、<span class="glitch-word" data-text="そこにあり続けているだけの何か">そこにあり続けているだけの何か</span>だった。</p>
+
+    <p>信仰とは、機嫌を伺うための儀式ではなかったのだと、今になって思う。あれは、共同体が世代を超えて「注意を払い続ける」という行為そのものによって、あれとこちら側との境界を、かろうじて薄く保っていたに過ぎない。神楽の型も、祭礼の作法も、本来の意味はとうに失われ、ただ「そうすることになっている」という形骸だけが、結果的にあれを遠ざけていた。</p>
+
+    <p>知覚するということが、そもそもの間違いなのだ。あれは姿を持たない。見えるのではなく、<span class="glitch-word" data-text="自分の記憶の側が、あれに合わせて配置し直される">自分の記憶の側が、あれに合わせて配置し直される</span>。だから被害者たちは「何かを見た」とは語らない。「何かがおかしい気がする」としか語れない。奪われたのではなく、書き換えられたのだから。</p>
+
+    <p>協会の設立理念に残るあの一節――「開かれるべきでない扉は、永遠に閉じておかなければならない」――は、比喩ではない。「扉」とは、最初にあれとの接触が記録された、ある一点を指す古い呼称である。協会という組織そのものが、その扉を最初に見てしまった者たちの生き残りによって作られた、という説がある。真偽は、もはや確かめようがない。</p>
+
+    <p>数えることには、意味がある。何をどれだけ数えるべきかは、ここには記さない。ただ、数え終えるまでは、決して顔を上げてはならない――それだけは、覚えておいてほしい。</p>
+
+    <p>もしこれを読んでいるなら、あなたはすでに、ほんの少しだけこちら側にいる。恐れる必要はない。ただ、忘れないでほしい。忘れないという行為そのものが、時に、あれを遠ざける側にも、近づける側にも、なり得るということを。</p>
+  </div>
+
+  <div class="signature">
+    ―― 記録者不明<br>
+    保管:節制部門 深層保管庫
+  </div>
+
+  <div class="continue-row">
+    <span class="timer">接続は不安定です</span>
+    <a href="rescue-sequence.html" id="continue-link">接続の復旧を待つ →</a>
+  </div>
+
+</div>
+
+<script>
+  (function(){
+    var fxLayer = document.getElementById('fx-layer');
+
+    // ── ノイズ:大小バラバラの矩形が画面のあちこちに出現し、静止しない ──
+    var NOISE_COUNT = 9;
+    var noiseEls = [];
+    for(var n = 0; n < NOISE_COUNT; n++){
+      var el = document.createElement('div');
+      el.className = 'fx-noise';
+      fxLayer.appendChild(el);
+      noiseEls.push(el);
+    }
+
+    function randomNoiseGradient(){
+      var stops = [];
+      var pos = 0;
+      var vertical = Math.random() < 0.5;
+      while(pos < 100){
+        var w = 4 + Math.random() * 14;
+        var gray = 15 + Math.floor(Math.random() * 80);
+        stops.push('rgb(' + gray + ',' + gray + ',' + gray + ') ' + pos + '%');
+        pos += w;
+        stops.push('rgb(' + gray + ',' + gray + ',' + gray + ') ' + pos + '%');
+      }
+      return 'linear-gradient(' + (vertical ? '180deg' : '90deg') + ',' + stops.join(',') + ')';
+    }
+
+    function repositionNoise(el){
+      var w = 20 + Math.random() * 260;
+      var h = 6 + Math.random() * 90;
+      el.style.width = w + 'px';
+      el.style.height = h + 'px';
+      el.style.top = (Math.random() * 100) + 'vh';
+      el.style.left = (Math.random() * 100) + 'vw';
+      el.style.transform = 'rotate(' + (Math.random() * 10 - 5) + 'deg)';
+      el.style.opacity = (0.15 + Math.random() * 0.5).toFixed(2);
+    }
+
+    noiseEls.forEach(function(el){
+      repositionNoise(el);
+      el.style.background = randomNoiseGradient();
+    });
+
+    // 背景パターンは高頻度で更新(チラつき)、位置・サイズは低頻度で再抽選(徘徊)
+    setInterval(function(){
+      noiseEls.forEach(function(el){
+        el.style.background = randomNoiseGradient();
+      });
+    }, 100);
+
+    noiseEls.forEach(function(el){
+      setInterval(function(){
+        if(Math.random() < 0.5) repositionNoise(el);
+      }, 1400 + Math.random() * 1800);
+    });
+
+    // ── 侵入テキスト:大小バラバラのサイズで画面のあちこちに明滅する ──
+    var FRAGMENTS = [
+      '見ないで。',
+      'まだ、視ている。',
+      '数え終わっていない',
+      '戻ってこなくていいのに',
+      'あなたは選ばれていない',
+      'せんせいは、まだそこにいるの?',
+      '触っタ神ノ、繝｢繧ク繝｣も郢ｧ',
+      '縺ゅｊ繝励Ξ繧、繝､繝ｼ',
+      'もう、聞こえているでしょう'
+    ];
+
+    var INTRUSION_COUNT = 8;
+    for(var i = 0; i < INTRUSION_COUNT; i++){
+      (function(){
+        var el = document.createElement('div');
+        el.className = 'fx-intrusion';
+        fxLayer.appendChild(el);
+
+        function cycle(){
+          // サイズが大きいほど背景に溶け込むよう不透明度を下げる
+          var size = 12 + Math.random() * 90;
+          var isHuge = size > 55;
+          var targetOp = isHuge ? (0.08 + Math.random() * 0.14) : (0.55 + Math.random() * 0.35);
+
+          el.textContent = FRAGMENTS[Math.floor(Math.random() * FRAGMENTS.length)];
+          el.style.fontSize = size + 'px';
+          el.style.top = (Math.random() * 92) + 'vh';
+          el.style.left = (Math.random() * 70) + 'vw';
+          el.style.transform = 'rotate(' + (Math.random() * 6 - 3) + 'deg)';
+          el.style.setProperty('--target-op', targetOp);
+
+          requestAnimationFrame(function(){ el.classList.add('show'); });
+
+          setTimeout(function(){
+            el.classList.remove('show');
+          }, 600 + Math.random() * 900);
+
+          setTimeout(cycle, 2200 + Math.random() * 5000);
+        }
+        setTimeout(cycle, Math.random() * 4000);
+      })();
+    }
+  })();
+</script>
+
+</body>
+</html>
