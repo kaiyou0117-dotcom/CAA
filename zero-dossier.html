@@ -94,6 +94,21 @@
   .name-table th, .name-table td{border:1px solid var(--hair); padding:9px 12px; text-align:left; vertical-align:top;}
   .name-table th{background:#f0efe9; font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:500;}
 
+  .extreme-warn{
+    background:#221010; border:2px solid var(--stamp); padding:22px 26px; margin-top:6px;
+  }
+  .extreme-warn .warn-tag{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; color:#e8a0a0;
+    border:1px solid #e8a0a0; padding:3px 10px; display:inline-block; margin-bottom:14px;
+  }
+  .extreme-warn p{color:#e8d5d5; font-size:13px; margin:0 0 12px; line-height:1.9;}
+  .extreme-warn p:last-of-type{margin-bottom:0;}
+  .extreme-warn .warn-link{
+    display:inline-block; margin-top:16px; font-family:'IBM Plex Mono',monospace; font-size:12.5px;
+    color:#ff8f8f; border:1px solid #ff8f8f; padding:8px 16px; letter-spacing:.04em;
+  }
+  .extreme-warn .warn-link:hover{background:#ff8f8f; color:#221010; text-decoration:none;}
+
   .doc-footer{
     position:relative; z-index:1; margin-top:36px; padding-top:14px; border-top:1px solid var(--ink);
     display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace;
@@ -288,6 +303,17 @@
     <div class="field-row">
       <div class="k">情報統制</div>
       <div>本文書の存在自体、Class-A以下の構成員に対して秘匿する。</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="extreme-warn">
+      <span class="warn-tag">⚠ EXTREME CAUTION REQUIRED</span>
+      <p>本文書には、観測対象・零に関する補遺資料(文書番号:OBS-000-APX)への参照が存在する。当該資料には、本文書において黒塗り処理された区画の一部を含む、より詳細な記録が保管されている。</p>
+      <p>過去の閲覧記録において、当該資料への接触後に認識阻害及び精神汚染の兆候を呈した事例が複数報告されている。症状に既知の治療法はなく、進行を遅らせる対症療法があるのみである。</p>
+      <p>閲覧は七枢冠の個別承認を受けた者に限られる。承認を受けていない構成員による接触は、規約第17条の重大な違反行為としてではなく、<strong>本人の安全に対する重大な危険行為</strong>として扱われる。</p>
+      <p>それでもなお閲覧を希望する場合は、自己の判断と責任において以下へ進むこと。協会はいかなる結果についても責任を負わない。</p>
+      <a class="warn-link" href="zero-dossier-appendix.html">→ OBS-000-APX を開く</a>
     </div>
   </section>
 
