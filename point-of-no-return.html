@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>――――――</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --warn:#ff3b2f; }
+  *{box-sizing:border-box;}
+  html, body{margin:0; height:100%; overflow:hidden; background:#000;}
+  body{
+    font-family:'Noto Serif JP', serif; color:#e2dccb;
+  }
+
+  .stage{
+    position:relative; width:100%; height:100%; background:#020101; overflow:hidden;
+    transition:opacity .6s ease;
+  }
+  .stage.blackout{ opacity:0; }
+
+  /* 小さな目:画面のあちこちにランダムに出現 */
+  .small-eye{
+    position:absolute; width:60px; opacity:0; pointer-events:none;
+    filter:drop-shadow(0 0 10px rgba(120,10,10,.5));
+    transition:opacity 1s ease, transform 1s ease;
+    transform:scale(.7);
+  }
+  .small-eye.show{ opacity:.9; transform:scale(1); }
+  .small-eye img{ width:100%; display:block; }
+
+  /* 大きな目:中央に出現 */
+  .big-eye{
+    position:absolute; left:50%; top:50%; width:min(62vw, 520px);
+    transform:translate(-50%,-50%) scale(.4); opacity:0; pointer-events:none;
+    filter:drop-shadow(0 0 60px rgba(180,20,10,.55));
+    transition:opacity 2.2s ease, transform 2.2s cubic-bezier(.2,.7,.25,1);
+  }
+  .big-eye.show{ opacity:1; transform:translate(-50%,-50%) scale(1); }
+  .big-eye img{ width:100%; display:block; }
+  .big-eye.pulse{ animation:eye-pulse 1.6s ease-in-out infinite; }
+  @keyframes eye-pulse{
+    0%, 100%{ transform:translate(-50%,-50%) scale(1); }
+    50%{ transform:translate(-50%,-50%) scale(1.04); }
+  }
+
+  /* ノイズ・侵入テキスト(前ページと同系統・高密度) */
+  .fx-layer{ position:absolute; inset:0; pointer-events:none; z-index:20; overflow:hidden; }
+  .fx-noise{ position:absolute; opacity:.5; }
+  .fx-intrusion{
+    position:absolute; font-family:'IBM Plex Mono',monospace; color:var(--warn);
+    white-space:nowrap; opacity:0; font-weight:600; transition:opacity .4s ease;
+  }
+  .fx-intrusion.show{ opacity:var(--target-op, .8); }
+
+  /* 強制切断の演出 */
+  .cutoff-flash{
+    position:fixed; inset:0; background:#fff; opacity:0; pointer-events:none; z-index:50;
+  }
+  .cutoff-flash.on{ opacity:1; transition:opacity .04s linear; }
+  .cutoff-flash.fading{ opacity:0; transition:opacity .5s ease; }
+
+  .cutoff-static{
+    position:fixed; inset:0; z-index:49; opacity:0; pointer-events:none;
+    background:repeating-linear-gradient(0deg, #222 0px, #666 1px, #000 2px, #444 3px);
+  }
+  .cutoff-static.on{ opacity:.9; }
+
+  .cutoff-text{
+    position:fixed; left:50%; top:50%; transform:translate(-50%,-50%);
+    z-index:51; font-family:'IBM Plex Mono',monospace; color:#3ddc3d;
+    font-size:15px; text-align:center; line-height:2; opacity:0; white-space:pre-line;
+    text-shadow:0 0 6px rgba(61,220,61,.6);
+  }
+  .cutoff-text.show{ opacity:1; transition:opacity .15s ease; }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <div class="big-eye" id="big-eye">
+    <img src="images/eye-large.png" alt="">
+  </div>
+
+  <div class="fx-layer" id="fx-layer"></div>
+
+</div>
+
+<div class="cutoff-flash" id="flash"></div>
+<div class="cutoff-static" id="static"></div>
+<div class="cutoff-text" id="cutoff-text">接続が強制的に切断されました<br>――外部プロトコルにより上書き――</div>
+
+<script>
+  (function(){
+    var stage = document.getElementById('stage');
+    var fxLayer = document.getElementById('fx-layer');
+    var bigEye = document.getElementById('big-eye');
+    var flash = document.getElementById('flash');
+    var staticEl = document.getElementById('static');
+    var cutoffText = document.getElementById('cutoff-text');
+
+    // ── 小さな目を画面各所にランダムに出現させる ──
+    var SMALL_EYE_COUNT = 9;
+    for(var i = 0; i < SMALL_EYE_COUNT; i++){
+      (function(idx){
+        var el = document.createElement('div');
+        el.className = 'small-eye';
+        var img = document.createElement('img');
+        img.src = 'images/eye-small.png';
+        img.alt = '';
+        el.appendChild(img);
+
+        var size = 34 + Math.random() * 70;
+        el.style.width = size + 'px';
+        el.style.top = (Math.random() * 84) + 'vh';
+        el.style.left = (Math.random() * 88) + 'vw';
+        el.style.transform = 'rotate(' + (Math.random() * 16 - 8) + 'deg)';
+        stage.appendChild(el);
+
+        setTimeout(function(){
+          el.classList.add('show');
+        }, 300 + idx * 220 + Math.random() * 300);
+      })(i);
+    }
+
+    // ── ノイズ:大小バラバラ、高密度 ──
+    var NOISE_COUNT = 14;
+    var noiseEls = [];
+    for(var n = 0; n < NOISE_COUNT; n++){
+      var el = document.createElement('div');
+      el.className = 'fx-noise';
+      fxLayer.appendChild(el);
+      noiseEls.push(el);
+    }
+    function randomNoiseGradient(){
+      var stops = [];
+      var pos = 0;
+      var vertical = Math.random() < 0.5;
+      while(pos < 100){
+        var w = 4 + Math.random() * 14;
+        var gray = 15 + Math.floor(Math.random() * 80);
+        stops.push('rgb(' + gray + ',' + gray + ',' + gray + ') ' + pos + '%');
+        pos += w;
+        stops.push('rgb(' + gray + ',' + gray + ',' + gray + ') ' + pos + '%');
+      }
+      return 'linear-gradient(' + (vertical ? '180deg' : '90deg') + ',' + stops.join(',') + ')';
+    }
+    function repositionNoise(el){
+      var w = 20 + Math.random() * 260;
+      var h = 6 + Math.random() * 90;
+      el.style.width = w + 'px';
+      el.style.height = h + 'px';
+      el.style.top = (Math.random() * 100) + 'vh';
+      el.style.left = (Math.random() * 100) + 'vw';
+      el.style.transform = 'rotate(' + (Math.random() * 10 - 5) + 'deg)';
+      el.style.opacity = (0.15 + Math.random() * 0.5).toFixed(2);
+    }
+    noiseEls.forEach(function(el){
+      repositionNoise(el);
+      el.style.background = randomNoiseGradient();
+    });
+    var noiseFlicker = setInterval(function(){
+      noiseEls.forEach(function(el){ el.style.background = randomNoiseGradient(); });
+    }, 80);
+    var noiseRoam = setInterval(function(){
+      noiseEls.forEach(function(el){ if(Math.random() < 0.6) repositionNoise(el); });
+    }, 900);
+
+    // ── 侵入テキスト:高密度で明滅 ──
+    var FRAGMENTS = [
+      '見ないで。','まだ、視ている。','数え終わっていない','戻ってこなくていいのに',
+      'あなたは選ばれていない','せんせいは、まだそこにいるの?','触っタ神ノ、繝｢繧ク繝｣も郢ｧ',
+      '縺ゅｊ繝励Ξ繧、繝､繝ｼ','もう、聞こえているでしょう','こっち。','やっと、視つけた',
+      'あと少しだけ','おいで','どうして戻るの','ここにいれば大丈夫','名前を、教えて',
+      'ずっと待っていた','触らぬ神ニ、モウ遅イ','一つ、二つ、三つ……','数えるのをやめないで',
+      'あなたも、いずれ','境内で会った子','書き換えて、あげる','知らなくていいことなど、ない',
+      'よく来たね','戻れない','視られた'
+    ];
+    var INTRUSION_COUNT = 16;
+    var intrusionTimers = [];
+    for(var k = 0; k < INTRUSION_COUNT; k++){
+      (function(){
+        var el = document.createElement('div');
+        el.className = 'fx-intrusion';
+        fxLayer.appendChild(el);
+
+        function cycle(){
+          var size = 12 + Math.random() * 100;
+          var isHuge = size > 55;
+          var targetOp = isHuge ? (0.08 + Math.random() * 0.16) : (0.55 + Math.random() * 0.4);
+
+          el.textContent = FRAGMENTS[Math.floor(Math.random() * FRAGMENTS.length)];
+          el.style.fontSize = size + 'px';
+          el.style.top = (Math.random() * 92) + 'vh';
+          el.style.left = (Math.random() * 78) + 'vw';
+          el.style.transform = 'rotate(' + (Math.random() * 6 - 3) + 'deg)';
+          el.style.setProperty('--target-op', targetOp);
+
+          requestAnimationFrame(function(){ el.classList.add('show'); });
+          setTimeout(function(){ el.classList.remove('show'); }, 350 + Math.random() * 500);
+
+          var t = setTimeout(cycle, 700 + Math.random() * 1800);
+          intrusionTimers.push(t);
+        }
+        var t0 = setTimeout(cycle, Math.random() * 1500);
+        intrusionTimers.push(t0);
+      })();
+    }
+
+    // ── 大きな目が中央に出現 ──
+    setTimeout(function(){
+      bigEye.classList.add('show');
+    }, 2600);
+
+    setTimeout(function(){
+      bigEye.classList.add('pulse');
+    }, 4900);
+
+    // ── 強制切断 ──
+    setTimeout(function(){
+      flash.classList.add('on');
+      staticEl.classList.add('on');
+    }, 6600);
+
+    setTimeout(function(){
+      flash.classList.remove('on');
+      flash.classList.add('fading');
+    }, 6660);
+
+    setTimeout(function(){
+      cutoffText.classList.add('show');
+    }, 6800);
+
+    setTimeout(function(){
+      clearInterval(noiseFlicker);
+      clearInterval(noiseRoam);
+      intrusionTimers.forEach(clearTimeout);
+      stage.classList.add('blackout');
+    }, 7900);
+
+    setTimeout(function(){
+      window.location.href = 'rescue-sequence.html';
+    }, 8700);
+  })();
+</script>
+
+</body>
+</html>
