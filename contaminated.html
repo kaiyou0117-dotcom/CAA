@@ -116,10 +116,10 @@
 
   <div class="fragments" id="fragments">
     <div class="f">……本当に、何かが視てい</div>
-    <div class="f corrupt">████ が こちら を ████</div>
-    <div class="f pale">触らぬ神に、もう遅い</div>
+    <div class="f corrupt">縺ゅｊ繝励Ξ が こちら を 繧、繝､繝ｼ</div>
+    <div class="f pale">触っタ神ノ、繝｢繧ク繝｣も郢ｧ</div>
     <div class="f">数えるのをやめないで</div>
-    <div class="f corrupt">あなた は もう ████ の 一部 です</div>
+    <div class="f corrupt">あなた は もう 郢ｧ繝｢繧ク繝｣ の 一部 です</div>
     <div class="f pale">■■■■■■■■■■■■■■■■</div>
     <div class="f">大丈夫。もうすぐ、視えなくなる。</div>
   </div>
@@ -154,6 +154,11 @@
       var el = frags[Math.floor(Math.random() * frags.length)];
       if(el) corruptOnce(el);
     }, 900);
+
+    // 一定時間後、介入シーケンスへ自動転送
+    setTimeout(function(){
+      window.location.href = 'rescue-sequence.html';
+    }, 12000);
   })();
 </script>
 
