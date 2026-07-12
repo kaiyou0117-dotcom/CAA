@@ -111,16 +111,73 @@
     .field-row{grid-template-columns:1fr; gap:4px;}
     .stamp{right:-60px; top:90px; width:220px; font-size:16px;}
   }
+
+  /* パスワードゲート */
+  .gate{
+    max-width:520px; margin:48px auto; background:var(--paper);
+    box-shadow:0 0 0 1px #cfccc2, 0 8px 24px rgba(0,0,0,.08);
+    padding:40px 44px 46px; text-align:center;
+  }
+  .gate .gate-tag{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.14em; color:var(--stamp);
+    border:1px solid var(--stamp); padding:3px 10px; display:inline-block; margin-bottom:18px;
+  }
+  .gate h1{font-size:18px; margin:0 0 10px; font-weight:700;}
+  .gate p{font-size:13px; color:var(--gray); margin:0 0 26px; line-height:1.9;}
+
+  .gate-image{
+    max-width:280px; width:100%; margin:0 auto 26px; display:block;
+    border:1px solid var(--hair);
+  }
+  .gate-image-cap{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--gray);
+    letter-spacing:.03em; margin:-16px 0 26px;
+  }
+
+  .gate-form{display:flex; flex-direction:column; gap:12px; align-items:stretch;}
+  .gate-form input{
+    font-family:'IBM Plex Mono',monospace; font-size:15px; letter-spacing:.06em; text-align:center;
+    padding:12px 14px; border:1px solid var(--hair); background:#f4f3ee; color:var(--ink);
+  }
+  .gate-form button{
+    background:var(--ink); color:#f4f3ee; font-family:'Noto Serif JP',serif; font-weight:700;
+    font-size:14px; padding:12px 20px; border:none; cursor:pointer; letter-spacing:.04em;
+  }
+  .gate-form button:hover{background:#333;}
+
+  .gate-error{
+    display:none; margin-top:14px; padding:10px 14px; background:#f3e0df;
+    border:1px solid #c99b98; color:var(--stamp); font-size:12px; font-family:'IBM Plex Mono',monospace;
+  }
+
+  .doc-wrap{display:none;}
 </style>
 </head>
 <body>
 
 <div class="doc-top-bar">
-  <form class="doc-search" action="search.html" method="get" role="search">
+  <form class="doc-search" action="search-internal.html" method="get" role="search">
     <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
     <button type="submit">検索</button>
   </form>
 </div>
+
+<div class="gate" id="gate">
+  <span class="gate-tag">ACCESS LOCKED</span>
+  <h1>観測対象・零 概要書類</h1>
+  <p>本文書はCLASS-S相当の機密指定を受けています。閲覧にはアクセスコードの入力が必要です。</p>
+
+  <img src="images/color-order-hint.png" alt="色の並び順を示す図版" class="gate-image">
+  <div class="gate-image-cap">添付資料:出典不明の図版データ(復元済み)</div>
+
+  <form class="gate-form" id="gate-form">
+    <input type="text" id="gate-input" placeholder="アクセスコードを入力" autocomplete="off">
+    <button type="submit">認証</button>
+  </form>
+  <div class="gate-error" id="gate-error">ACCESS DENIED — アクセスコードが正しくありません。</div>
+</div>
+
+<div class="doc-wrap" id="doc-wrap">
 
 <div class="sheet">
 
@@ -228,6 +285,35 @@
   </div>
 
 </div>
+
+</div>
+
+<script>
+  (function(){
+    var VALID_PASSWORD = "触らぬ神に祟りなし";
+
+    var gate = document.getElementById('gate');
+    var docWrap = document.getElementById('doc-wrap');
+    var form = document.getElementById('gate-form');
+    var input = document.getElementById('gate-input');
+    var error = document.getElementById('gate-error');
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var value = input.value.trim();
+
+      if(value === VALID_PASSWORD){
+        error.style.display = 'none';
+        gate.style.display = 'none';
+        docWrap.style.display = 'block';
+      } else {
+        error.style.display = 'block';
+        input.value = '';
+        input.focus();
+      }
+    });
+  })();
+</script>
 
 </body>
 </html>
