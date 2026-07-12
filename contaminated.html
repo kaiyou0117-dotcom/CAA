@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>――――――</title>
+<style>
+  *{box-sizing:border-box;}
+  html, body{
+    margin:0; height:100%; background:#000; color:#c9c9c9;
+    font-family:'Noto Serif JP', 'IBM Plex Mono', serif, monospace;
+    overflow-x:hidden;
+  }
+
+  .wrap{
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:40px 20px; position:relative;
+  }
+
+  /* 画面全体のノイズ・走査線 */
+  .scanlines{
+    position:fixed; inset:0; pointer-events:none; z-index:5;
+    background:repeating-linear-gradient(
+      to bottom, rgba(255,255,255,.02) 0px, rgba(255,255,255,.02) 1px,
+      transparent 1px, transparent 3px
+    );
+    mix-blend-mode:overlay;
+  }
+  .flicker-overlay{
+    position:fixed; inset:0; pointer-events:none; z-index:6;
+    background:#fff; opacity:0; animation:flicker-random 7s infinite;
+  }
+  @keyframes flicker-random{
+    0%, 96%, 100%{ opacity:0; }
+    97%{ opacity:.04; }
+    97.5%{ opacity:0; }
+    98%{ opacity:.08; }
+    98.3%{ opacity:0; }
+  }
+
+  .glitch-text{
+    position:relative; font-size:26px; font-weight:700; letter-spacing:.06em;
+    color:#e8e8e8; text-align:center; margin-bottom:8px;
+  }
+  .glitch-text::before, .glitch-text::after{
+    content:attr(data-text); position:absolute; left:0; top:0; width:100%;
+    overflow:hidden; clip-path:inset(0 0 0 0);
+  }
+  .glitch-text::before{
+    color:#ff3b3b; transform:translate(-2px,0); mix-blend-mode:screen;
+    animation:glitch-a 2.6s infinite linear;
+  }
+  .glitch-text::after{
+    color:#3bd6ff; transform:translate(2px,0); mix-blend-mode:screen;
+    animation:glitch-b 3.1s infinite linear;
+  }
+  @keyframes glitch-a{
+    0%, 92%, 100%{ clip-path:inset(0 0 0 0); transform:translate(-2px,0); }
+    93%{ clip-path:inset(10% 0 60% 0); transform:translate(-6px,-1px); }
+    94%{ clip-path:inset(60% 0 5% 0); transform:translate(4px,1px); }
+    95%{ clip-path:inset(30% 0 40% 0); transform:translate(-3px,0); }
+  }
+  @keyframes glitch-b{
+    0%, 90%, 100%{ clip-path:inset(0 0 0 0); transform:translate(2px,0); }
+    91%{ clip-path:inset(70% 0 5% 0); transform:translate(6px,1px); }
+    92%{ clip-path:inset(15% 0 55% 0); transform:translate(-4px,-1px); }
+    93%{ clip-path:inset(45% 0 20% 0); transform:translate(3px,0); }
+  }
+
+  .sub{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.08em; color:#6b6b6b;
+    text-align:center; margin-bottom:40px;
+  }
+
+  .fragments{
+    max-width:600px; width:100%; display:flex; flex-direction:column; gap:10px;
+    font-family:'IBM Plex Mono', monospace; font-size:13px; line-height:1.9;
+  }
+  .fragments .f{
+    color:#8a8a8a; opacity:0; animation:fade-in .6s ease forwards;
+  }
+  .fragments .f.corrupt{color:#ff5b5b;}
+  .fragments .f.pale{color:#3f3f3f;}
+  @keyframes fade-in{ to{ opacity:1; } }
+
+  .fragments .f:nth-child(1){animation-delay:.3s;}
+  .fragments .f:nth-child(2){animation-delay:1.1s;}
+  .fragments .f:nth-child(3){animation-delay:2.0s;}
+  .fragments .f:nth-child(4){animation-delay:3.0s;}
+  .fragments .f:nth-child(5){animation-delay:4.2s;}
+  .fragments .f:nth-child(6){animation-delay:5.6s;}
+  .fragments .f:nth-child(7){animation-delay:7.0s;}
+
+  .noise-char{display:inline-block;}
+
+  .status-line{
+    margin-top:48px; font-family:'IBM Plex Mono', monospace; font-size:11px;
+    letter-spacing:.1em; color:#4a4a4a; text-align:center; opacity:0;
+    animation:fade-in .8s ease forwards; animation-delay:8.2s;
+  }
+  .status-line .dot{
+    display:inline-block; width:6px; height:6px; border-radius:50%; background:#ff3b3b;
+    margin-right:8px; animation:pulse-dot 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse-dot{ 0%,100%{ opacity:.3; } 50%{ opacity:1; } }
+</style>
+</head>
+<body>
+
+<div class="scanlines"></div>
+<div class="flicker-overlay"></div>
+
+<div class="wrap">
+  <div class="glitch-text" data-text="接続が異常です">接続が異常です</div>
+  <div class="sub">SIGNAL INTEGRITY: <span id="integrity">――</span>%</div>
+
+  <div class="fragments" id="fragments">
+    <div class="f">……本当に、何かが視てい</div>
+    <div class="f corrupt">████ が こちら を ████</div>
+    <div class="f pale">触らぬ神に、もう遅い</div>
+    <div class="f">数えるのをやめないで</div>
+    <div class="f corrupt">あなた は もう ████ の 一部 です</div>
+    <div class="f pale">■■■■■■■■■■■■■■■■</div>
+    <div class="f">大丈夫。もうすぐ、視えなくなる。</div>
+  </div>
+
+  <div class="status-line"><span class="dot"></span>外部からの接続要求を検知しています……</div>
+</div>
+
+<script>
+  (function(){
+    var integrityEl = document.getElementById('integrity');
+    var values = [12, 47, 3, 68, 21, 55, 9, 33, 76, 4, 60, 18];
+    var vi = 0;
+    setInterval(function(){
+      integrityEl.textContent = values[vi % values.length];
+      vi++;
+    }, 350);
+
+    // フラグメント行を時々一瞬だけ文字化けさせる
+    var frags = document.querySelectorAll('.fragments .f');
+    var glyphs = '█▓▒░╳╱╲◆◇※';
+    function corruptOnce(el){
+      var original = el.textContent;
+      var chars = original.split('');
+      var idx = Math.floor(Math.random() * chars.length);
+      if(chars[idx] === ' ' || chars[idx] === '█'){ return; }
+      var glitched = chars.slice();
+      glitched[idx] = glyphs[Math.floor(Math.random() * glyphs.length)];
+      el.textContent = glitched.join('');
+      setTimeout(function(){ el.textContent = original; }, 150);
+    }
+    setInterval(function(){
+      var el = frags[Math.floor(Math.random() * frags.length)];
+      if(el) corruptOnce(el);
+    }, 900);
+  })();
+</script>
+
+</body>
+</html>
