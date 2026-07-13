@@ -245,6 +245,7 @@
 
       if(id === VALID_ID && pw === VALID_PW){
         errorBox.style.display = 'none';
+        try{ localStorage.setItem('arg_msg_login', new Date().toISOString()); }catch(e){}
         window.location.href = 'members.html';
       } else {
         errorBox.style.display = 'block';
