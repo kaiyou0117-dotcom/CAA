@@ -31,7 +31,7 @@
 
   /* 大きな目:中央に出現 */
   .big-eye{
-    position:absolute; left:50%; top:50%; width:min(62vw, 520px);
+    position:absolute; left:50%; top:50%; width:min(80vw, 680px);
     transform:translate(-50%,-50%); opacity:0; pointer-events:none;
     filter:drop-shadow(0 0 60px rgba(180,20,10,.55));
   }
@@ -52,11 +52,7 @@
     100%{ opacity:1;  transform:translate(-50%,-50%) translate(0,0) scale(1); }
   }
   .big-eye.pulse{
-    animation:eye-pulse 1.6s ease-in-out infinite;
-  }
-  @keyframes eye-pulse{
-    0%, 100%{ transform:translate(-50%,-50%) scale(1); }
-    50%{ transform:translate(-50%,-50%) scale(1.04); }
+    transform:translate(-50%,-50%) scale(1);
   }
 
   /* ノイズ・侵入テキスト(前ページと同系統・高密度) */
