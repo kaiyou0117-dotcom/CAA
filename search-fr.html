@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Résultats de recherche | Autorité Arcanique Continentale</title>
+<meta name="description" content="Résultats de recherche (index régional — bureau de liaison européen).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Serif+JP:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #1b2438; --navy-deep: #10182a; --parchment: #efe9dc; --ink: #201d18;
+    --gold: #9c7f3c; --gold-bright: #b8974f; --line: #c9bfa4; --alert: #6f2f2f; --alert-bg: #f3e7de;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--parchment); color:var(--ink);
+    font-family:'Zen Kaku Gothic New', 'Noto Serif JP', sans-serif;
+    line-height:1.8; font-size:15px;
+  }
+  a{color:var(--navy); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .lang-bar{
+    background:var(--navy-deep); color:#cfd3dd; font-size:11px; letter-spacing:.04em;
+    padding:5px 24px; display:flex; justify-content:space-between; gap:16px;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .lang-links{display:flex; gap:16px;}
+  .lang-bar a{color:#cfd3dd; opacity:.75;}
+  .lang-bar a.current{opacity:1; text-decoration:underline;}
+  .site-search{display:flex; align-items:center; gap:6px;}
+  .site-search input{
+    background:transparent; border:1px solid rgba(255,255,255,.25); color:#cfd3dd;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; padding:3px 8px; width:190px;
+  }
+  .site-search input::placeholder{color:#7d8298; font-style:italic;}
+  .site-search button{
+    background:transparent; border:1px solid rgba(255,255,255,.25); color:#cfd3dd;
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; padding:3px 10px; cursor:pointer;
+  }
+  .site-search button:hover{border-color:var(--gold-bright); color:#fff;}
+
+  header.site-header{background:var(--navy); color:#e9e5d8; padding:22px 24px 0;}
+  .header-inner{
+    max-width:1080px; margin:0 auto; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:16px; padding-bottom:20px;
+  }
+  .brand{display:flex; align-items:center; gap:14px;}
+  .brand-text .en{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.16em;
+    color:#a9b0c4; text-transform:uppercase;
+  }
+  .brand-text .jp{
+    font-family:'Noto Serif JP', serif; font-size:20px; font-weight:600;
+    letter-spacing:.04em; color:#f2eee0;
+  }
+  nav.main-nav{
+    max-width:1080px; margin:0 auto; display:flex; gap:2px;
+    border-top:1px solid rgba(255,255,255,.12);
+  }
+  nav.main-nav a{
+    color:#cfd3dd; font-size:13.5px; padding:13px 16px;
+    letter-spacing:.02em; border-bottom:2px solid transparent;
+  }
+  nav.main-nav a:hover{color:#fff; text-decoration:none; border-bottom:2px solid var(--gold-bright);}
+
+  .breadcrumb{
+    max-width:1080px; margin:0 auto; padding:14px 24px 0;
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:#948a6d;
+  }
+
+  main{max-width:1080px; margin:0 auto; padding:0 24px;}
+
+  .hero{padding:40px 0 32px; border-bottom:1px solid var(--line);}
+  .hero .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.12em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:14px;
+  }
+  h1#result-heading{
+    font-family:'Noto Serif JP', serif; font-size:22px; line-height:1.5;
+    font-weight:600; margin:0; word-break:break-word;
+  }
+
+  section{padding:32px 0;}
+
+  .no-result-box{
+    background:#f6f2e6; border:1px solid var(--line); border-left:4px solid var(--alert);
+    padding:22px 24px;
+  }
+  .no-result-box p{margin:0 0 10px; font-size:13.5px; color:#3a2a24;}
+  .no-result-box .code{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:#8a8062; display:block; margin-top:12px;
+  }
+
+  .result-hit{
+    background:#f6f2e6; border:1px solid var(--line); border-left:4px solid var(--gold);
+    padding:20px 24px; margin-bottom:12px;
+  }
+  .result-hit .hit-url{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:#5a8a5a; margin-bottom:4px;
+  }
+  .result-hit .hit-title{font-family:'Noto Serif JP', serif; font-size:16px; font-weight:600; margin:0 0 8px;}
+  .result-hit .hit-title a{color:var(--navy);}
+  .result-hit .hit-snippet{margin:0; font-size:13px; color:#4a453a;}
+
+  .hit-count{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:#8a8062; margin-bottom:14px; display:block;
+  }
+
+  .retry-form{display:flex; gap:10px; margin-top:22px; flex-wrap:wrap;}
+  .retry-form input{
+    flex:1; min-width:200px; font-family:'IBM Plex Mono', monospace; font-size:14px;
+    color:var(--ink); background:#faf8f2; border:1px solid var(--line); padding:11px 12px;
+  }
+  .retry-form button{
+    background:var(--navy); color:#f2eee0; font-weight:600; border:none;
+    padding:11px 24px; font-size:14px; cursor:pointer; font-family:'Zen Kaku Gothic New', sans-serif;
+  }
+
+  footer{background:var(--navy-deep); color:#9aa0b3; margin-top:20px;}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,.08); padding:14px 24px; max-width:1080px; margin:0 auto;
+    font-size:11px; color:#6c7284; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <form class="site-search" action="search-fr.html" method="get" role="search">
+    <input type="text" name="q" placeholder="Rechercher…" aria-label="Rechercher sur le site" autocomplete="off">
+    <button type="submit">Chercher</button>
+  </form>
+  <div class="lang-links">
+    <a href="index.html">日本語</a>
+    <a href="#">EN</a>
+    <a href="#">DE</a>
+    <a href="index-fr.html" class="current">FR</a>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18.5" stroke="#b8974f" stroke-width="1"/>
+        <path d="M20 6 L20 34 M8 14 L32 26 M8 26 L32 14" stroke="#b8974f" stroke-width="0.75"/>
+        <circle cx="20" cy="20" r="3" fill="#b8974f"/>
+      </svg>
+      <div class="brand-text">
+        <div class="en">Continental Arcane Authority</div>
+        <div class="jp">Autorité Arcanique Continentale</div>
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav">
+    <a href="index-fr.html">Accueil</a>
+    <a href="index.html">日本語版へ</a>
+  </nav>
+</header>
+
+<div class="breadcrumb"><a href="index-fr.html">Accueil</a> / Recherche</div>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Résultats — Index régional (Bureau de liaison européen)</div>
+    <h1 id="result-heading">Résultats de recherche</h1>
+  </section>
+
+  <section id="result-body">
+    <div class="no-result-box" id="result-box">
+      <p id="result-message">Aucun terme de recherche spécifié.</p>
+    </div>
+
+    <form class="retry-form" id="retry-form">
+      <input type="text" id="retry-input" placeholder="Rechercher un autre terme" autocomplete="off">
+      <button type="submit">Rechercher</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <span>Continental Arcane Authority — FR Index</span>
+    <span>dernière synchronisation: 2019</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    function escapeHtml(str){
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var query = params.get('q');
+
+    var heading = document.getElementById('result-heading');
+    var resultBox = document.getElementById('result-box');
+
+    // このFR版インデックスは本体の内部検索とは別系統(欧州連携窓口への転送データ)
+    var SPECIAL_MATCHES = {
+      'V-2005-1042': [
+        {
+          url: 'successor-record.html',
+          title: '継承者 個人記録 ― V-2005-1042',
+          snippet: 'FAITH-2005-1042-C6 / Dossier de référence civile (non-membre).'
+        },
+        {
+          url: 'field-officer-note.html',
+          title: '現地対応者所感 ― V-2005-1042',
+          snippet: 'TEMP-2005-1042-N2 / Note personnelle, non officielle.'
+        }
+      ]
+    };
+
+    if(query && query.trim() !== ''){
+      var q = query.trim();
+      var safeQ = escapeHtml(q);
+      heading.textContent = 'Résultats pour « ' + q + ' »';
+      document.title = 'Résultats pour « ' + q + ' »';
+
+      var hits = SPECIAL_MATCHES[q];
+
+      if(hits && hits.length > 0){
+        var hitsHtml = '<span class="hit-count">' + hits.length + ' résultat(s) trouvé(s).</span>';
+        hits.forEach(function(hit){
+          hitsHtml +=
+            '<div class="result-hit">' +
+              '<div class="hit-url">caa-eu-index / ' + hit.url + '</div>' +
+              '<h3 class="hit-title"><a href="' + hit.url + '">' + escapeHtml(hit.title) + '</a></h3>' +
+              '<p class="hit-snippet">' + escapeHtml(hit.snippet) + '</p>' +
+            '</div>';
+        });
+        resultBox.outerHTML = '<div id="result-box">' + hitsHtml + '</div>';
+      } else {
+        var message = document.getElementById('result-message');
+        var codeNote = document.createElement('span');
+        codeNote.className = 'code';
+        message.textContent = 'Aucun résultat ne correspond à « ' + q + ' ».';
+        codeNote.textContent = 'QUERY: "' + q + '" — 0 résultat';
+        resultBox.appendChild(codeNote);
+      }
+    } else {
+      heading.textContent = 'Résultats de recherche';
+      document.getElementById('result-message').textContent = 'Aucun terme de recherche spécifié. Utilisez la barre de recherche ci-dessus.';
+    }
+
+    document.getElementById('retry-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      var val = document.getElementById('retry-input').value.trim();
+      window.location.href = 'search-fr.html?q=' + encodeURIComponent(val);
+    });
+  })();
+</script>
+
+</body>
+</html>
