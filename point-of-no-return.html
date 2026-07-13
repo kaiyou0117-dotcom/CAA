@@ -111,8 +111,25 @@
     var staticEl = document.getElementById('static');
     var cutoffText = document.getElementById('cutoff-text');
 
-    // ── 小さな目を画面各所にランダムに出現させる ──
+    // ── 小さな目を画面各所にランダムに出現させる(中央=大きな目の出現域は避ける) ──
     var SMALL_EYE_COUNT = 9;
+    var CENTER_ZONE = { top: 22, bottom: 78, left: 15, right: 85 }; // vh/vw 単位の除外範囲
+
+    function pickPosition(size){
+      var top, left;
+      var attempts = 0;
+      do{
+        top = Math.random() * 84;
+        left = Math.random() * 88;
+        attempts++;
+      } while(
+        attempts < 25 &&
+        top > CENTER_ZONE.top && top < CENTER_ZONE.bottom &&
+        left > CENTER_ZONE.left && left < CENTER_ZONE.right
+      );
+      return { top: top, left: left };
+    }
+
     for(var i = 0; i < SMALL_EYE_COUNT; i++){
       (function(idx){
         var el = document.createElement('div');
@@ -123,9 +140,10 @@
         el.appendChild(img);
 
         var size = 34 + Math.random() * 70;
+        var pos = pickPosition(size);
         el.style.width = size + 'px';
-        el.style.top = (Math.random() * 84) + 'vh';
-        el.style.left = (Math.random() * 88) + 'vw';
+        el.style.top = pos.top + 'vh';
+        el.style.left = pos.left + 'vw';
         el.style.transform = 'rotate(' + (Math.random() * 16 - 8) + 'deg)';
         stage.appendChild(el);
 
