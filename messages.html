@@ -39,6 +39,17 @@
   .chat-body{
     flex:1; overflow-y:auto; padding:18px 14px 12px;
     display:flex; flex-direction:column; gap:4px;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  /* スマホ実機では「画面の中の小さいスマホ」にならないよう全画面表示にする */
+  @media (max-width:480px){
+    body{padding:0; align-items:stretch;}
+    .phone{
+      max-width:100%; width:100%;
+      height:100vh; height:100dvh;
+      border-radius:0; border:none; box-shadow:none;
+    }
   }
 
   .day-divider{
@@ -162,11 +173,22 @@
       return mm + '月' + dd + '日 ' + hh + ':' + mi;
     }
 
-    var unlockedStages = STAGES.filter(function(s){
-      return !!localStorage.getItem(s.flag);
-    });
+    var storageAvailable = true;
+    var unlockedStages = [];
+    try{
+      unlockedStages = STAGES.filter(function(s){
+        return !!localStorage.getItem(s.flag);
+      });
+    }catch(e){
+      storageAvailable = false;
+    }
 
-    if(unlockedStages.length === 0){
+    if(!storageAvailable){
+      var errEl = document.createElement('div');
+      errEl.className = 'empty-state';
+      errEl.textContent = 'この端末・ブラウザではメッセージ履歴を読み込めませんでした。';
+      chatBody.appendChild(errEl);
+    } else if(unlockedStages.length === 0){
       var empty = document.createElement('div');
       empty.className = 'empty-state';
       empty.textContent = 'まだメッセージはありません。';
