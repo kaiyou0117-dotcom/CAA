@@ -327,6 +327,12 @@
 </div>
 
 <script>
+  try{
+    if(!localStorage.getItem('arg_msg_zerodossier')){
+      localStorage.setItem('arg_msg_zerodossier', new Date().toISOString());
+    }
+  }catch(e){}
+
   (function(){
     var VALID_PASSWORD = "触らぬ神に祟りなし";
 
