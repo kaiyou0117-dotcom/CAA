@@ -130,5 +130,13 @@
 
 </div>
 
+<script>
+  try{
+    if(!localStorage.getItem('arg_msg_corona')){
+      localStorage.setItem('arg_msg_corona', new Date().toISOString());
+    }
+  }catch(e){}
+</script>
+
 </body>
 </html>
