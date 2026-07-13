@@ -260,5 +260,13 @@
 
 </div>
 
+<script>
+  try{
+    if(!localStorage.getItem('arg_msg_news')){
+      localStorage.setItem('arg_msg_news', new Date().toISOString());
+    }
+  }catch(e){}
+</script>
+
 </body>
 </html>
