@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>遺物保管記録 ― V-2005-1042</title>
+<meta name="description" content="大陸魔導協会 内部文書。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fafaf7; --ink:#1a1a1a; --line:#1a1a1a; --gray:#6b6b68; --hair:#d8d6cf;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#e4e2da; color:var(--ink);
+    font-family:'Noto Serif JP', serif; line-height:1.9; font-size:14px;
+  }
+  .doc-top-bar{background:#1a1a1a; padding:8px 16px; display:flex; justify-content:center;}
+  .doc-search{display:flex; align-items:center; gap:6px;}
+  .doc-search input{
+    background:#2a2a28; border:1px solid #444; color:#e8e6de;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; padding:5px 10px; width:220px;
+  }
+  .doc-search input::placeholder{color:#8a8880;}
+  .doc-search button{
+    background:transparent; border:1px solid #444; color:#c9c7bf;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 12px; cursor:pointer;
+  }
+  .doc-search button:hover{border-color:#888; color:#fff;}
+
+  .sheet{
+    max-width:700px; margin:32px auto; background:var(--paper);
+    box-shadow:0 0 0 1px #cfccc2, 0 8px 24px rgba(0,0,0,.08);
+    padding:44px 50px 50px;
+  }
+
+  .letterhead{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:20px;
+    padding-bottom:16px; border-bottom:2px solid var(--line);
+  }
+  .letterhead .org{display:flex; align-items:center; gap:12px;}
+  .letterhead .org-text .en{font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.14em; color:var(--gray); text-transform:uppercase;}
+  .letterhead .org-text .jp{font-size:14px; font-weight:600;}
+  .letterhead .doc-code{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gray); text-align:right; line-height:1.8;
+  }
+  .letterhead .doc-code span{color:var(--ink);}
+
+  .doc-title{padding:26px 0 20px; text-align:center; border-bottom:1px solid var(--hair);}
+  .doc-title .kind{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.2em; color:var(--gray);
+    margin-bottom:10px; text-transform:uppercase;
+  }
+  .doc-title h1{font-size:19px; margin:0; font-weight:700; letter-spacing:.02em;}
+
+  .meta-table{width:100%; border-collapse:collapse; margin:22px 0 8px; font-size:12.5px;}
+  .meta-table th{
+    text-align:left; font-weight:500; color:var(--gray); padding:7px 12px 7px 0;
+    width:130px; vertical-align:top; border-bottom:1px solid var(--hair);
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+  }
+  .meta-table td{padding:7px 0; border-bottom:1px solid var(--hair); vertical-align:top;}
+
+  article{padding-top:28px;}
+  article h2{
+    font-size:14.5px; font-weight:700; margin:30px 0 12px; padding-bottom:6px; border-bottom:1px solid var(--ink);
+  }
+  article h2:first-child{margin-top:0;}
+  article p{font-size:13.5px; margin:0 0 15px; text-align:justify;}
+
+  .note-box{
+    margin-top:16px; padding:14px 18px; background:#f0efe9; border-left:3px solid var(--gray);
+    font-size:12.5px; color:#3a3a36;
+  }
+  .note-box .label{
+    display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em;
+    color:var(--gray); margin-bottom:6px; text-transform:uppercase;
+  }
+
+  .doc-footer{
+    margin-top:36px; padding-top:14px; border-top:1px solid var(--ink);
+    display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px; color:var(--gray);
+  }
+
+  @media (max-width:640px){
+    .sheet{padding:30px 22px 36px; margin:0;}
+    .letterhead{flex-direction:column; gap:12px;}
+    .letterhead .doc-code{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-top-bar">
+  <form class="doc-search" action="search-internal.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit">検索</button>
+  </form>
+</div>
+
+<div class="sheet">
+
+  <div class="letterhead">
+    <div class="org">
+      <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18.5" stroke="#1a1a1a" stroke-width="1"/>
+        <path d="M20 6 L20 34 M8 14 L32 26 M8 26 L32 14" stroke="#1a1a1a" stroke-width="0.75"/>
+        <circle cx="20" cy="20" r="3" fill="#1a1a1a"/>
+      </svg>
+      <div class="org-text">
+        <div class="en">Continental Arcane Authority</div>
+        <div class="jp">大陸魔導協会 節制部門</div>
+      </div>
+    </div>
+    <div class="doc-code">
+      文書番号:<span>TEMP-2005-1042-S</span><br>
+      関連番号:<span>V-2005-1042</span>
+    </div>
+  </div>
+
+  <div class="doc-title">
+    <div class="kind">Artifact Storage Record</div>
+    <h1>遺物保管記録</h1>
+  </div>
+
+  <table class="meta-table">
+    <tr><th>保管対象</th><td>遺留品(御守り札)/ 鑑定番号 WIS-2005-1042-A</td></tr>
+    <tr><th>収蔵先</th><td>中央本部深層保管庫 第7区画</td></tr>
+    <tr><th>収蔵日</th><td>2005.10.12</td></tr>
+  </table>
+
+  <article>
+    <h2>収蔵経緯</h2>
+    <p>だいたいの場合、鑑定の結果危険性・術式的価値ともに低いと判断された遺物は、速やかに低位保管区画へ移送されるか、一定期間経過後に廃棄対象となる。本品についても、英知部門の鑑定結果はその条件に該当していた。</p>
+    <p>しかし、案件担当者(節制部門)の意見により、本品は中央本部深層保管庫 第7区画――比較的重要度の高い遺物を扱う区画――への収蔵となった。この判断についての正式な稟議記録は存在しない。</p>
+
+    <h2>備考</h2>
+    <p>本品に関する担当者個人の所感が、事案ファイルに私的に添付されている(文書番号:TEMP-1042-PN)。当該文書は正式な審査を経たものではないが、収蔵区画の決定に何らかの影響を与えた可能性は否定できない。</p>
+
+    <div class="note-box">
+      <span class="label">追記</span>
+      本件の一部データについて、欧州連携窓口への転送記録が確認されている。転送の経緯・目的は不明であり、現時点で追加調査は行われていない。
+    </div>
+  </article>
+
+  <div class="doc-footer">
+    <span>CAA / TEMPERANTIA-DEPT / DOC-MGMT</span>
+    <span>TEMP-2005-1042-S ／ 1 / 1</span>
+  </div>
+
+</div>
+
+</body>
+</html>
