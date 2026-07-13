@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>霞坂神社周辺、不審者情報でパトロール強化|霞坂民報デジタル</title>
+<meta name="description" content="霞坂民報 2026年7月3日 記事アーカイブ。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #f2f0ea; --paper-2: #e9e6dc; --ink: #1c1c1c; --ink-soft: #4a4a46; --line: #b8b3a4; --red: #8c2323;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#d9d5c8; color:var(--ink);
+    font-family:'Noto Serif JP', serif; line-height:1.9; font-size:14.5px;
+  }
+  a{color:var(--red);}
+
+  .search-bar{
+    background:#1c1c1c; padding:8px 16px; display:flex; justify-content:center;
+  }
+  .search-bar form{display:flex; align-items:center; gap:6px;}
+  .search-bar input{
+    background:#2a2a2a; border:1px solid #4a4a46; color:#e8e6de;
+    font-family:'Zen Kaku Gothic New',sans-serif; font-size:11.5px; padding:5px 10px; width:220px;
+  }
+  .search-bar input::placeholder{color:#9c9890;}
+  .search-bar button{
+    background:transparent; border:1px solid #4a4a46; color:#c9c7bf;
+    font-family:'Zen Kaku Gothic New',sans-serif; font-size:11px; padding:5px 12px; cursor:pointer;
+  }
+
+  .site-top{
+    background:var(--ink); color:#cfcabb; font-size:11px; letter-spacing:.04em;
+    padding:6px 16px; font-family:'Zen Kaku Gothic New', sans-serif;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+  .site-top span{opacity:.8;}
+
+  .wrap{max-width:820px; margin:0 auto; background:var(--paper); box-shadow:0 0 0 1px var(--line);}
+
+  .masthead{
+    padding:18px 24px 14px; border-bottom:4px double var(--ink);
+    display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+  .masthead .title{font-size:26px; font-weight:700; letter-spacing:.08em; color:var(--ink);}
+  .masthead .title .kasumi{color:var(--red);}
+  .masthead .meta{
+    font-family:'Zen Kaku Gothic New', sans-serif; font-size:11px; color:var(--ink-soft);
+    text-align:right; line-height:1.7;
+  }
+
+  .subnav{
+    background:var(--paper-2); border-bottom:1px solid var(--line);
+    padding:8px 24px; font-family:'Zen Kaku Gothic New', sans-serif; font-size:12px;
+    display:flex; gap:18px; flex-wrap:wrap; color:var(--ink-soft);
+  }
+
+  .breadcrumb{
+    padding:14px 24px 0; font-family:'Zen Kaku Gothic New', sans-serif;
+    font-size:11px; color:#8a8578;
+  }
+
+  main{padding:20px 24px 40px;}
+
+  .article-cat{
+    display:inline-block; font-family:'Zen Kaku Gothic New', sans-serif;
+    font-size:11px; letter-spacing:.08em; color:var(--red); border:1px solid var(--red);
+    padding:2px 8px; margin-bottom:14px;
+  }
+
+  h1.headline{font-size:22px; font-weight:700; line-height:1.6; margin:0 0 8px; letter-spacing:.02em;}
+  .sub-headline{font-size:14.5px; color:var(--ink-soft); margin:0 0 18px; font-weight:500;}
+
+  .byline{
+    font-family:'Zen Kaku Gothic New', sans-serif; font-size:11.5px; color:var(--ink-soft);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:8px 0; margin-bottom:22px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;
+  }
+
+  .article-body{columns:2; column-gap:28px; font-size:14px;}
+  .article-body p{margin:0 0 1em;}
+  .article-body p:first-of-type::first-letter{
+    font-size:2.4em; font-weight:700; float:left; line-height:1; padding-right:6px; padding-top:2px;
+  }
+
+  .sidebar-note{
+    break-inside:avoid; background:var(--paper-2); border-left:3px solid var(--red);
+    padding:12px 14px; margin:0 0 1em; font-size:12.5px; color:var(--ink-soft);
+  }
+  .sidebar-note .label{
+    font-family:'Zen Kaku Gothic New', sans-serif; font-size:10.5px; color:var(--red);
+    letter-spacing:.06em; display:block; margin-bottom:6px;
+  }
+
+  .ad-box{
+    columns:1; break-inside:avoid; margin:24px 0; padding:18px;
+    background:var(--paper-2); border:1px dashed var(--line); text-align:center;
+    font-family:'Zen Kaku Gothic New', sans-serif; font-size:11px; color:#a19c8c;
+  }
+
+  .archive-info{
+    margin-top:32px; padding-top:16px; border-top:1px solid var(--line);
+    font-family:'Zen Kaku Gothic New', sans-serif; font-size:11.5px; color:var(--ink-soft);
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .archive-info .row{display:flex; gap:10px;}
+  .archive-info .k{width:120px; color:#8a8578; flex-shrink:0;}
+
+  .related{margin-top:28px; padding-top:16px; border-top:1px solid var(--line);}
+  .related h4{
+    font-family:'Zen Kaku Gothic New', sans-serif; font-size:12px; letter-spacing:.05em;
+    color:var(--ink-soft); margin:0 0 10px;
+  }
+  .related ul{list-style:none; margin:0; padding:0; font-size:13px;}
+  .related li{padding:6px 0; border-top:1px dotted var(--line);}
+  .related li:first-child{border-top:none;}
+  .related a{color:var(--ink); text-decoration:none;}
+  .related a:hover{color:var(--red);}
+  .related time{font-family:'Zen Kaku Gothic New', sans-serif; font-size:11px; color:#a19c8c; margin-right:8px;}
+
+  footer{
+    background:var(--ink); color:#8a8578; font-family:'Zen Kaku Gothic New', sans-serif;
+    font-size:10.5px; padding:16px 24px; text-align:center;
+  }
+
+  @media (max-width:640px){
+    .article-body{columns:1;}
+    .masthead{flex-direction:column;}
+    .masthead .meta{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<div class="search-bar">
+  <form action="search.html" method="get" role="search">
+    <input type="text" name="q" placeholder="データ内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit">検索</button>
+  </form>
+</div>
+
+<div class="site-top">
+  <span>霞坂民報デジタル</span>
+  <span>会員ログイン ｜ 紙面検索 ｜ アーカイブ</span>
+</div>
+
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="title"><span class="kasumi">霞坂</span>民報</div>
+    <div class="meta">
+      2026年7月3日(金)朝刊 5面<br>
+      地域・安全面
+    </div>
+  </div>
+
+  <div class="subnav">
+    <span>地域</span><span>行政</span><span>くらし</span><span>安全・防犯</span><span>お悔やみ</span><span>アーカイブ検索</span>
+  </div>
+
+  <div class="breadcrumb">
+    アーカイブトップ ＞ 2026年 ＞ 7月 ＞ 記事 No.20260703-009
+  </div>
+
+  <main>
+    <span class="article-cat">安全・防犯</span>
+
+    <h1 class="headline">霞坂神社周辺、不審者の目撃情報相次ぐ</h1>
+    <p class="sub-headline">地元自治会がパトロール強化を呼びかけ</p>
+
+    <div class="byline">
+      <span>霞坂支局</span>
+      <span>2026年7月3日 06:00 配信</span>
+    </div>
+
+    <div class="article-body">
+
+      <p>霞坂三丁目の霞坂神社周辺で今春以降、不審な人物を見かけたとの通報が地元自治会に相次いで寄せられていることが分かった。自治会は住民に注意を呼びかけるとともに、地域住民有志によるパトロールを強化している。</p>
+
+      <p>自治会関係者によると、通報のあった人物は特定の年齢・性別に限定されず、境内やその周辺を一人で歩き回っている様子が複数回目撃されているという。「話しかけられたという住民もいるが、内容は要領を得ないものだったそうだ」と自治会長は話す。今のところ実害の報告はないが、念のため夜間の見回りを増やしているとのことだ。</p>
+
+      <div class="sidebar-note">
+        <span class="label">霞坂神社について</span>
+        白霞大神(しらかすみのおおかみ)を祀る、創建年代不詳の古社。かつては秋季例大祭で地元の子どもたちによる神楽が奉納されていたが、現在は神職不在のまま維持管理のみが続けられている。
+      </div>
+
+      <p>霞坂神社は氏子の高齢化に伴い、近年は例大祭を含む行事のほとんどが行われておらず、日中でも人けのない状態が続いている。管理する神職も現在は不在で、境内の手入れは近隣住民の有志が持ち回りで行っているのが実情だ。</p>
+
+      <div class="ad-box">[ 広告スペース ]</div>
+
+      <p>市の生活安全課は「具体的な事件性は現時点で確認されていないが、不審者情報があった場合は速やかに警察へ通報してほしい」とコメントしている。自治会では、夏休み期間中は特に子どもだけでの立ち入りを控えるよう、地域の小学校を通じて注意喚起を行う予定だという。</p>
+
+    </div>
+
+    <div class="archive-info">
+      <div class="row"><span class="k">記事ID</span><span>20260703-009</span></div>
+      <div class="row"><span class="k">掲載紙面</span><span>霞坂民報 2026年7月3日朝刊 5面</span></div>
+      <div class="row"><span class="k">関連記事</span><span>1件</span></div>
+    </div>
+
+    <div class="related">
+      <h4>関連する記事</h4>
+      <ul>
+        <li><time>2005.10.10</time><a href="news-kasumizaka-2005.html">秋季例大祭、荒天のため中止に ― 霞坂神社</a></li>
+      </ul>
+    </div>
+
+  </main>
+
+  <footer>
+    霞坂民報デジタルアーカイブ ｜ 本紙面のデータは原紙をもとにデジタル化したものです ｜ 無断転載を禁じます
+  </footer>
+
+</div>
+
+<script>
+  try{
+    if(!localStorage.getItem('arg_msg_news')){
+      localStorage.setItem('arg_msg_news', new Date().toISOString());
+    }
+  }catch(e){}
+</script>
+
+</body>
+</html>
