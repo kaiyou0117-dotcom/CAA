@@ -309,7 +309,7 @@
     };
 
     // 内部データベース側にのみヒットが存在するキーワード(検出時は黒基調の検索結果へ転送)
-    var INTERNAL_REDIRECTS = ['第一級指名手配対象', '秋季例大祭', '白霞大神'];
+    var INTERNAL_REDIRECTS = ['第一級指名手配対象', '秋季例大祭'];
 
     if(query && INTERNAL_REDIRECTS.indexOf(query.trim()) !== -1){
       window.location.replace('search-internal.html?q=' + encodeURIComponent(query.trim()));
