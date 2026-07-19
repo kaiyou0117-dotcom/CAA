@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#fafaf7; --ink:#1a1a1a; --line:#1a1a1a; --gray:#6b6b68; --hair:#d8d6cf;
+    --paper:#fafaf7; --ink:#1a1a1a; --line:#1a1a1a; --gray:#6b6b68; --hair:#d8d6cf; --stamp-red:#8c2323;
   }
   *{box-sizing:border-box;}
   body{
@@ -31,7 +31,7 @@
   .sheet{
     max-width:700px; margin:32px auto; background:var(--paper);
     box-shadow:0 0 0 1px #cfccc2, 0 8px 24px rgba(0,0,0,.08);
-    padding:44px 50px 50px;
+    padding:44px 50px 30px;
   }
 
   .letterhead{
@@ -46,47 +46,83 @@
   }
   .letterhead .doc-code span{color:var(--ink);}
 
-  .doc-title{padding:26px 0 20px; text-align:center; border-bottom:1px solid var(--hair);}
+  .doc-title{padding:22px 0 18px; text-align:center; border-bottom:1px solid var(--hair);}
   .doc-title .kind{
     font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.2em; color:var(--gray);
     margin-bottom:10px; text-transform:uppercase;
   }
   .doc-title h1{font-size:19px; margin:0; font-weight:700; letter-spacing:.02em;}
 
-  .meta-table{width:100%; border-collapse:collapse; margin:22px 0 8px; font-size:12.5px;}
-  .meta-table th{
-    text-align:left; font-weight:500; color:var(--gray); padding:7px 12px 7px 0;
-    width:130px; vertical-align:top; border-bottom:1px solid var(--hair);
-    font-family:'IBM Plex Mono',monospace; font-size:11px;
+  /* 管理タグ */
+  .tag-card{
+    margin-top:26px; border:1.5px dashed var(--gray); padding:22px 24px 18px; position:relative;
+    background:repeating-linear-gradient(135deg, transparent 0 24px, rgba(0,0,0,.012) 24px 48px);
   }
-  .meta-table td{padding:7px 0; border-bottom:1px solid var(--hair); vertical-align:top;}
+  .tag-card .punch{
+    position:absolute; top:14px; left:50%; transform:translateX(-50%);
+    width:14px; height:14px; border-radius:50%; background:#e4e2da; box-shadow:inset 0 0 0 1px var(--gray);
+  }
+  .tag-card .tag-label{
+    text-align:center; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.15em;
+    color:var(--gray); margin:14px 0 20px;
+  }
+
+  .stamp-row{display:flex; justify-content:space-around; flex-wrap:wrap; gap:18px; padding:10px 0 6px;}
+  .stamp{
+    width:88px; height:88px; border-radius:50%; border:2.4px solid var(--stamp-red);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color:var(--stamp-red); transform:rotate(var(--rot, -6deg)); opacity:.82;
+    font-family:'IBM Plex Mono',monospace; text-align:center; flex-shrink:0;
+    mix-blend-mode:multiply;
+  }
+  .stamp .label{font-size:12px; font-weight:700; letter-spacing:.04em;}
+  .stamp .date{font-size:9px; margin-top:4px;}
+  .stamp::before{
+    content:""; position:absolute;
+  }
+  .stamp.s2{--rot:5deg;}
+  .stamp.s3{--rot:-3deg;}
 
   article{padding-top:28px;}
   article h2{
-    font-size:14.5px; font-weight:700; margin:30px 0 12px; padding-bottom:6px; border-bottom:1px solid var(--ink);
+    font-size:14px; font-weight:700; margin:26px 0 10px; padding-bottom:5px; border-bottom:1px solid var(--ink);
   }
   article h2:first-child{margin-top:0;}
-  article p{font-size:13.5px; margin:0 0 15px; text-align:justify;}
+  article p{font-size:13.3px; margin:0 0 13px; text-align:justify;}
+
+  .log-table{width:100%; border-collapse:collapse; font-size:12.3px; margin-top:10px;}
+  .log-table th{
+    text-align:left; color:var(--gray); font-weight:500; padding:7px 10px; border-bottom:1px solid var(--ink);
+    font-family:'IBM Plex Mono',monospace; font-size:10px;
+  }
+  .log-table td{padding:8px 10px; border-bottom:1px solid var(--hair); vertical-align:top;}
+  .log-table td.flag{color:var(--stamp-red); font-weight:600;}
 
   .note-box{
-    margin-top:16px; padding:14px 18px; background:#f0efe9; border-left:3px solid var(--gray);
-    font-size:12.5px; color:#3a3a36;
+    margin-top:14px; padding:13px 16px; background:#f0efe9; border-left:3px solid var(--gray);
+    font-size:12.3px; color:#3a3a36;
   }
   .note-box .label{
-    display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em;
+    display:block; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.08em;
     color:var(--gray); margin-bottom:6px; text-transform:uppercase;
   }
 
   .doc-footer{
-    margin-top:36px; padding-top:14px; border-top:1px solid var(--ink);
-    display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace;
-    font-size:10.5px; color:var(--gray);
+    margin-top:30px; padding:14px 0; border-top:1px solid var(--ink);
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--gray);
+  }
+  .page-num{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink);
+    border:1px solid var(--ink); padding:3px 10px;
   }
 
   @media (max-width:640px){
-    .sheet{padding:30px 22px 36px; margin:0;}
+    .sheet{padding:30px 20px 24px; margin:0;}
     .letterhead{flex-direction:column; gap:12px;}
     .letterhead .doc-code{text-align:left;}
+    .stamp-row{gap:12px;}
+    .stamp{width:76px; height:76px;}
   }
 </style>
 </head>
@@ -114,7 +150,7 @@
       </div>
     </div>
     <div class="doc-code">
-      文書番号:<span>TEMP-2005-1042-S</span><br>
+      文書番号:<span>TEMP-2005-1042-F</span><br>
       関連番号:<span>V-2005-1042</span>
     </div>
   </div>
@@ -124,16 +160,42 @@
     <h1>遺物保管記録</h1>
   </div>
 
-  <table class="meta-table">
-    <tr><th>保管対象</th><td>遺留品(御守り札)/ 鑑定番号 WIS-2005-1042-A</td></tr>
-    <tr><th>収蔵先</th><td>中央本部深層保管庫 第7区画</td></tr>
-    <tr><th>収蔵日</th><td>2005.10.12</td></tr>
-  </table>
+  <div class="tag-card">
+    <div class="punch"></div>
+    <div class="tag-label">CUSTODY TAG ― TEMP-2005-1042-A</div>
+    <div class="stamp-row">
+      <div class="stamp s1">
+        <span class="label">受領</span>
+        <span class="date">2005.10.11</span>
+      </div>
+      <div class="stamp s2">
+        <span class="label">移送</span>
+        <span class="date">2005.10.12</span>
+      </div>
+      <div class="stamp s3">
+        <span class="label">収蔵</span>
+        <span class="date">2005.10.12</span>
+      </div>
+    </div>
+  </div>
 
   <article>
     <h2>収蔵経緯</h2>
     <p>だいたいの場合、鑑定の結果危険性・術式的価値ともに低いと判断された遺物は、速やかに低位保管区画へ移送されるか、一定期間経過後に廃棄対象となる。本品についても、英知部門の鑑定結果はその条件に該当していた。</p>
     <p>しかし、案件担当者(節制部門)の意見により、本品は中央本部深層保管庫 第7区画――比較的重要度の高い遺物を扱う区画――への収蔵となった。この判断についての正式な稟議記録は存在しない。</p>
+
+    <h2>定期点検記録(抜粋)</h2>
+    <table class="log-table">
+      <tr><th>点検日</th><th>点検者</th><th>所見</th></tr>
+      <tr><td>2006.04</td><td>TEMP-11</td><td>異常なし</td></tr>
+      <tr><td>2007.10</td><td>TEMP-11</td><td>異常なし</td></tr>
+      <tr><td>2009.04</td><td>TEMP-08</td><td>異常なし</td></tr>
+      <tr><td>2012.10</td><td>TEMP-14</td><td class="flag">下書き段階の点検報告に本品裏面の記載内容を全文転記していたため、提出前に指導のうえ差し戻し。以降の報告書には記載内容そのものを載せないこと、との注意喚起を実施。</td></tr>
+      <tr><td>2013.04</td><td>TEMP-14</td><td>異常なし</td></tr>
+      <tr><td>2018.10</td><td>TEMP-22</td><td>異常なし</td></tr>
+      <tr><td>2023.10</td><td>TEMP-22</td><td>異常なし</td></tr>
+    </table>
+    <p style="margin-top:12px; font-size:12px; color:var(--gray);">※ 2012.10の件を除き、本品に関する点検記録上の懸念事項はない。取扱い規定(現物の記載内容を音読・転記・複製しないこと)が遵守されている限り、収蔵状態は安定している。</p>
 
     <h2>備考</h2>
     <p>本品に関する担当者個人の所感が、事案ファイルに私的に添付されている(文書番号:TEMP-1042-PN)。当該文書は正式な審査を経たものではないが、収蔵区画の決定に何らかの影響を与えた可能性は否定できない。</p>
@@ -146,7 +208,7 @@
 
   <div class="doc-footer">
     <span>CAA / TEMPERANTIA-DEPT / DOC-MGMT</span>
-    <span>TEMP-2005-1042-S ／ 1 / 1</span>
+    <span class="page-num">6 / 6</span>
   </div>
 
 </div>
