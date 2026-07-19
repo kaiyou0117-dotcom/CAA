@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>霞坂神楽保存会 名簿控 ― 継承者の項</title>
+<meta name="description" content="大陸魔導協会 内部文書。">
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Noto+Serif+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4efe1; --ink:#2a2419; --line:#8a7d5f; --gray:#7a715a; --hair:#ddd3b8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#d8cfb4; color:var(--ink);
+    font-family:'Noto Serif JP', serif; line-height:1.95; font-size:14px;
+  }
+  .doc-top-bar{background:#2a2419; padding:8px 16px; display:flex; justify-content:center;}
+  .doc-search{display:flex; align-items:center; gap:6px;}
+  .doc-search input{
+    background:#3a3324; border:1px solid #5a5240; color:#e8e0c8;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; padding:5px 10px; width:220px;
+  }
+  .doc-search input::placeholder{color:#a89f84;}
+  .doc-search button{
+    background:transparent; border:1px solid #5a5240; color:#c9bf9f;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 12px; cursor:pointer;
+  }
+  .doc-search button:hover{border-color:#a89f84; color:#fff;}
+
+  .sheet{
+    max-width:660px; margin:32px auto; background:var(--paper);
+    box-shadow:0 0 0 1px #c4b998, 0 8px 28px rgba(0,0,0,.15);
+    padding:40px 46px 34px;
+    background-image:radial-gradient(circle at 15% 10%, rgba(140,110,50,.06), transparent 40%),
+                      radial-gradient(circle at 90% 85%, rgba(140,110,50,.05), transparent 45%);
+  }
+
+  .crest{display:flex; justify-content:center; margin-bottom:8px;}
+  .crest svg{opacity:.75;}
+
+  .doc-title{text-align:center; padding-bottom:20px; border-bottom:1.5px solid var(--line);}
+  .doc-title .kind{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.24em; color:var(--gray);
+    margin-bottom:10px; text-transform:uppercase;
+  }
+  .doc-title h1{
+    font-family:'Yuji Syuku', serif; font-size:26px; margin:0; font-weight:400; letter-spacing:.04em; color:#241f14;
+  }
+  .doc-title .sub{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--gray); margin-top:10px;}
+
+  .ledger-list{margin-top:24px;}
+  .ledger-row{
+    display:grid; grid-template-columns:110px 1fr; gap:14px; padding:10px 0;
+    border-bottom:1px dotted var(--hair); font-size:13.5px;
+  }
+  .ledger-row .k{
+    font-family:'Yuji Syuku', serif; font-size:14.5px; color:#5a4f30; padding-top:1px;
+  }
+
+  article{padding-top:26px;}
+  article h2{
+    font-family:'Yuji Syuku', serif; font-weight:400; font-size:17px; margin:28px 0 12px;
+    color:#241f14; letter-spacing:.03em;
+  }
+  article h2:first-child{margin-top:0;}
+  article p{font-size:13.3px; margin:0 0 14px; text-align:justify;}
+
+  .quote-box{
+    margin:16px 0; padding:14px 18px 14px 20px; background:rgba(255,255,255,.35);
+    border-left:3px solid var(--line); font-style:italic; font-size:13.3px; color:#3a3320;
+  }
+  .quote-box .src{
+    display:block; margin-top:8px; font-style:normal; font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px; color:var(--gray);
+  }
+
+  .doc-footer{
+    margin-top:28px; padding:14px 0; border-top:1.5px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--gray);
+  }
+  .page-num{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:#241f14;
+    border:1px solid var(--line); padding:3px 10px;
+  }
+
+  @media (max-width:640px){
+    .sheet{padding:28px 22px 26px; margin:0;}
+    .ledger-row{grid-template-columns:1fr; gap:2px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-top-bar">
+  <form class="doc-search" action="search-internal.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit">検索</button>
+  </form>
+</div>
+
+<div class="sheet">
+
+  <div class="crest">
+    <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+      <circle cx="23" cy="23" r="20" stroke="#5a4f30" stroke-width="0.8"/>
+      <g stroke="#5a4f30" stroke-width="0.8">
+        <path d="M23 8 C26 14 26 18 23 23 C20 18 20 14 23 8Z"/>
+        <path d="M23 38 C20 32 20 28 23 23 C26 28 26 32 23 38Z"/>
+        <path d="M8 23 C14 20 18 20 23 23 C18 26 14 26 8 23Z"/>
+        <path d="M38 23 C32 26 28 26 23 23 C28 20 32 20 38 23Z"/>
+      </g>
+      <circle cx="23" cy="23" r="3" fill="#5a4f30"/>
+    </svg>
+  </div>
+
+  <div class="doc-title">
+    <div class="kind">Local Registry Extract</div>
+    <h1>霞坂神楽保存会 名簿控</h1>
+    <div class="sub">継承者の項 ／ 転記元:地域台帳(非公式複製)<br>文書番号:TEMP-2005-1042-D</div>
+  </div>
+
+  <div class="ledger-list">
+    <div class="ledger-row"><div class="k">通称</div><div>りゅう(仮称)</div></div>
+    <div class="ledger-row"><div class="k">役目</div><div>神楽保存会 代表 ／ 継承者</div></div>
+    <div class="ledger-row"><div class="k">没年月日</div><div>2005年10月6日(例大祭の3日前と推定)</div></div>
+    <div class="ledger-row"><div class="k">備考</div><div>公的記録上「持病による突然死」</div></div>
+  </div>
+
+  <article>
+    <h2>人となり</h2>
+    <p>りゅう、という通称で地域住民に親しまれていた人物で、霞坂神楽保存会の代表として、長年子ども神楽の指導にあたっていた。神楽継承の系譜においては、この地域では既に数少ない継承者の一人だったとされる。</p>
+    <p>死因については、地域の公的記録上「持病による突然死」とされているが、近隣住民の証言との間に食い違いがある。</p>
+
+    <h2>近隣の声</h2>
+    <div class="quote-box">
+      「祭りの数日前から、様子がおかしかった。うわの空というか、誰かに呼ばれているみたいに、ふっと遠くを見る瞬間があった。」
+      <span class="src">― 神楽保存会 関係者</span>
+    </div>
+    <div class="quote-box">
+      「最後に会ったとき、"もう、数えるのをやめられない"って、独り言みたいに言ってた。冗談だと思って、そのときは笑って流してしまった。」
+      <span class="src">― 地域住民</span>
+    </div>
+
+    <h2>付記</h2>
+    <p>本殿裏手で発見された遺留品(御守り札)は、対象の私物と推定されている。裏面に発見されたラテン語の書き込みについては、対象本人の筆跡と一致するとの見解が有力だが、断定はされていない。詳細は<a href="artifact-appraisal-2005.html">遺留品鑑定記録</a>を参照。</p>
+  </article>
+
+  <div class="doc-footer">
+    <span>転記:信仰部門 ／ 原本:霞坂神楽保存会</span>
+    <span class="page-num">4 / 6</span>
+  </div>
+
+</div>
+
+</body>
+</html>
