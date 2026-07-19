@@ -138,5 +138,175 @@
   }catch(e){}
 </script>
 
+<button id="msg-fab" class="msg-fab" aria-label="メッセージ">✉</button>
+<div id="msg-panel" class="msg-panel">
+  <div class="msg-panel-header">
+    <span>不明の相手</span>
+    <button id="msg-panel-close" class="msg-panel-close" aria-label="閉じる">×</button>
+  </div>
+  <div class="msg-panel-body" id="msg-panel-body"></div>
+</div>
+
+<style>
+  .msg-fab{
+    position:fixed; bottom:22px; right:22px; width:52px; height:52px; border-radius:50%;
+    background:#1a1d29; border:1px solid #333952; color:#d3d6e2; font-size:21px;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    box-shadow:0 6px 20px rgba(0,0,0,.4); z-index:300;
+  }
+  .msg-fab:hover{border-color:#7c8cff; color:#fff;}
+
+  .msg-panel{
+    position:fixed; bottom:84px; right:22px; width:320px; max-width:88vw; max-height:60vh;
+    background:#0e1018; border:1px solid #262b3d; border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,.5);
+    display:flex; flex-direction:column; overflow:hidden; z-index:299;
+    opacity:0; transform:translateY(16px); pointer-events:none; transition:opacity .22s ease, transform .22s ease;
+  }
+  .msg-panel.open{opacity:1; transform:translateY(0); pointer-events:all;}
+
+  .msg-panel-header{
+    background:#161927; padding:12px 14px; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid #262b3d; font-family:'Zen Kaku Gothic New', sans-serif; font-size:13px; color:#eceefb; flex-shrink:0;
+  }
+  .msg-panel-close{
+    background:none; border:none; color:#6e7386; font-size:18px; cursor:pointer; line-height:1; padding:2px 4px;
+  }
+  .msg-panel-close:hover{color:#fff;}
+
+  .msg-panel-body{
+    flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:4px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .msg-empty{
+    text-align:center; color:#4a4d58; font-size:12px; padding:20px 10px; line-height:1.8;
+    font-family:'Zen Kaku Gothic New', sans-serif;
+  }
+  .msg-divider{
+    text-align:center; color:#6e7386; font-size:10px; margin:10px 0 8px;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .msg-bubble{
+    max-width:85%; padding:8px 12px; border-radius:14px; border-bottom-left-radius:4px;
+    background:#22263a; color:#eceefb; font-size:13px; line-height:1.55; margin-bottom:6px;
+    font-family:'Zen Kaku Gothic New', sans-serif;
+  }
+  .msg-typing{
+    display:inline-flex; gap:3px; padding:9px 12px; background:#22263a;
+    border-radius:14px; border-bottom-left-radius:4px; width:fit-content; margin-bottom:6px;
+  }
+  .msg-typing span{
+    width:5px; height:5px; border-radius:50%; background:#7c7f87;
+    animation:msg-typing-blink 1.2s infinite ease-in-out;
+  }
+  .msg-typing span:nth-child(2){animation-delay:.15s;}
+  .msg-typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes msg-typing-blink{ 0%,60%,100%{opacity:.3;} 30%{opacity:1;} }
+
+  @media (max-width:480px){
+    .msg-panel{
+      right:12px; left:12px; width:auto; max-width:none; bottom:84px; max-height:66vh;
+    }
+  }
+</style>
+
+<script>
+  (function(){
+    var STAGE = {
+      flag: 'arg_msg_corona',
+      seenFlag: 'arg_msg_corona_seen',
+      lines: ['あれ。','あれー、繋がらないな。','……まあ、いっか。','また、そのうち。']
+    };
+
+    var fab = document.getElementById('msg-fab');
+    var panel = document.getElementById('msg-panel');
+    var closeBtn = document.getElementById('msg-panel-close');
+    var body = document.getElementById('msg-panel-body');
+
+    function formatTime(iso){
+      var d = new Date(iso);
+      return (d.getMonth()+1) + '月' + d.getDate() + '日 ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+    }
+
+    function getTimestamp(){
+      try{ return localStorage.getItem(STAGE.flag); }catch(e){ return null; }
+    }
+
+    function renderInstant(){
+      body.innerHTML = '';
+      var ts = getTimestamp();
+      if(!ts){
+        var empty = document.createElement('div');
+        empty.className = 'msg-empty';
+        empty.textContent = 'まだメッセージはありません。';
+        body.appendChild(empty);
+        return;
+      }
+      var divider = document.createElement('div');
+      divider.className = 'msg-divider';
+      divider.textContent = formatTime(ts);
+      body.appendChild(divider);
+      STAGE.lines.forEach(function(line){
+        var b = document.createElement('div');
+        b.className = 'msg-bubble';
+        b.textContent = line;
+        body.appendChild(b);
+      });
+    }
+
+    function renderTyping(){
+      var ts = getTimestamp();
+      if(!ts){ renderInstant(); return; }
+      body.innerHTML = '';
+      var divider = document.createElement('div');
+      divider.className = 'msg-divider';
+      divider.textContent = formatTime(ts);
+      body.appendChild(divider);
+
+      var i = 0;
+      function step(){
+        if(i >= STAGE.lines.length){
+          try{ localStorage.setItem(STAGE.seenFlag, '1'); }catch(e){}
+          return;
+        }
+        var typing = document.createElement('div');
+        typing.className = 'msg-typing';
+        typing.innerHTML = '<span></span><span></span><span></span>';
+        body.appendChild(typing);
+        body.scrollTop = body.scrollHeight;
+        setTimeout(function(){
+          body.removeChild(typing);
+          var b = document.createElement('div');
+          b.className = 'msg-bubble';
+          b.textContent = STAGE.lines[i];
+          body.appendChild(b);
+          body.scrollTop = body.scrollHeight;
+          i++;
+          setTimeout(step, 500 + Math.random() * 400);
+        }, 550 + Math.random() * 350);
+      }
+      step();
+    }
+
+    fab.addEventListener('click', function(){
+      var isOpen = panel.classList.toggle('open');
+      if(!isOpen) return;
+
+      var seen = false;
+      try{ seen = !!localStorage.getItem(STAGE.seenFlag); }catch(e){}
+
+      if(seen){
+        renderInstant();
+        body.scrollTop = body.scrollHeight;
+      } else {
+        renderTyping();
+      }
+    });
+
+    closeBtn.addEventListener('click', function(){
+      panel.classList.remove('open');
+    });
+  })();
+</script>
+
 </body>
 </html>
