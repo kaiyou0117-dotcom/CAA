@@ -29,9 +29,9 @@
   .doc-search button:hover{border-color:#888; color:#fff;}
 
   .sheet{
-    max-width:700px; margin:32px auto; background:var(--paper);
+    max-width:720px; margin:32px auto; background:var(--paper);
     box-shadow:0 0 0 1px #cfccc2, 0 8px 24px rgba(0,0,0,.08);
-    padding:44px 50px 50px;
+    padding:44px 50px 30px; position:relative;
   }
 
   .letterhead{
@@ -46,53 +46,84 @@
   }
   .letterhead .doc-code span{color:var(--ink);}
 
-  .doc-title{padding:26px 0 20px; text-align:center; border-bottom:1px solid var(--hair);}
+  .doc-title{padding:22px 0 18px; text-align:center; border-bottom:1px solid var(--hair);}
   .doc-title .kind{
     font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.2em; color:var(--gray);
     margin-bottom:10px; text-transform:uppercase;
   }
   .doc-title h1{font-size:19px; margin:0; font-weight:700; letter-spacing:.02em;}
 
-  .meta-table{width:100%; border-collapse:collapse; margin:22px 0 8px; font-size:12.5px;}
-  .meta-table th{
-    text-align:left; font-weight:500; color:var(--gray); padding:7px 12px 7px 0;
-    width:130px; vertical-align:top; border-bottom:1px solid var(--hair);
-    font-family:'IBM Plex Mono',monospace; font-size:11px;
+  /* フォーム部分 */
+  .form-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:0; margin-top:24px;
+    border:1px solid var(--ink);
   }
-  .meta-table td{padding:7px 0; border-bottom:1px solid var(--hair); vertical-align:top;}
+  .form-cell{
+    padding:10px 14px; border-right:1px solid var(--hair); border-bottom:1px solid var(--hair);
+    font-size:12.5px;
+  }
+  .form-cell:nth-child(2n){border-right:none;}
+  .form-cell .k{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--gray);
+    letter-spacing:.05em; display:block; margin-bottom:4px;
+  }
+  .form-cell .v{font-weight:600;}
+  .form-cell .fill{
+    display:inline-block; border-bottom:1px dotted var(--gray); min-width:60px; padding:0 4px;
+  }
 
-  article{padding-top:28px;}
+  .check-row{display:flex; gap:18px; flex-wrap:wrap; margin-top:4px;}
+  .check-item{display:flex; align-items:center; gap:6px; font-size:12.5px;}
+  .checkbox{
+    width:13px; height:13px; border:1.4px solid var(--ink); display:inline-flex;
+    align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .checkbox.checked::after{content:"✕"; font-size:11px; line-height:1;}
+
+  /* スケッチ欄 */
+  .sketch-box{
+    margin-top:26px; border:1px solid var(--ink); padding:16px;
+  }
+  .sketch-box .cap{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--gray);
+    letter-spacing:.08em; margin-bottom:10px; display:flex; justify-content:space-between;
+  }
+  .sketch-svg{width:100%; height:auto; display:block;}
+
+  article{padding-top:26px;}
   article h2{
-    font-size:14.5px; font-weight:700; margin:30px 0 12px; padding-bottom:6px; border-bottom:1px solid var(--ink);
+    font-size:14px; font-weight:700; margin:26px 0 10px; padding-bottom:5px; border-bottom:1px solid var(--ink);
   }
   article h2:first-child{margin-top:0;}
-  article p{font-size:13.5px; margin:0 0 15px; text-align:justify;}
-
-  .field-row{display:grid; grid-template-columns:150px 1fr; gap:16px; padding:10px 0; border-bottom:1px dashed var(--hair); align-items:start; font-size:13px;}
-  .field-row:last-child{border-bottom:none;}
-  .field-row .k{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gray); padding-top:2px;}
+  article p{font-size:13.3px; margin:0 0 13px; text-align:justify;}
 
   .related-list{display:flex; flex-direction:column; gap:10px; margin-top:14px;}
   .related-row{
-    display:grid; grid-template-columns:150px 1fr; gap:16px;
-    border:1px solid var(--hair); padding:14px 16px; align-items:start; font-size:13px;
+    display:grid; grid-template-columns:130px 1fr; gap:14px;
+    border:1px solid var(--hair); padding:12px 14px; align-items:start; font-size:12.5px;
   }
-  .related-row .tag{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--gray); letter-spacing:.04em;}
-  .related-row .title{font-weight:600; margin-bottom:4px;}
+  .related-row .tag{font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--gray); letter-spacing:.03em;}
+  .related-row .title{font-weight:600; margin-bottom:3px;}
   .related-row .title a{color:var(--ink);}
-  .related-row .desc{font-size:12px; color:var(--gray);}
+  .related-row .desc{font-size:11.5px; color:var(--gray);}
 
   .doc-footer{
-    margin-top:36px; padding-top:14px; border-top:1px solid var(--ink);
-    display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace;
-    font-size:10.5px; color:var(--gray);
+    margin-top:30px; padding:14px 0; border-top:1px solid var(--ink);
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--gray);
+  }
+  .page-num{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink);
+    border:1px solid var(--ink); padding:3px 10px;
   }
 
   @media (max-width:640px){
-    .sheet{padding:30px 22px 36px; margin:0;}
+    .sheet{padding:30px 20px 24px; margin:0;}
     .letterhead{flex-direction:column; gap:12px;}
     .letterhead .doc-code{text-align:left;}
-    .field-row, .related-row{grid-template-columns:1fr; gap:4px;}
+    .form-grid{grid-template-columns:1fr;}
+    .form-cell{border-right:none;}
+    .related-row{grid-template-columns:1fr; gap:4px;}
   }
 </style>
 </head>
@@ -120,21 +151,55 @@
       </div>
     </div>
     <div class="doc-code">
-      文書番号:<span>WIS-2005-1042-A</span><br>
+      文書番号:<span>TEMP-2005-1042-A</span><br>
       関連番号:<span>V-2005-1042</span>
     </div>
   </div>
 
   <div class="doc-title">
-    <div class="kind">Artifact Appraisal Record</div>
+    <div class="kind">Artifact Appraisal Sheet</div>
     <h1>遺留品鑑定記録</h1>
   </div>
 
-  <table class="meta-table">
-    <tr><th>鑑定対象</th><td>本殿裏手にて回収された遺留品(継承者の私物と推定)</td></tr>
-    <tr><th>鑑定部門</th><td>英知部門</td></tr>
-    <tr><th>鑑定日</th><td>2005.10.11</td></tr>
-  </table>
+  <div class="form-grid">
+    <div class="form-cell"><span class="k">鑑定日</span><span class="v">2005.10.11</span></div>
+    <div class="form-cell"><span class="k">鑑定者コード</span><span class="v">WIS-07R</span></div>
+    <div class="form-cell"><span class="k">分類</span><span class="v">授与品(御守り札)と推定</span></div>
+    <div class="form-cell"><span class="k">材質</span><span class="v">紙・木片(複合)</span></div>
+    <div class="form-cell"><span class="k">直径(概算)</span><span class="v">約 <span class="fill">4.2</span> cm</span></div>
+    <div class="form-cell"><span class="k">重量</span><span class="v">約 <span class="fill">6</span> g</span></div>
+    <div class="form-cell" style="grid-column:1 / -1;">
+      <span class="k">術式反応</span>
+      <div class="check-row">
+        <div class="check-item"><span class="checkbox"></span>強い反応あり</div>
+        <div class="check-item"><span class="checkbox checked"></span>反応なし、または微弱</div>
+        <div class="check-item"><span class="checkbox"></span>判定不能</div>
+      </div>
+    </div>
+    <div class="form-cell" style="grid-column:1 / -1;">
+      <span class="k">危険性評価</span>
+      <div class="check-row">
+        <div class="check-item"><span class="checkbox"></span>高</div>
+        <div class="check-item"><span class="checkbox"></span>中</div>
+        <div class="check-item"><span class="checkbox checked"></span>低</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sketch-box">
+    <div class="cap"><span>実物大写生(表面図案:判読不能につき記録者スケッチ)</span><span>SCALE 1:1</span></div>
+    <svg class="sketch-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="150" cy="100" rx="90" ry="70" fill="none" stroke="#1a1a1a" stroke-width="1.3"/>
+      <path d="M80,70 C110,50 140,90 120,110 C150,95 160,60 190,75 C170,100 200,110 180,140 C150,120 130,150 110,130 C90,150 70,120 90,100 C70,90 65,75 80,70 Z"
+            fill="none" stroke="#4a4a46" stroke-width="0.8" opacity="0.55"/>
+      <path d="M100,60 Q150,40 200,65 M95,140 Q150,165 205,135 M75,100 Q60,100 60,100"
+            fill="none" stroke="#4a4a46" stroke-width="0.6" opacity="0.4" stroke-dasharray="2 3"/>
+      <text x="150" y="105" font-family="IBM Plex Mono, monospace" font-size="10" fill="#8a8880" text-anchor="middle">(摩耗により図案判読不能)</text>
+      <line x1="250" y1="80" x2="310" y2="55" stroke="#8c2323" stroke-width="0.8"/>
+      <circle cx="252" cy="82" r="2.5" fill="#8c2323"/>
+      <text x="313" y="52" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#8c2323">裏面隅:文字記載あり(別紙参照)</text>
+    </svg>
+  </div>
 
   <article>
     <h2>鑑定所見</h2>
@@ -142,19 +207,19 @@
     <p>術式的な観点からは、既知の護符・結界術式との一致は確認されなかった。強いて言えば、地域の神楽儀礼に伴う簡易的な加護程度の効力しか本来は持たなかったと考えられる。</p>
 
     <h2>裏面の記載について</h2>
-    <p>裏面隅に、ラテン文字による書き込みが確認された。筆跡の分析上、印刷や刻印ではなく手書きであり、また御守り札本体の年代と比較して、比較的新しく書き加えられたものと推定される。記載内容そのものの詳細は、別途担当者による所感が事案ファイルに私的に添付されている(参照:文書番号 TEMP-1042-PN)。</p>
+    <p>裏面隅に、ラテン文字による書き込みが確認された(スケッチ上部・赤枠参照)。筆跡の分析上、印刷や刻印ではなく手書きであり、また御守り札本体の年代と比較して、比較的新しく書き加えられたものと推定される。記載内容そのものの詳細は、別途担当者による所感が事案ファイルに私的に添付されている(参照:文書番号 TEMP-1042-PN)。</p>
 
     <h2>総合評価</h2>
     <p>本品単体としての危険性・術式的価値は低いと判断する。ただし、書き込みが行われた経緯及び時期については不明な点が多く、参考記録として保管することが望ましい。</p>
   </article>
 
-  <h2 style="margin-top:34px;">関連文書</h2>
+  <h2 style="margin-top:30px;">関連文書</h2>
   <div class="related-list">
     <div class="related-row">
       <div class="tag">EVIDENCE</div>
       <div>
-        <div class="title"><a href="evidence-photo-ledger-2005.html">現場写真台帳</a></div>
-        <div class="desc">遺留品発見時の現場写真、証拠品リスト。</div>
+        <div class="title"><a href="evidence-photo-ledger-2005.html">周辺住民聞き込み記録</a></div>
+        <div class="desc">境内周辺住民への聞き取り記録(参考情報)。</div>
       </div>
     </div>
     <div class="related-row">
@@ -168,7 +233,7 @@
 
   <div class="doc-footer">
     <span>CAA / WISDOM-DEPT / DOC-MGMT</span>
-    <span>WIS-2005-1042-A ／ 1 / 1</span>
+    <span class="page-num">1 / 6</span>
   </div>
 
 </div>
