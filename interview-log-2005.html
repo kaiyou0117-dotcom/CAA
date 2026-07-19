@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事情聴取記録 ― V-2005-1042 経過観察</title>
+<meta name="description" content="大陸魔導協会 内部文書。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fafaf7; --ink:#1a1a1a; --line:#1a1a1a; --gray:#6b6b68; --hair:#d8d6cf;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#e4e2da; color:var(--ink);
+    font-family:'Noto Serif JP', serif; line-height:1.9; font-size:14px;
+  }
+  .doc-top-bar{background:#1a1a1a; padding:8px 16px; display:flex; justify-content:center;}
+  .doc-search{display:flex; align-items:center; gap:6px;}
+  .doc-search input{
+    background:#2a2a28; border:1px solid #444; color:#e8e6de;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; padding:5px 10px; width:220px;
+  }
+  .doc-search input::placeholder{color:#8a8880;}
+  .doc-search button{
+    background:transparent; border:1px solid #444; color:#c9c7bf;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 12px; cursor:pointer;
+  }
+  .doc-search button:hover{border-color:#888; color:#fff;}
+
+  .sheet{
+    max-width:760px; margin:32px auto; background:var(--paper);
+    box-shadow:0 0 0 1px #cfccc2, 0 8px 24px rgba(0,0,0,.08);
+    padding:44px 52px 60px;
+  }
+
+  .letterhead{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:20px;
+    padding-bottom:16px; border-bottom:2px solid var(--line);
+  }
+  .letterhead .org{display:flex; align-items:center; gap:12px;}
+  .letterhead .org-text .en{font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.14em; color:var(--gray); text-transform:uppercase;}
+  .letterhead .org-text .jp{font-size:14px; font-weight:600;}
+  .letterhead .doc-code{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gray); text-align:right; line-height:1.8;
+  }
+  .letterhead .doc-code span{color:var(--ink);}
+
+  .doc-title{padding:26px 0 20px; text-align:center; border-bottom:1px solid var(--hair);}
+  .doc-title .kind{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.2em; color:var(--gray);
+    margin-bottom:10px; text-transform:uppercase;
+  }
+  .doc-title h1{font-size:19px; margin:0; font-weight:700; letter-spacing:.02em; line-height:1.6;}
+
+  .meta-table{width:100%; border-collapse:collapse; margin:22px 0 8px; font-size:12.5px;}
+  .meta-table th{
+    text-align:left; font-weight:500; color:var(--gray); padding:7px 12px 7px 0;
+    width:130px; vertical-align:top; border-bottom:1px solid var(--hair);
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+  }
+  .meta-table td{padding:7px 0; border-bottom:1px solid var(--hair); vertical-align:top;}
+
+  .about-note{font-size:13px; color:var(--gray); margin:22px 0 0; padding-top:22px; border-top:1px solid var(--hair);}
+
+  .subject-block{margin-top:30px; padding-top:24px; border-top:1px solid var(--hair);}
+  .subject-block:first-of-type{border-top:none;}
+  .subject-head{
+    display:flex; align-items:baseline; gap:12px; margin-bottom:14px; flex-wrap:wrap;
+  }
+  .subject-head .id{
+    font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:var(--ink);
+  }
+  .subject-head .detail{font-size:11.5px; color:var(--gray);}
+
+  .qa-list{display:flex; flex-direction:column; gap:10px;}
+  .qa-row{font-size:13.5px;}
+  .qa-row .q{color:var(--gray);}
+  .qa-row .q::before{content:"Q. "; font-family:'IBM Plex Mono',monospace; font-weight:600;}
+  .qa-row .a{margin-top:3px;}
+  .qa-row .a::before{content:"A. "; font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--gray);}
+
+  .finding{
+    margin-top:14px; padding:10px 14px; background:#f0efe9; border-left:3px solid var(--ink);
+    font-size:12.5px; color:var(--gray);
+  }
+  .finding .label{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; color:var(--ink); display:block; margin-bottom:4px;}
+
+  .doc-footer{
+    margin-top:36px; padding-top:14px; border-top:1px solid var(--ink);
+    display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px; color:var(--gray);
+  }
+
+  @media print{
+    body{background:#fff;}
+    .sheet{box-shadow:none; margin:0;}
+    .doc-top-bar{display:none;}
+  }
+  @media (max-width:640px){
+    .sheet{padding:28px 20px 40px; margin:0;}
+    .letterhead{flex-direction:column; gap:12px;}
+    .letterhead .doc-code{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-top-bar">
+  <form class="doc-search" action="search-internal.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit">検索</button>
+  </form>
+</div>
+
+<div class="sheet">
+
+  <div class="letterhead">
+    <div class="org">
+      <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18.5" stroke="#1a1a1a" stroke-width="1"/>
+        <path d="M20 6 L20 34 M8 14 L32 26 M8 26 L32 14" stroke="#1a1a1a" stroke-width="0.75"/>
+        <circle cx="20" cy="20" r="3" fill="#1a1a1a"/>
+      </svg>
+      <div class="org-text">
+        <div class="en">Continental Arcane Authority</div>
+        <div class="jp">大陸魔導協会 愛部門</div>
+      </div>
+    </div>
+    <div class="doc-code">
+      関連番号:<span>V-2005-1042</span><br>
+      実施期間:<span>2005.10.13 〜 10.15</span>
+    </div>
+  </div>
+
+  <div class="doc-title">
+    <div class="kind">Follow-up Interview Record</div>
+    <h1>事情聴取記録<br>記憶処理後の経過観察</h1>
+  </div>
+
+  <table class="meta-table">
+    <tr><th>関連案件</th><td>霞坂神社 秋季例大祭中断事案(V-2005-1042)</td></tr>
+    <tr><th>実施部門</th><td>愛部門《ウェリタス》</td></tr>
+    <tr><th>目的</th><td>記憶処理後の対象者における副次的影響の有無を確認するための追跡聴取</td></tr>
+  </table>
+
+  <p class="about-note">以下は、対象者14名のうち経過観察対象として抽出された3名について実施した聴取内容の抜粋である。聴取は保護者同席のもと、平時の生活状況を確認する形式で行われた。</p>
+
+  <div class="subject-block">
+    <div class="subject-head">
+      <span class="id">対象No.004</span>
+      <span class="detail">41歳 ／ 全体処理(当日全記憶) ／ 実施日 2005.10.13</span>
+    </div>
+    <div class="qa-list">
+      <div class="qa-row">
+        <div class="q">最近、気分や体調に変わったことはありますか。</div>
+        <div class="a">特にはないと思います。ただ、たまに「あれ、今日何かあったっけ」って思う瞬間があって……うまく言えないんですけど。</div>
+      </div>
+      <div class="qa-row">
+        <div class="q">その感覚に、心当たりのきっかけはありますか。</div>
+        <div class="a">分かりません。気づいたのは最近だと思うんですが、いつからかと言われると……。</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="label">所見</span>
+      軽度の既視感反応が継続。処理範囲外からの想起である可能性は否定できず、継続監視対象とする。
+    </div>
+  </div>
+
+  <div class="subject-block">
+    <div class="subject-head">
+      <span class="id">対象No.007</span>
+      <span class="detail">10歳 ／ 部分処理 ／ 実施日 2005.10.14</span>
+    </div>
+    <div class="qa-list">
+      <div class="qa-row">
+        <div class="q">神社であったこと、何か覚えてる?</div>
+        <div class="a">うーん、あんまり覚えてない。雨降ってたのは覚えてるけど。</div>
+      </div>
+      <div class="qa-row">
+        <div class="q">他に何か覚えていることはある?</div>
+        <div class="a">……ない、と思う。</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="label">所見</span>
+      年齢相応の反応。特記事項なし。経過観察は本聴取をもって終了とする。
+    </div>
+  </div>
+
+  <div class="subject-block">
+    <div class="subject-head">
+      <span class="id">対象No.013</span>
+      <span class="detail">7歳 ／ 部分処理 ／ 実施日 2005.10.15(保護者代筆)</span>
+    </div>
+    <div class="qa-list">
+      <div class="qa-row">
+        <div class="q">おうちに帰ってから、何か変わったことはあった?</div>
+        <div class="a">(保護者による代筆)本人より「せんせいは、まだそこにいるの?」との発言あり。詳細を尋ねたところ「わからない」と返答したとのこと。</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="label">所見</span>
+      「せんせい」は神楽継承者(死亡)を指す発言と推察されるが、詳細は不明。処理対象時間帯外の記憶への言及である可能性があり、経過観察対象に追加する。
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <span>CAA / VERITAS-DEPT / DOC-MGMT</span>
+    <span>V-2005-1042 / INTERVIEW ／ 1 / 1</span>
+  </div>
+
+</div>
+
+</body>
+</html>
