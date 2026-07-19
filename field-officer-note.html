@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>現地対応者所感 ― V-2005-1042</title>
+<meta name="description" content="大陸魔導協会 内部文書。">
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Noto+Serif+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f1e4; --ink:#2e2a1e; --line:#8a7d5f; --gray:#7a715a; --hair-line:#cdbf9a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#c9bfa0; color:var(--ink);
+    font-family:'Klee One', 'Noto Serif JP', serif; line-height:2.1; font-size:14.5px;
+  }
+  .doc-top-bar{background:#2e2a1e; padding:8px 16px; display:flex; justify-content:center;}
+  .doc-search{display:flex; align-items:center; gap:6px;}
+  .doc-search input{
+    background:#3a3527; border:1px solid #5a5240; color:#e8e0c8;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; padding:5px 10px; width:220px;
+  }
+  .doc-search input::placeholder{color:#a89f84;}
+  .doc-search button{
+    background:transparent; border:1px solid #5a5240; color:#c9bf9f;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 12px; cursor:pointer;
+  }
+  .doc-search button:hover{border-color:#a89f84; color:#fff;}
+
+  .sheet{
+    max-width:620px; margin:32px auto; background:var(--paper);
+    box-shadow:0 0 0 1px #b8ab86, 0 10px 30px rgba(0,0,0,.2);
+    padding:40px 44px 34px; position:relative;
+    background-image:
+      linear-gradient(rgba(120,105,60,.09) 1px, transparent 1px),
+      radial-gradient(circle at 85% 12%, rgba(90,60,20,.06), transparent 35%);
+    background-size:100% 34px, auto;
+  }
+  .sheet::before{
+    content:""; position:absolute; top:0; bottom:0; left:52px; width:1px; background:rgba(140,50,50,.25);
+  }
+
+  .ink-blot{
+    position:absolute; top:24px; right:30px; width:46px; height:40px; opacity:.5; pointer-events:none;
+  }
+
+  .doc-title{padding-bottom:14px; margin-bottom:20px; border-bottom:1px dashed var(--hair-line);}
+  .doc-title .kind{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.18em; color:var(--gray);
+    margin-bottom:8px; text-transform:uppercase;
+  }
+  .doc-title h1{
+    font-family:'Klee One', serif; font-size:21px; margin:0; font-weight:600; color:#241f14;
+  }
+  .doc-code{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--gray); margin-top:8px;
+  }
+
+  .note-banner{
+    margin-bottom:20px; padding:10px 14px; background:rgba(140,50,50,.06);
+    border-left:2.5px solid #7a3a3a; font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px; color:#5a4030; line-height:1.8;
+  }
+
+  article p{font-size:14px; margin:0 0 18px; text-align:justify;}
+
+  .strike{
+    text-decoration:line-through; text-decoration-color:rgba(60,40,20,.5); text-decoration-thickness:1.5px;
+  }
+
+  .signature{
+    margin-top:26px; padding-top:14px; border-top:1px dashed var(--hair-line);
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--gray); text-align:right;
+  }
+
+  .doc-footer{
+    margin-top:26px; padding-top:12px; border-top:1px dashed var(--hair-line);
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--gray); font-style:italic;
+  }
+  .page-num{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:#241f14; font-style:normal;
+    border:1px solid var(--line); padding:3px 10px;
+  }
+
+  @media (max-width:640px){
+    .sheet{padding:30px 22px 26px; margin:0;}
+    .sheet::before{left:30px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-top-bar">
+  <form class="doc-search" action="search-internal.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit">検索</button>
+  </form>
+</div>
+
+<div class="sheet">
+
+  <svg class="ink-blot" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40,10 C55,5 70,15 68,30 C80,32 85,48 72,55 C75,68 60,78 48,70 C38,80 20,72 22,58 C8,55 6,38 20,30 C15,18 28,8 40,10Z"
+          fill="#3a3020" opacity="0.55"/>
+  </svg>
+
+  <div class="doc-title">
+    <div class="kind">Personal Note / Faith-Dept Field Response</div>
+    <h1>現地対応者所感</h1>
+    <div class="doc-code">文書番号:TEMP-2005-1042-E ／ 関連番号:V-2005-1042 ／ 記録者所属:信仰部門</div>
+  </div>
+
+  <div class="note-banner">
+    ※ 本文書は正式な現場報告書ではありません。対応にあたった職員個人が、後日書き留めた所感です。
+  </div>
+
+  <article>
+    <p>ふと、あの日のことを今でも思い出す。<span class="strike">正式な報告書には書かなかったことを、</span>ここに書き残しておく。誰かが読むことを想定しているわけではない。</p>
+    <p>結界の再構築自体は、手順通りに進んだ。困難だったのは、そこではない。境内奥、社務所裏で彼を見つけたのは、規制展開から数時間が経った頃だった。死因の判定・処置は本来の担当ではなかったが、現着していたのが私だけだったこともあり、結局最後まで立ち会うことになった。あの表情は、今でも忘れられない。安らかではなかった。かといって、恐怖に歪んでいたわけでもない。強いて言うなら、何かをやり遂げようとして、やり遂げられなかった人間の顔だった。</p>
+    <p>その後の身辺調査で、少しずつ分かってきたことがある。祭りの数日前から様子がおかしかったという証言、関係者が伝えてくれた「もう、数えるのをやめられない」という独り言、そして本殿裏手で見つかった御守り札に書き残されたラテン語――それらを繋ぎ合わせると、一つの推測にしか辿り着かない。彼は、恐らく気づいてしまっていた。そして、誰にも相談せず、一人でそれに抗おうとしていた。</p>
+    <p>神楽の型が乱れていたのも、単なる継承不足のせいではなく、彼が土壇場で何かを変えようとした結果だったのかもしれない。もしそうなら、彼は最後まで、たった一人でこの土地を守ろうとしていたことになる。<span class="strike">正直に言うと、しばらくの間、</span>御守り札を手にしたとき、私はそれを黙って自分のポケットに入れていた。理由は自分でも分からない。結局、規定通りに英知部門へ提出したが、あの数分間のことは、報告書のどこにも書いていない。</p>
+    <p>結果は、ご存知の通りだ。結界は綻び、彼は死に、彼が抱えていたはずの覚悟も、知識も、誰にも引き継がれなかった。継承者が最後に何を見て、何を数えていたのか、私には分からない。ただ、あの御守り札の文字を見たとき、彼が誰かに向けてではなく、自分自身のために、あの言葉を書いたのだということだけは、なぜか確信できた。</p>
+    <p>正直に言えば、やるせない。彼が何かに気づいていたのなら、なぜ協会に、あるいは私たちに、一言でも伝えてくれなかったのか。いや、それを言うなら、こちらの方こそ、もっと早く気づくべきだった。信仰係数の低下傾向は、記録上ずっと前から確認できていたはずだ。それを見過ごしていたのは、他でもない私たちの側だ。彼を非難する資格など、私にはない。あるとすれば、それは彼の代わりに、この重さを覚えておくことくらいだ。案件番号だけの記録に、彼の名前は残らない。それでいいのかどうかも、今の私には分からない。</p>
+    <p style="margin-top:20px;">この文書は、事案ファイルには含めていない。ただ、いつか誰かが同じものを見つけたときのために、どこかに残しておきたかった。</p>
+  </article>
+
+  <div class="signature">
+    ―― 信仰部門(氏名非公開)
+  </div>
+
+  <div class="doc-footer">
+    <span>※ 本ページは正式な事案ファイルには含まれません</span>
+    <span class="page-num">5 / 6</span>
+  </div>
+
+</div>
+
+</body>
+</html>
