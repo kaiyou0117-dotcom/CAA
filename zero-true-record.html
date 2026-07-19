@@ -110,6 +110,36 @@
   }
   .fx-intrusion.show{opacity:var(--target-op, .8);}
 
+  /* 不規則に起こる控えめなノイズ・色反転(文章の可読性を優先し、ごく短く・薄く) */
+  html.subtle-invert{
+    animation:subtle-invert-seq .22s steps(1) forwards;
+  }
+  @keyframes subtle-invert-seq{
+    0%{filter:none;}
+    50%{filter:invert(1);}
+    100%{filter:none;}
+  }
+  .subtle-noise{
+    position:fixed; inset:0; z-index:35; pointer-events:none; opacity:0;
+  }
+  .subtle-noise.flash{
+    animation:subtle-noise-seq .3s steps(1) forwards;
+  }
+  @keyframes subtle-noise-seq{
+    0%{   opacity:.18; background:repeating-linear-gradient(0deg,#222 0px,#555 1px,#000 2px,#333 3px); }
+    60%{  opacity:.08; }
+    100%{ opacity:0; }
+  }
+  .subtle-jitter.jitter-now{
+    animation:subtle-jitter-seq .3s steps(1) forwards;
+  }
+  @keyframes subtle-jitter-seq{
+    0%{transform:translate(0,0);}
+    40%{transform:translate(-2px,1px);}
+    75%{transform:translate(1px,-1px);}
+    100%{transform:translate(0,0);}
+  }
+
   @media (max-width:640px){
     .sheet{padding:32px 24px 30px;}
   }
@@ -120,8 +150,9 @@
 <div class="scanlines"></div>
 <div class="flicker-overlay"></div>
 <div class="fx-layer" id="fx-layer"></div>
+<div class="subtle-noise" id="subtle-noise"></div>
 
-<div class="sheet">
+<div class="sheet subtle-jitter" id="sheet-jitter">
 
   <span class="leak-tag">UNCENSORED — 検閲破損により流出</span>
   <div class="leak-note">
@@ -137,15 +168,10 @@
 
   <div class="body-text">
     <p class="first">あれは、神ではない。少なくとも、我々が「神」という言葉に込めてきた意味においては。土地の者たちが長く祀ってきたのは、意志を持って人を害する何かではなく、<span class="glitch-word" data-text="そこにあり続けているだけの何か">そこにあり続けているだけの何か</span>だった。</p>
-
     <p>信仰とは、機嫌を伺うための儀式ではなかったのだと、今になって思う。あれは、共同体が世代を超えて「注意を払い続ける」という行為そのものによって、あれとこちら側との境界を、かろうじて薄く保っていたに過ぎない。神楽の型も、祭礼の作法も、本来の意味はとうに失われ、ただ「そうすることになっている」という形骸だけが、結果的にあれを遠ざけていた。</p>
-
     <p>知覚するということが、そもそもの間違いなのだ。あれは姿を持たない。見えるのではなく、<span class="glitch-word" data-text="自分の記憶の側が、あれに合わせて配置し直される">自分の記憶の側が、あれに合わせて配置し直される</span>。だから被害者たちは「何かを見た」とは語らない。「何かがおかしい気がする」としか語れない。奪われたのではなく、元から存在していた事に書き換えられたのだから。</p>
-
     <p>アレを認識した瞬間から、アレは貴方の何処かに入り込む。脳の隅、瞼の裏、肉体の死角。そう言った場所から常に貴方と共に在る。アレと共にいるだけで、普通の生物はその存在の大きさに耐えられず脳が限界を迎える。原初的な理として、生命はアレと関りを持ってはいけないのだ。</p>
-
     <p>数えることには、意味がある。しかし何をどれだけ数えるべきかはここには記さない。ただ、意味があるという事は正しい事ではない。正しい選択とは、決して一問一答ではない。</p>
-
     <p>もしこれを読んでいるなら、貴方は既にこちら側に足を踏み入れている。貴方がここに来るべくして来る者であるか、そんなことは私には知る由もない。故に、重要な事ではない。ただ、忘れないでほしい。忘れないという行為そのものが、時に、あれを遠ざける側にも、近づける側にもなり得るということを。</p>
   </div>
 
@@ -475,6 +501,33 @@
     closeBtn.addEventListener('click', function(){
       panel.classList.remove('open');
     });
+  })();
+</script>
+
+<script>
+  (function(){
+    var subtleNoise = document.getElementById('subtle-noise');
+    var jitterTarget = document.getElementById('sheet-jitter');
+
+    function triggerSubtleGlitch(){
+      subtleNoise.classList.remove('flash');
+      jitterTarget.classList.remove('jitter-now');
+      document.documentElement.classList.remove('subtle-invert');
+      void subtleNoise.offsetWidth;
+
+      subtleNoise.classList.add('flash');
+      if(Math.random() < 0.6) jitterTarget.classList.add('jitter-now');
+      if(Math.random() < 0.35) document.documentElement.classList.add('subtle-invert');
+    }
+
+    function scheduleNext(){
+      var wait = 5000 + Math.random() * 6000;
+      setTimeout(function(){
+        triggerSubtleGlitch();
+        scheduleNext();
+      }, wait);
+    }
+    scheduleNext();
   })();
 </script>
 
