@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>現場写真台帳 ― V-2005-1042</title>
+<title>周辺住民聞き込み記録 ― TEMP-2005-1042-C</title>
 <meta name="description" content="大陸魔導協会 内部文書。">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -31,7 +31,7 @@
   .sheet{
     max-width:700px; margin:32px auto; background:var(--paper);
     box-shadow:0 0 0 1px #cfccc2, 0 8px 24px rgba(0,0,0,.08);
-    padding:44px 50px 50px;
+    padding:44px 50px 30px;
   }
 
   .letterhead{
@@ -46,40 +46,53 @@
   }
   .letterhead .doc-code span{color:var(--ink);}
 
-  .doc-title{padding:26px 0 20px; text-align:center; border-bottom:1px solid var(--hair);}
+  .doc-title{padding:22px 0 18px; text-align:center; border-bottom:1px solid var(--hair);}
   .doc-title .kind{
     font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.2em; color:var(--gray);
     margin-bottom:10px; text-transform:uppercase;
   }
   .doc-title h1{font-size:19px; margin:0; font-weight:700; letter-spacing:.02em;}
 
-  article{padding-top:28px;}
-  article p{font-size:13.5px; margin:0 0 15px; text-align:justify;}
-
-  .photo-table{width:100%; border-collapse:collapse; font-size:12.5px; margin-top:14px;}
-  .photo-table th{
-    text-align:left; color:var(--gray); font-weight:500; padding:8px 10px; border-bottom:1px solid var(--ink);
-    font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+  .intro-note{
+    margin-top:22px; padding:13px 16px; background:#f0efe9; border-left:3px solid var(--gray);
+    font-size:12.3px; color:#3a3a36; line-height:1.85;
   }
-  .photo-table td{padding:10px; border-bottom:1px solid var(--hair); vertical-align:top;}
-  .photo-table .thumb{
-    width:64px; height:44px; background:repeating-linear-gradient(45deg, #ddd9cc 0 6px, #d2cdbd 6px 12px);
-    display:flex; align-items:center; justify-content:center; font-size:9px; color:#8a8578;
-    font-family:'IBM Plex Mono',monospace; text-align:center;
+
+  article{padding-top:26px;}
+  article > p.lead{font-size:13.3px; margin:0 0 20px; text-align:justify;}
+
+  .testimony{
+    margin:0 0 20px; padding:16px 20px; background:#f6f2e6; border:1px solid var(--hair);
+    position:relative;
+  }
+  .testimony .who{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--gray);
+    letter-spacing:.03em; margin-bottom:8px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;
+  }
+  .testimony .voice{
+    font-size:14px; line-height:2; color:#2a2620;
+  }
+  .testimony .voice::before{content:"「";}
+  .testimony .voice::after{content:"」";}
+
+  h2{
+    font-size:14px; font-weight:700; margin:30px 0 12px; padding-bottom:5px; border-bottom:1px solid var(--ink);
   }
 
   .doc-footer{
-    margin-top:36px; padding-top:14px; border-top:1px solid var(--ink);
-    display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace;
-    font-size:10.5px; color:var(--gray);
+    margin-top:30px; padding:14px 0; border-top:1px solid var(--ink);
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--gray);
+  }
+  .page-num{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink);
+    border:1px solid var(--ink); padding:3px 10px;
   }
 
   @media (max-width:640px){
-    .sheet{padding:30px 22px 36px; margin:0;}
+    .sheet{padding:30px 20px 24px; margin:0;}
     .letterhead{flex-direction:column; gap:12px;}
     .letterhead .doc-code{text-align:left;}
-    .photo-table{font-size:11px;}
-    .photo-table th:nth-child(1), .photo-table td:nth-child(1){display:none;}
   }
 </style>
 </head>
@@ -107,52 +120,57 @@
       </div>
     </div>
     <div class="doc-code">
-      文書番号:<span>JUS-2005-1042-P</span><br>
+      文書番号:<span>TEMP-2005-1042-C</span><br>
       関連番号:<span>V-2005-1042</span>
     </div>
   </div>
 
   <div class="doc-title">
-    <div class="kind">Evidence Photo Ledger</div>
-    <h1>現場写真台帳</h1>
+    <div class="kind">Peripheral Resident Interview Log</div>
+    <h1>周辺住民聞き込み記録</h1>
+  </div>
+
+  <div class="intro-note">
+    ※ 対象は境内外にいたため知覚異常の記憶処理基準に該当せず、正式な処理対象には含まれていない住民数名。参考情報として、聞き取り内容を原文に近い形でそのまま記録する。
   </div>
 
   <article>
-    <p>もとより、現場における物的証拠は、規定に基づき写真台帳として一括管理される。以下は、霞坂神社秋季例大祭中断事案(V-2005-1042)における現場記録の一覧である。</p>
-  </article>
+    <p class="lead">もう何十年も前から、あの山には近づくなって言われとった。祭りの日に何があったかと聞いても、はっきりした答えが返ってくることはほとんどない。以下、聞き取れた範囲での証言をそのまま記す。</p>
 
-  <table class="photo-table">
-    <tr><th>No.</th><th>撮影箇所</th><th>備考</th></tr>
-    <tr>
-      <td><div class="thumb">NO IMAGE</div></td>
-      <td>境内全景(規制展開前)</td>
-      <td>09:02 撮影。術式反応確認時の状況記録。</td>
-    </tr>
-    <tr>
-      <td><div class="thumb">NO IMAGE</div></td>
-      <td>本殿正面</td>
-      <td>09:10 撮影。神楽奉納予定地点。</td>
-    </tr>
-    <tr>
-      <td><div class="thumb">NO IMAGE</div></td>
-      <td>本殿裏手・発見現場</td>
-      <td>11:20 撮影。遺留品発見時の状況。詳細は<a href="artifact-appraisal-2005.html">遺留品鑑定記録</a>を参照。</td>
-    </tr>
-    <tr>
-      <td><div class="thumb">NO IMAGE</div></td>
-      <td>遺留品(単体)</td>
-      <td>11:25 撮影。鑑定用資料として英知部門へ回付。</td>
-    </tr>
-    <tr>
-      <td><div class="thumb">NO IMAGE</div></td>
-      <td>結界再構築後の境内</td>
-      <td>17:50 撮影。平常値回復確認時の記録。</td>
-    </tr>
-  </table>
+    <h2>証言(抜粋)</h2>
+
+    <div class="testimony">
+      <div class="who"><span>女性・70代</span><span>境内より約400m</span></div>
+      <div class="voice">うちのばあさんもよう言うとったよ。山の向こうの、あれには近づいたらいかんて。理由なんて誰も知らんけど、そういうもんだって、子供の頃から刷り込まれとる。</div>
+    </div>
+
+    <div class="testimony">
+      <div class="who"><span>男性・50代</span><span>神社周辺の商店主</span></div>
+      <div class="voice">祭りの日、境内の方角から、聞いたことない音がした気がしたんよ。太鼓とも違う、風の音とも違う。まあ、気のせいやろうけど。</div>
+    </div>
+
+    <div class="testimony">
+      <div class="who"><span>女性・40代</span><span>子どもが以前神楽に参加</span></div>
+      <div class="voice">うちの子が神楽やっとった頃、先生から「大声で名前呼んだらいかん」って注意されとったの覚えとる。誰の名前かは、今となっては分からんけど。</div>
+    </div>
+
+    <div class="testimony">
+      <div class="who"><span>男性・80代</span><span>神社総代の縁戚</span></div>
+      <div class="voice">わしらの世代は、あそこのことを名前で呼ばんもんだった。「あれ」とか「向こう」とか、そういう言い方しかせん。名前つけたら呼び寄せる、って言われとったからな。今の若いもんは、そういうの知らんやろうけど。</div>
+    </div>
+
+    <div class="testimony">
+      <div class="who"><span>女性・60代</span><span>境内より約600m</span></div>
+      <div class="voice">あの日以来、なんとなく神社の方角を見んようにしとる。理由って聞かれても困るんやけど……見んほうがええ、って、なんとなく分かるんよ。</div>
+    </div>
+
+    <h2>所見</h2>
+    <p>いずれの証言も曖昧で、事実関係の裏付けには乏しい。ただし、複数の対象が独立して「名指しを避ける」「特定の方角を見ない」という共通した忌避行動に言及している点は、地域の口伝として一定の一貫性を持つとみられる。公式記録としての採用は見送るが、参考記録として保管する。</p>
+  </article>
 
   <div class="doc-footer">
     <span>CAA / JUSTITIA-DEPT / DOC-MGMT</span>
-    <span>JUS-2005-1042-P ／ 1 / 1</span>
+    <span class="page-num">3 / 6</span>
   </div>
 
 </div>
