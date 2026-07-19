@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V-2005-1042 | processing_conversation_log</title>
+<meta name="description" content="大陸魔導協会 内部データベース。">
+<!-- 本記録の閲覧は記録され、内部監察班により監査される -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0b0d; --surface:#111318; --surface-2:#161922; --border:#242730;
+    --text:#c7cbd1; --dim:#666b75; --accent:#59d9c4; --alert:#e07a7a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'IBM Plex Mono', 'Noto Sans JP', monospace; font-size:13px; line-height:1.7;
+  }
+
+  .doc-top-bar{background:#000; padding:8px 16px; display:flex; justify-content:center; border-bottom:1px solid var(--border);}
+  .doc-search{display:flex; align-items:center; gap:6px;}
+  .doc-search input{
+    background:#0a0b0d; border:1px solid var(--border); color:var(--text);
+    font-family:'IBM Plex Mono',monospace; font-size:11px; padding:5px 10px; width:220px;
+  }
+  .doc-search input::placeholder{color:var(--dim);}
+  .doc-search button{
+    background:transparent; border:1px solid var(--border); color:var(--dim);
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:5px 12px; cursor:pointer;
+  }
+  .doc-search button:hover{border-color:var(--accent); color:var(--accent);}
+
+  .console{max-width:880px; margin:0 auto; padding:24px 20px 60px;}
+
+  .query-bar{
+    font-size:11.5px; color:var(--dim); margin-bottom:6px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+  .query-bar .path{color:var(--accent);}
+
+  .record{background:var(--surface); border:1px solid var(--border);}
+  .record-head{
+    padding:14px 18px; border-bottom:1px solid var(--border);
+    display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px;
+  }
+  .record-head .table-name{font-size:11px; color:var(--dim); letter-spacing:.05em;}
+  .record-head .table-name span{color:var(--accent);}
+  .record-head .record-id{font-size:11px; color:var(--dim);}
+
+  .kv{padding:14px 18px; border-bottom:1px solid var(--border);}
+  .kv-row{display:grid; grid-template-columns:150px 1fr; gap:14px; padding:3px 0; font-size:12.5px;}
+  .kv-row .k{color:var(--dim);}
+  .kv-row .v{color:var(--text);}
+  .kv-row .v.warn{color:var(--alert);}
+
+  .section-tag{
+    padding:10px 18px; font-size:10.5px; color:var(--dim); letter-spacing:.08em;
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border); background:#0d0f14;
+    text-transform:uppercase;
+  }
+
+  .transcript{padding:16px 18px 18px; display:flex; flex-direction:column; gap:12px;}
+  .line{display:grid; grid-template-columns:64px 90px 1fr; gap:12px; font-size:12.5px; align-items:baseline;}
+  .line time{color:var(--dim); font-size:11.5px;}
+  .line .speaker{color:var(--accent); font-weight:600; font-size:11.5px;}
+  .line .speaker.staff{color:var(--dim);}
+  .line .utterance{color:var(--text);}
+  .line .utterance.cutoff{color:var(--dim); font-style:italic; font-size:11.5px;}
+
+  .redacted{
+    display:inline-block; background:#000; color:transparent; user-select:none;
+    padding:0 4px; border-radius:1px;
+  }
+
+  .note-block{padding:14px 18px 18px; font-size:12px; color:var(--dim); border-top:1px solid var(--border);}
+  .note-block .tag{color:var(--alert); margin-right:6px;}
+  .note-block .body{color:var(--text);}
+
+  .query-footer{
+    margin-top:8px; font-size:11px; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+  .query-footer .ok{color:var(--accent);}
+
+  @media (max-width:640px){
+    .line{grid-template-columns:1fr; gap:2px;}
+    .kv-row{grid-template-columns:120px 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-top-bar">
+  <form class="doc-search" action="search-internal.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit">検索</button>
+  </form>
+</div>
+
+<div class="console">
+
+  <div class="query-bar">
+    <span><span class="path">caa-internal-db</span> &gt; <span class="path">veritas</span> &gt; <span class="path">processing_conversation_log</span> &gt; WHERE case_id = 'V-2005-1042'</span>
+    <span>1 record found</span>
+  </div>
+
+  <div class="record">
+    <div class="record-head">
+      <span class="table-name">TABLE: <span>processing_conversation_log</span></span>
+      <span class="record-id">record_id: V-2005-1042-CONV</span>
+    </div>
+
+    <div class="kv">
+      <div class="kv-row"><span class="k">source</span><span class="v">現場記録装置(音声起こし)</span></div>
+      <div class="kv-row"><span class="k">recorded_on</span><span class="v">2005-10-09 14:20 〜 19:05</span></div>
+      <div class="kv-row"><span class="k">access_level</span><span class="v warn">CLASS-A 以上 / 通常アクセス不可</span></div>
+      <div class="kv-row"><span class="k">note</span><span class="v">本ログは処理作業中に記録された未編集の音声起こしである。内容の一部は自動索引により伏字処理済み。</span></div>
+    </div>
+
+    <div class="section-tag">transcript (excerpt) [7 lines]</div>
+    <div class="transcript">
+      <div class="line">
+        <time>14:22</time>
+        <span class="speaker">No.004</span>
+        <span class="utterance">あの、さっきから<span class="redacted">████</span>が視界の端に、ずっと……</span>
+      </div>
+      <div class="line">
+        <time>14:23</time>
+        <span class="speaker staff">担当官</span>
+        <span class="utterance">大丈夫ですよ。もう少しで落ち着きますからね。</span>
+      </div>
+      <div class="line">
+        <time>14:31</time>
+        <span class="speaker">No.007</span>
+        <span class="utterance">せんせいがね、<span class="redacted">████████</span>って言ってた。</span>
+      </div>
+      <div class="line">
+        <time>14:32</time>
+        <span class="speaker staff">担当官</span>
+        <span class="utterance">そうなんだ。いつ頃のこと?</span>
+      </div>
+      <div class="line">
+        <time>14:33</time>
+        <span class="speaker">No.007</span>
+        <span class="utterance utterance cutoff">(処理範囲内につき、以降の発言記録なし)</span>
+      </div>
+      <div class="line">
+        <time>14:47</time>
+        <span class="speaker">No.013</span>
+        <span class="utterance">ねえ、あれ、まだこっち<span class="redacted">████</span>?</span>
+      </div>
+      <div class="line">
+        <time>14:48</time>
+        <span class="speaker staff">担当官</span>
+        <span class="utterance">大丈夫、もう視えなくなるからね。</span>
+      </div>
+    </div>
+
+    <div class="note-block">
+      <span class="tag">note:</span><span class="body">上記は記録全体のごく一部である。全編の閲覧には別途申請及び上位クリアランスの承認を要する。対象の発言内容について、担当官による誘導又は暗示が含まれる可能性が指摘されているが、現時点では検証されていない。</span>
+    </div>
+  </div>
+
+  <div class="query-footer">
+    <span class="ok">QUERY OK</span>
+    <span>1 record / 7 lines (excerpt of 41) ／ fetched in 0.021s</span>
+  </div>
+
+</div>
+
+</body>
+</html>
