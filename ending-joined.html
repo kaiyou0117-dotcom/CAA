@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>――――――</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Serif+JP:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#161d2e; --navy-deep:#0c111d; --parchment:#f3efe4; --ink:#232019;
+    --gold:#a4823f; --gold-bright:#c2a05e; --line:#cdc3aa;
+  }
+  *{box-sizing:border-box;}
+  html, body{min-height:100%;}
+  body{
+    margin:0; min-height:100vh; background:var(--navy-deep); color:var(--parchment);
+    font-family:'Noto Serif JP', serif; line-height:2; font-size:15px;
+    display:flex; align-items:center; justify-content:center; padding:40px 20px;
+  }
+
+  .letter{
+    max-width:600px; width:100%; background:var(--navy);
+    border:1px solid #2a3348; box-shadow:0 20px 60px rgba(0,0,0,.5);
+    padding:56px 52px 48px; position:relative;
+    opacity:0; animation:letter-in 1.6s ease forwards;
+  }
+  @keyframes letter-in{ to{ opacity:1; } }
+  .letter::before{
+    content:""; position:absolute; inset:14px; border:1px solid rgba(194,160,94,.25); pointer-events:none;
+  }
+
+  .emblem{display:flex; justify-content:center; margin-bottom:24px;}
+
+  .kicker{
+    text-align:center; font-family:'IBM Plex Mono', monospace; font-size:10.5px;
+    letter-spacing:.28em; color:var(--gold-bright); text-transform:uppercase; margin-bottom:10px;
+  }
+  h1{
+    text-align:center; font-size:19px; font-weight:600; letter-spacing:.06em;
+    color:#f2eee0; margin:0 0 30px;
+  }
+
+  .id-card{
+    border:1px solid rgba(194,160,94,.4); padding:18px 20px; margin-bottom:30px;
+    background:rgba(255,255,255,.02);
+  }
+  .id-card .row{
+    display:grid; grid-template-columns:110px 1fr; gap:14px; padding:6px 0;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:#c8bfa0;
+  }
+  .id-card .row .k{color:#8a8264;}
+  .id-card .row .v.redact{
+    display:inline-block; background:#000; color:transparent; padding:0 8px; user-select:none;
+  }
+
+  .body-text p{
+    font-size:14px; color:#dcd6c4; margin:0 0 20px; letter-spacing:.02em; text-align:justify;
+  }
+
+  .sign{
+    margin-top:34px; text-align:right; font-family:'IBM Plex Mono', monospace;
+    font-size:11px; color:#9aa0b3; letter-spacing:.05em; line-height:1.9;
+  }
+
+  .end-mark{
+    margin-top:40px; padding-top:24px; border-top:1px solid rgba(205,195,170,.2); text-align:center;
+  }
+  .end-mark .fin{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.5em; color:var(--gold-bright);
+    text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px; transition:color .2s ease, border-color .2s ease;
+  }
+  .end-mark .fin:hover{color:#f2eee0; border-bottom-color:#f2eee0;}
+  .end-mark .sub{
+    margin-top:10px; font-size:11px; color:#7a7460; font-family:'IBM Plex Mono', monospace;
+  }
+
+  @media (max-width:640px){
+    .letter{padding:40px 26px 36px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="letter">
+
+  <div class="emblem">
+    <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="18.5" stroke="#c2a05e" stroke-width="1"/>
+      <path d="M20 6 L20 34 M8 14 L32 26 M8 26 L32 14" stroke="#c2a05e" stroke-width="0.75"/>
+      <circle cx="20" cy="20" r="3" fill="#c2a05e"/>
+    </svg>
+  </div>
+
+  <div class="kicker">Septem Corona — Temperantia</div>
+  <h1>入会手続き完了通知</h1>
+
+  <div class="id-card">
+    <div class="row"><span class="k">構成員ID</span><span class="v redact">████████</span></div>
+    <div class="row"><span class="k">配属</span><span class="v">未定(初期研修待ち)</span></div>
+    <div class="row"><span class="k">クリアランス</span><span class="v">(未定)</span></div>
+    <div class="row"><span class="k">登録日</span><span class="v">本日付</span></div>
+  </div>
+
+  <div class="body-text">
+    <p>協会は貴方を歓迎します。</p>
+    <p>その好奇心と探索の力は、これからきっと役に立つでしょう。</p>
+    <p>どうか、これからよろしくお願いします。</p>
+  </div>
+
+  <div class="sign">
+    ―― 節制部門 七枢冠<br>
+    CAA / TEMPERANTIA / SEPTEM CORONA
+  </div>
+
+  <div class="end-mark">
+    <a class="fin" href="thank-you.html">E N D</a>
+    <div class="sub">協会の下に就く ― END / MEMBER ROUTE</div>
+  </div>
+
+</div>
+
+</body>
+</html>

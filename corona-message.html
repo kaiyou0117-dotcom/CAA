@@ -123,8 +123,8 @@
   <div class="cta">
     <p>選びなさい。</p>
     <div class="choice-row">
-      <a class="choice hunted" href="wanted-list.html">追われる道を選ぶ</a>
-      <a class="choice join" href="recruit.html">協会の下に就く</a>
+      <a class="choice hunted" href="ending-hunted.html">追われる道を選ぶ</a>
+      <a class="choice join" href="ending-joined.html">協会の下に就く</a>
     </div>
   </div>
 
@@ -214,7 +214,19 @@
     var STAGE = {
       flag: 'arg_msg_corona',
       seenFlag: 'arg_msg_corona_seen',
-      lines: ['あれ。','あれー、繋がらないな。','……まあ、いっか。','また、そのうち。']
+      lines: [
+        '……ふむ',
+        'どうやらあちらから通信を受けてしまった様ですね。',
+        '……………',
+        '…ねぇ。',
+        '私と共に来ませんか?',
+        '騙す様な事をしたのは謝罪します。',
+        'しかし、貴方も感じたでしょう?',
+        'あの存在達を「もっと知りたい」と思ったでしょう?',
+        '綺麗だと思ったでしょう?',
+        '私と共に、解き明かしませんか?',
+        '………是非とも、良いお返事を。'
+      ]
     };
 
     var fab = document.getElementById('msg-fab');

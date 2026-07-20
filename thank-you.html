@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You for Playing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Serif+JP:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html, body{min-height:100vh;}
+  body{
+    margin:0; background:#fafaf8; color:#2a2926;
+    font-family:'Noto Serif JP', serif;
+    display:flex; align-items:center; justify-content:center;
+    padding:60px 24px;
+  }
+
+  .content{
+    max-width:520px; width:100%; text-align:center;
+    opacity:0; animation:fade-in 1.4s ease forwards;
+  }
+  @keyframes fade-in{ to{ opacity:1; } }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.32em;
+    color:#a39a86; text-transform:uppercase; margin-bottom:26px;
+  }
+
+  h1{
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:500;
+    font-size:36px; letter-spacing:.02em; margin:0 0 10px; color:#1f1e1c;
+  }
+
+  .sub{
+    font-size:14px; color:#6b6558; letter-spacing:.06em; margin:0 0 44px;
+  }
+
+  .divider{
+    width:36px; height:1px; background:#c9c1ae; margin:0 auto 44px;
+  }
+
+  .msg{
+    text-align:left; font-size:14px; line-height:2.15; color:#3a3830;
+  }
+  .msg p{margin:0 0 20px;}
+  .msg p:last-child{margin-bottom:0;}
+  .msg .shirome{color:#9a9384;}
+
+  .footer-note{
+    display:inline-block; margin-top:52px; font-family:'IBM Plex Mono', monospace; font-size:10.5px;
+    letter-spacing:.14em; color:#a39a86; text-decoration:none;
+    border-bottom:1px solid transparent; padding-bottom:2px; transition:color .2s ease, border-color .2s ease;
+  }
+  .footer-note:hover{color:#6b6558; border-bottom-color:#6b6558;}
+</style>
+</head>
+<body>
+
+<div class="content">
+  <div class="eyebrow">Continental Arcane Authority</div>
+
+  <h1>Thank You for Playing</h1>
+  <p class="sub">クリアおめでとうございます。</p>
+
+  <div class="divider"></div>
+
+  <div class="msg">
+    <p>初めてとは言え、見切り発車かつ無計画にやっていたら、最後の方が少し雑になってしまいました。<span class="shirome">(白目)</span></p>
+    <p>いつかどこかで、リメイクのようなものも作りたいなと思っています。</p>
+    <p>最後まで付き合ってくださり、ありがとうございました。</p>
+  </div>
+
+  <a class="footer-note" href="index.html">― トップに戻る ―</a>
+</div>
+
+</body>
+</html>
