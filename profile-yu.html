@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>構成員記録 J-014579 | CAA Internal Network</title>
+<meta name="description" content="大陸魔導協会 構成員個人記録。">
+<!-- 本記録の機密区分項目へのアクセスは記録され、内部監察班により監査される -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b0d13; --panel: #12151f; --panel-2: #171b28; --line: #262b3d;
+    --text: #d3d6e2; --muted: #6e7386; --accent: #7c8cff; --accent-dim: #4a52a8;
+    --alert: #d16b6b; --gold: #c9a24a; --ok: #5fbf9f;
+    --eye: #59d9c4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Zen Kaku Gothic New', 'Noto Serif JP', sans-serif;
+    line-height:1.75; font-size:14.5px;
+  }
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .sys-bar{
+    background:#05060a; color:#828798; font-size:11px; letter-spacing:.06em;
+    padding:6px 24px; display:flex; justify-content:space-between; align-items:center; gap:16px;
+    font-family:'IBM Plex Mono', monospace; border-bottom:1px solid var(--line);
+  }
+  .sys-bar .status{color:var(--ok);}
+  .sys-bar .status::before{content:"● ";}
+  .sys-search{display:flex; align-items:center; gap:6px;}
+  .sys-search input{
+    background:#05060a; border:1px solid var(--line); color:var(--text);
+    font-family:'IBM Plex Mono', monospace; font-size:11px; padding:4px 8px; width:200px;
+  }
+  .sys-search input::placeholder{color:#4d5266;}
+  .sys-search button{
+    background:transparent; border:1px solid var(--line); color:#828798;
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; padding:4px 10px; cursor:pointer;
+  }
+  .sys-search button:hover{border-color:var(--accent); color:var(--text);}
+
+  header.mem-header{background:var(--panel); border-bottom:1px solid var(--line); padding:20px 24px;}
+  .header-inner{max-width:1080px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+  .brand{display:flex; align-items:center; gap:14px;}
+  .brand-text .en{font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:.18em; color:var(--muted); text-transform:uppercase;}
+  .brand-text .jp{font-family:'Noto Serif JP', serif; font-size:18px; font-weight:600; letter-spacing:.03em; color:#eceefb;}
+
+  .breadcrumb{
+    max-width:1080px; margin:0 auto; padding:14px 24px 0;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted);
+  }
+  .breadcrumb a{color:var(--muted);}
+
+  .layout{
+    max-width:1080px; margin:0 auto; padding:20px 24px 60px;
+    display:grid; grid-template-columns:230px 1fr; gap:36px; align-items:start;
+  }
+
+  /* ── サイドバー ── */
+  .sidebar{position:sticky; top:20px;}
+  .avatar{
+    width:100%; aspect-ratio:1; border:1px solid var(--line); background:var(--panel-2);
+    display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+    margin-bottom:14px;
+  }
+  .avatar img{width:100%; height:100%; object-fit:cover; display:block;}
+  .avatar .frame{position:absolute; inset:6px; border:1px solid var(--accent-dim); pointer-events:none;}
+  .avatar .id-tag{
+    position:absolute; bottom:0; left:0; right:0; background:rgba(5,6,10,.85);
+    font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--accent);
+    text-align:center; padding:3px 0; letter-spacing:.08em;
+  }
+  .sidebar h1{font-family:'Noto Serif JP', serif; font-size:20px; font-weight:600; margin:0 0 3px; color:#eceefb;}
+  .sidebar .romaji{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted); letter-spacing:.05em; margin-bottom:12px;}
+  .badges{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:20px;}
+  .badge{font-family:'IBM Plex Mono', monospace; font-size:9.5px; letter-spacing:.04em; padding:2px 8px; border:1px solid var(--line); color:var(--text);}
+  .badge.dept{color:var(--alert); border-color:var(--alert);}
+  .badge.active{color:var(--ok); border-color:var(--ok);}
+
+  .jump-nav{display:flex; flex-direction:column; border-top:1px solid var(--line); padding-top:14px;}
+  .jump-nav a{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--muted);
+    padding:7px 0 7px 14px; border-left:2px solid var(--line); transition:color .15s ease, border-color .15s ease;
+  }
+  .jump-nav a:hover, .jump-nav a.active{color:#eceefb; border-left-color:var(--accent); text-decoration:none;}
+
+  /* ── メインコンテンツ ── */
+  .content section{padding:0 0 34px; margin-bottom:34px; border-bottom:1px solid var(--line); scroll-margin-top:20px;}
+
+  /* スクロールで浮かび上がる演出 */
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1);}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+  .content section:last-of-type{border-bottom:none; margin-bottom:0;}
+  .section-head{display:flex; align-items:baseline; gap:10px; margin-bottom:18px;}
+  .section-head .icon{
+    width:22px; height:22px; border-radius:4px; background:var(--panel-2); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0;
+  }
+  .section-head h2{font-family:'Noto Serif JP', serif; font-size:16px; font-weight:600; margin:0; color:#eceefb;}
+  .section-head .en{font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--accent); letter-spacing:.1em; font-weight:400; margin-left:2px;}
+
+  .data-table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  .data-table tr{border-bottom:1px solid var(--line);}
+  .data-table tr:last-child{border-bottom:none;}
+  .data-table th{
+    text-align:left; font-weight:400; color:var(--muted); padding:10px 16px 10px 0;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.04em;
+    white-space:nowrap; width:150px; vertical-align:top;
+  }
+  .data-table td{padding:10px 0; color:var(--text); vertical-align:top;}
+
+  .about-text p{margin:0 0 14px; font-size:13.5px; color:var(--text);}
+
+  .quote-block{
+    font-family:'Noto Serif JP', serif; font-size:14px; color:#eceefb; font-style:italic;
+    margin:0 0 20px; padding:16px 20px; border-left:3px solid var(--accent); background:var(--panel-2);
+    position:relative;
+  }
+  .quote-block::before{
+    content:"\201C"; position:absolute; top:-6px; left:10px; font-size:34px; color:var(--accent-dim);
+    font-family:'Noto Serif JP', serif; opacity:.5;
+  }
+
+  .duty-list{display:flex; flex-direction:column; gap:10px; margin:0 0 16px;}
+  .duty-item{
+    display:flex; align-items:flex-start; gap:12px; padding:12px 14px;
+    background:var(--panel-2); border:1px solid var(--line); font-size:13px; color:var(--text);
+  }
+  .duty-item .di-icon{
+    width:26px; height:26px; border-radius:50%; background:var(--bg); border:1px solid var(--accent-dim);
+    color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0;
+  }
+
+  .role-bar{margin:18px 0 22px;}
+  .role-track{
+    position:relative; height:8px; border-radius:4px; background:var(--panel-2); border:1px solid var(--line);
+    margin-bottom:8px;
+  }
+  .role-fill{
+    position:absolute; top:0; bottom:0; left:0; width:58%; border-radius:4px;
+    background:linear-gradient(90deg, var(--accent-dim), var(--accent));
+  }
+  .role-marker{
+    position:absolute; top:50%; left:58%; width:14px; height:14px; border-radius:50%;
+    background:#eceefb; border:2px solid var(--accent); transform:translate(-50%,-50%);
+    box-shadow:0 0 8px rgba(124,140,255,.6);
+  }
+  .role-labels{display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--muted);}
+  .role-labels .current{color:var(--accent); font-weight:600;}
+
+  .eye-hud{
+    display:grid; grid-template-columns:110px 1fr; gap:20px; align-items:center;
+    background:#070809; border:1px solid var(--eye); padding:18px 20px; margin-bottom:16px;
+    position:relative; overflow:hidden;
+  }
+  .eye-scan-line{
+    position:absolute; left:0; right:0; height:2px; background:var(--eye);
+    box-shadow:0 0 8px var(--eye); opacity:.7; animation:eye-scan 2.6s linear infinite;
+  }
+  @keyframes eye-scan{
+    0%{ top:0; }
+    100%{ top:100%; }
+  }
+  .eye-visual{position:relative; display:flex; align-items:center; justify-content:center;}
+  .eye-visual svg{filter:drop-shadow(0 0 6px rgba(89,217,196,.5));}
+  .eye-pupil{animation:eye-pulse 2.2s ease-in-out infinite;}
+  @keyframes eye-pulse{
+    0%, 100%{ r:7; }
+    50%{ r:4.5; }
+  }
+  .eye-readout{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--eye); line-height:1.9;
+    white-space:pre-wrap; overflow:hidden;
+  }
+
+  .skill-card{
+    background:var(--panel-2); border:1px solid var(--line); padding:18px 20px; margin-bottom:14px;
+    transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .skill-card:hover{
+    transform:translateY(-3px); border-color:var(--accent-dim); box-shadow:0 8px 20px rgba(124,140,255,.12);
+  }
+  .skill-card .label{
+    font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--accent);
+    letter-spacing:.1em; text-transform:uppercase; margin-bottom:6px;
+  }
+  .skill-card h3{font-size:15px; margin:0 0 10px; color:#eceefb; font-weight:600;}
+  .skill-card p{margin:0; font-size:13px; color:var(--muted); line-height:1.9;}
+  .skill-card p + p{margin-top:10px;}
+
+  .item-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .item-card{
+    background:var(--panel-2); border:1px solid var(--line); padding:16px 18px;
+    transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .item-card:hover{
+    transform:translateY(-3px); border-color:var(--gold); box-shadow:0 8px 20px rgba(201,162,74,.12);
+  }
+  .item-card h3{font-size:13.5px; margin:0 0 8px; color:#eceefb; font-weight:600;}
+  .item-card p{margin:0; font-size:12.5px; color:var(--muted); line-height:1.8;}
+
+  footer{background:#05060a; color:var(--muted); margin-top:20px; border-top:1px solid var(--line);}
+  .footer-bottom{padding:16px 24px; max-width:1080px; margin:0 auto; font-size:11px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-family:'IBM Plex Mono', monospace;}
+
+  @media (max-width:800px){
+    .layout{grid-template-columns:1fr; gap:20px;}
+    .sidebar{position:static; display:flex; align-items:center; gap:16px;}
+    .avatar{width:76px; height:76px; margin-bottom:0; flex-shrink:0;}
+    .jump-nav{display:none;}
+    .item-grid{grid-template-columns:1fr;}
+    .eye-hud{grid-template-columns:70px 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="sys-bar">
+  <form class="sys-search" action="search-internal.html" method="get" role="search">
+    <input type="text" name="q" placeholder="サイト内を検索" aria-label="サイト内検索" autocomplete="off">
+    <button type="submit">検索</button>
+  </form>
+  <span class="status">SESSION ACTIVE</span>
+</div>
+
+<header class="mem-header">
+  <div class="header-inner">
+    <div class="brand">
+      <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18.5" stroke="#7c8cff" stroke-width="1"/>
+        <path d="M20 6 L20 34 M8 14 L32 26 M8 26 L32 14" stroke="#7c8cff" stroke-width="0.75"/>
+        <circle cx="20" cy="20" r="3" fill="#7c8cff"/>
+      </svg>
+      <div class="brand-text">
+        <div class="en">Internal Network</div>
+        <div class="jp">構成員記録</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="breadcrumb"><a href="members.html">構成員専用ページ</a> / 個人記録</div>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="avatar">
+      <img src="https://assets.st-note.com/img/1784029002-X8q76EHnjDstveczmA1gVU2K.png" alt="ユウ・フォンターナ">
+      <div class="frame"></div>
+      <div class="id-tag">J-014579</div>
+    </div>
+    <h1>ユウ・フォンターナ</h1>
+    <div class="romaji">Yu FONTANA</div>
+    <div class="badges">
+      <span class="badge dept">信仰部門</span>
+      <span class="badge">第9支部</span>
+      <span class="badge active">在籍中</span>
+    </div>
+    <nav class="jump-nav">
+      <a href="#basic">基本情報</a>
+      <a href="#overview">概要</a>
+      <a href="#personality">性格・人物</a>
+      <a href="#duties">担当業務</a>
+      <a href="#combat">戦闘関連</a>
+      <a href="#ability">異能力</a>
+      <a href="#techniques">特殊技術</a>
+      <a href="#equipment">所持異産</a>
+    </nav>
+  </aside>
+
+  <div class="content">
+
+    <section id="basic" class="reveal">
+      <div class="section-head"><span class="icon">i</span><h2>基本情報 <span class="en">Basic Data</span></h2></div>
+      <table class="data-table">
+        <tr><th>性別</th><td>男性</td></tr>
+        <tr><th>年齢</th><td>24歳</td></tr>
+        <tr><th>生年月日</th><td>2001年6月6日</td></tr>
+        <tr><th>血液型</th><td>B型</td></tr>
+        <tr><th>身長</th><td>178cm</td></tr>
+        <tr><th>種族</th><td>人間</td></tr>
+        <tr><th>国籍</th><td>イタリア/日本</td></tr>
+        <tr><th>所属勢力</th><td>光秤教会</td></tr>
+        <tr><th>所属</th><td>大陸魔導協会 信仰部門 ／ 日本支部(第9支部)</td></tr>
+        <tr><th>役職</th><td>現場対応班兼回収班</td></tr>
+        <tr><th>相方</th><td><a href="profile-kohaku.html">月城 琥珀</a></td></tr>
+      </table>
+    </section>
+
+    <section id="overview" class="reveal">
+      <div class="section-head"><span class="icon">◆</span><h2>概要 <span class="en">Overview</span></h2></div>
+      <div class="about-text">
+        <p>プラハの大陸魔導協会本部から、一年前に日本支部へ異動してきた信仰部門所属の職員。日本人の母とイタリア人の父を持つハーフで、幼少から青年期までイタリアで暮らしつつ母方の実家とも交流を続けていたため、イタリア語・日本語双方を話す。</p>
+        <p>光秤教会の総本山出身の父の影響で信徒との縁が深く、詠唱技法(スペル)を父・神父から学んだ。あわせて、日本の旧い巫女家系出身の母方の影響で結界術もある程度扱う。幼い頃にこれら系統違いの技術に触れたことで異なる術式体系への興味が芽生え、14歳頃から図書館で独学の調査を重ねるようになった。</p>
+        <p>中でも特に惹かれたのが魔術書《グリモワール》であり、将来は魔術書研究に携われる大陸魔導協会への就職を志すようになる。カナダの魔術・魔導関連大学へ進学後、協会へ就職。経歴から信仰部門への配属となり、日本支部への異動もその延長にある。</p>
+      </div>
+    </section>
+
+    <section id="personality" class="reveal">
+      <div class="section-head"><span class="icon">☺</span><h2>性格・人物 <span class="en">Personality</span></h2></div>
+      <div class="about-text">
+        <p>胡散臭い笑顔が特徴的で、常にヘラヘラとした雰囲気を纏う(実際にヘラヘラしている)。笑みを絶やさないため悪印象は与えないが、どことなく子供っぽく、掴みどころのない雰囲気もある。</p>
+        <p>善性が強めで色々な事柄に目が向きやすいが、行動そのものは案外慎重。表面上はへらついていても、内面は至って冷静であることが多いとされる。</p>
+      </div>
+    </section>
+
+    <section id="duties" class="reveal">
+      <div class="section-head"><span class="icon">⚙</span><h2>担当業務 <span class="en">Duties</span></h2></div>
+      <div class="duty-list">
+        <div class="duty-item"><span class="di-icon">1</span>結界維持プロトコルの監視・補修・維持、及び術式解析</div>
+        <div class="duty-item"><span class="di-icon">2</span>部門の戦闘任務への付属、援護・守備の担当</div>
+        <div class="duty-item"><span class="di-icon">3</span>結界魔術書・信仰魔術書の管理・解析</div>
+        <div class="duty-item"><span class="di-icon">4</span>高度術式の解析</div>
+      </div>
+      <div class="about-text">
+        <p>父母双方から受け継いだ知識・才能に加え、大学で修めた魔術学を活かし、専用の結界魔術書と異能を駆使してこれらの業務にあたっている。</p>
+      </div>
+    </section>
+
+    <section id="combat" class="reveal">
+      <div class="section-head"><span class="icon">⚔</span><h2>戦闘関連 <span class="en">Combat Profile</span></h2></div>
+      <div class="about-text">
+        <p>結界術や魔獣召喚が刻まれた魔術書を操り、スペルで近接・異能を強化しつつ、妨害と援護を主とする中衛アタッカー寄りの戦法をとる。近接戦闘そのものは本領ではないため、スペルによる強化を前提とし、基本的には魔獣を前線に立たせる運用が中心。</p>
+      </div>
+      <div class="role-bar">
+        <div class="role-track">
+          <div class="role-fill"></div>
+          <div class="role-marker"></div>
+        </div>
+        <div class="role-labels">
+          <span>前衛</span>
+          <span class="current">中衛(支援寄り)</span>
+          <span>後衛</span>
+        </div>
+      </div>
+      <div class="quote-block">
+        「やっぱり結界術師に肉体は必要なんだけど私にはどうにも向かないと思うんだよね~ まぁやるしかないんだけど」
+      </div>
+    </section>
+
+    <section id="ability" class="reveal">
+      <div class="section-head"><span class="icon">👁</span><h2>異能力 <span class="en">Ability</span></h2></div>
+
+      <div class="eye-hud">
+        <div class="eye-scan-line"></div>
+        <div class="eye-visual">
+          <svg width="90" height="90" viewBox="0 0 90 90">
+            <ellipse cx="45" cy="45" rx="40" ry="24" fill="none" stroke="#59d9c4" stroke-width="1.2" opacity="0.7"/>
+            <circle cx="45" cy="45" r="16" fill="#0a1210" stroke="#59d9c4" stroke-width="1"/>
+            <circle class="eye-pupil" cx="45" cy="45" r="7" fill="#59d9c4"/>
+            <circle cx="45" cy="45" r="24" fill="none" stroke="#59d9c4" stroke-width="0.5" opacity="0.35"/>
+          </svg>
+        </div>
+        <div class="eye-readout" id="eye-readout"></div>
+      </div>
+
+      <div class="skill-card">
+        <div class="label">異能</div>
+        <h3>解術の瞳(スコプリーレ・アイ)</h3>
+        <p>自身の瞳を媒介に、構築された術式や術の中身を解析・分析する異能。異界陣、結界術、設置型異能、異能残穢、その他技術やセキュリティを目視し続けることで解析が進み、完全解析に至れば解除も容易に行える。</p>
+        <p>ただし解析中は対象への集中を要するため無防備になりやすく、対象が高度な術式であったり、解析対策済みであったり、長時間解析を続けた場合、眼球と脳に負荷がかかり高熱化する。解析結果は本人の記憶・知識に基づいて導き出されるものであり、万能ではないが、考察・推察による解析のヒントとしては有効に機能する。</p>
+      </div>
+      <div class="skill-card">
+        <div class="label">異能拡張</div>
+        <h3>共鳴解析(リゾナ・リゾルート)</h3>
+        <p>自身の肉体部位(手や足)をコンピューター・人間・魔術書など「解析を助ける媒体」に触れさせることで、解析作業を共有・肩代わりさせる異能拡張。高熱化や負荷を外付けの媒体側へ逃がすことができ、長時間・高難度の解析を安定して行えるようになった。あわせて記憶力が向上し、一度目視・記憶した対象は継続的な注視を要さなくなっている。</p>
+      </div>
+    </section>
+
+    <section id="techniques" class="reveal">
+      <div class="section-head"><span class="icon">✦</span><h2>特殊技術 <span class="en">Techniques</span></h2></div>
+      <div class="skill-card">
+        <div class="label">技能</div>
+        <h3>結界術</h3>
+        <p>母から習った日本の技術。高密度の結界壁を一気に五枚ほど展開でき、足場結界を一枚、簡易結界も使用可能。</p>
+      </div>
+      <div class="skill-card">
+        <div class="label">技能</div>
+        <h3>詠唱技法(スペル)</h3>
+        <p>光秤教会の信徒であるイタリア出身の父から教えられた技術。短い詠唱で異能粒子を制御し、肉体・体術・使用技術を強化する。</p>
+        <p style="font-style:italic; color:var(--text);">詠唱:『Dominus tecum.(主は汝とともに)』</p>
+      </div>
+    </section>
+
+    <section id="equipment" class="reveal">
+      <div class="section-head"><span class="icon">■</span><h2>所持異産・装備 <span class="en">Equipment</span></h2></div>
+      <div class="item-grid">
+        <div class="item-card">
+          <h3>魔術書『東方境堺術』</h3>
+          <p>母方の実家に伝わっていた巻物「境界術・封」を魔術書として再編・改修したもの。</p>
+        </div>
+        <div class="item-card">
+          <h3>魔術書『テラ・インペリウム』</h3>
+          <p>大陸魔導協会公認の魔獣召喚魔導書。</p>
+        </div>
+        <div class="item-card">
+          <h3>魔穿つ小銃(フチーレ・スペッツァマーレ)</h3>
+          <p>光秤教会本土・バチカンの教会工房にて、とある神父の伝手により作成された神聖礼装。拳銃型(グロック17)の異産。</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <span>CAA / FAITH-DEPT / PERSONNEL RECORD</span>
+    <span>J-014579</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var readout = document.getElementById('eye-readout');
+    var symbols = '0123456789ABCDEF#%&$@*+-/=<>[]{}';
+    function randLine(len){
+      var s = '';
+      for(var i=0;i<len;i++) s += symbols[Math.floor(Math.random()*symbols.length)];
+      return s;
+    }
+    var labels = ['SCANNING TARGET', 'PATTERN MATCH', 'DECRYPT LAYER', 'THREAT LEVEL'];
+    function render(){
+      var out = '';
+      labels.forEach(function(l, i){
+        out += l + ': ' + randLine(6 + (i % 3)) + '\n';
+      });
+      readout.textContent = out.trim();
+    }
+    render();
+    setInterval(render, 900);
+
+    var links = document.querySelectorAll('.jump-nav a');
+    var sections = [];
+    links.forEach(function(a){
+      sections.push(document.querySelector(a.getAttribute('href')));
+    });
+    function onScroll(){
+      var pos = window.scrollY + 100;
+      var current = 0;
+      sections.forEach(function(sec, i){
+        if(sec && sec.offsetTop <= pos) current = i;
+      });
+      links.forEach(function(a, i){
+        a.classList.toggle('active', i === current);
+      });
+    }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+
+    // スクロールで各セクションがふわっと浮かび上がる演出
+    if('IntersectionObserver' in window){
+      var revealTargets = document.querySelectorAll('.reveal');
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      revealTargets.forEach(function(el){ io.observe(el); });
+    } else {
+      document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in-view'); });
+    }
+  })();
+</script>
+
+</body>
+</html>
