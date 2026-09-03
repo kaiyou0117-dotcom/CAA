@@ -67,7 +67,7 @@
   #stage{opacity:0; transition:opacity 1s ease;}
   #stage.in{opacity:1;}
 
-  .split{display:grid; grid-template-columns:1fr 1.15fr; min-height:100vh;}
+  .split{display:grid; grid-template-columns:1.4fr 0.85fr; min-height:100vh;}
 
   .portrait-panel{position:sticky; top:0; height:100vh; overflow:hidden; order:2;}
   .portrait-img{
@@ -103,7 +103,7 @@
   }
 
   .scroll-panel{order:1; position:relative; padding:0 0 80px;}
-  .scroll-inner{max-width:620px; margin:0 auto; padding:0 40px;}
+  .scroll-inner{max-width:none; margin:0; padding:0 48px;}
 
   .sys-bar{
     padding:14px 40px; display:flex; justify-content:space-between; align-items:center; gap:16px;
@@ -138,17 +138,18 @@
   }
   .data-table td{padding:11px 0; color:var(--text); vertical-align:top;}
 
-  .about-text p{margin:0 0 15px; font-size:13.5px; color:var(--text);}
+  .about-text p{margin:0 0 15px; font-size:13.5px; color:var(--text); max-width:66ch;}
 
   .quote-block{
     font-family:'Noto Serif JP', serif; font-size:14.5px; color:#f0efe6; font-style:italic;
     margin:22px 0 0; padding:18px 22px; border-left:2px solid var(--tone); background:rgba(255,255,255,.02);
+    max-width:720px;
   }
 
   .duty-list{display:flex; flex-direction:column; gap:9px;}
   .duty-item{
     padding:12px 16px; border:1px solid var(--line); font-size:13px; color:var(--text);
-    border-left:2px solid var(--tone); background:rgba(255,255,255,.015);
+    border-left:2px solid var(--tone); background:rgba(255,255,255,.015); max-width:720px;
   }
 
   .role-bar{margin:22px 0 0;}
@@ -174,7 +175,7 @@
 
   .skill-card{
     background:rgba(255,255,255,.02); border:1px solid var(--line); border-left:2px solid var(--tone);
-    padding:20px 22px; margin-top:16px; transition:transform .2s ease, box-shadow .2s ease;
+    padding:20px 22px; margin-top:16px; transition:transform .2s ease, box-shadow .2s ease; max-width:720px;
   }
   .skill-card:hover{transform:translateX(3px); box-shadow:-4px 0 16px rgba(124,140,255,.08);}
   .skill-card .label{font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--tone); letter-spacing:.1em; text-transform:uppercase; margin-bottom:7px;}
