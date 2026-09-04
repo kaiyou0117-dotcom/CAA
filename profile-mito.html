@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mitsuguro_mito.profile — CAA_TERMINAL</title>
+<meta name="description" content="大陸魔導協会 構成員個人記録。">
+<!-- 本記録の機密区分項目へのアクセスは記録され、内部監察班により監査される -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#050608; --blue:#0d2338; --blue-deep:#081627;
+    --line:#2a4a68; --cyan:#8fd7e8; --text:#c9d6df; --muted:#5f7688;
+    --link:#c98ed9; --link-dim:#6a4a78; --ok:#5fbf9f; --warn:#d99a5f;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--void); color:var(--text);
+    font-family:'Zen Kaku Gothic New', 'Noto Serif JP', sans-serif;
+    line-height:1.75; font-size:14.5px; min-height:100vh; overflow-x:hidden;
+  }
+  a{color:var(--link); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  #bg-net{position:fixed; inset:0; z-index:0; pointer-events:none;}
+  .bg-node{animation:bg-pulse 5s ease-in-out infinite;}
+  @keyframes bg-pulse{0%,100%{opacity:.18;} 50%{opacity:.5;}}
+  .bg-node.lit{fill:var(--link) !important; animation:bg-pulse-lit 3.2s ease-in-out infinite;}
+  @keyframes bg-pulse-lit{0%,100%{opacity:.55;} 50%{opacity:1;}}
+  .bg-edge{stroke-dasharray:3 5; animation:bg-flow 5s linear infinite;}
+  @keyframes bg-flow{to{stroke-dashoffset:-16;}}
+
+  .split{position:relative; z-index:2; display:grid; grid-template-columns:1.4fr 0.85fr; min-height:100vh;}
+
+  .portrait-panel{position:sticky; top:0; height:100vh; overflow:hidden; order:2;}
+  .portrait-img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center; filter:grayscale(.3) contrast(1.1) brightness(.85);}
+  .portrait-grid{
+    position:absolute; inset:0; mix-blend-mode:overlay; opacity:.6;
+    background-image:linear-gradient(rgba(143,215,232,.4) 1px, transparent 1px), linear-gradient(90deg, rgba(143,215,232,.4) 1px, transparent 1px);
+    background-size:42px 42px;
+  }
+  .portrait-fade{position:absolute; inset:0; background:linear-gradient(180deg, rgba(5,6,8,.15) 0%, rgba(5,6,8,.55) 55%, #05060a 96%);}
+  .portrait-corner{position:absolute; width:20px; height:20px; border-color:var(--link); border-style:solid; border-width:0;}
+  .portrait-corner.tl{top:18px; left:18px; border-top-width:2px; border-left-width:2px;}
+  .portrait-corner.tr{top:18px; right:18px; border-top-width:2px; border-right-width:2px;}
+  .portrait-corner.bl{bottom:18px; left:18px; border-bottom-width:2px; border-left-width:2px;}
+  .portrait-corner.br{bottom:18px; right:18px; border-bottom-width:2px; border-right-width:2px;}
+  .portrait-scan{position:absolute; left:0; right:0; height:2px; background:var(--link); box-shadow:0 0 8px var(--link); opacity:.6; animation:p-scan 4.5s linear infinite;}
+  @keyframes p-scan{0%{top:0;}100%{top:100%;}}
+  .portrait-tag{position:absolute; top:18px; left:44px; font-family:'IBM Plex Mono', monospace; font-size:9px; color:var(--link); background:rgba(5,6,8,.6); padding:2px 7px; letter-spacing:.05em;}
+
+  .portrait-caption{position:absolute; left:32px; right:32px; bottom:30px; z-index:3;}
+  .p-name{font-family:'Noto Serif JP', serif; font-size:23px; font-weight:600; color:#eef4f7; margin:0 0 2px;}
+  .p-romaji{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted); margin-bottom:16px; letter-spacing:.04em;}
+
+  .telemetry{font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--muted); display:flex; flex-direction:column; gap:7px; margin-bottom:14px;}
+  .tel-row{display:flex; justify-content:space-between;}
+  .tel-row .v{color:var(--cyan);}
+  .tel-bar{height:3px; background:#132840; margin-top:3px; overflow:hidden;}
+  .tel-bar i{display:block; height:100%; background:var(--link);}
+  .mood-note{font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--muted); font-style:italic; opacity:.85; margin-bottom:14px;}
+
+  .hud-badges{display:flex; flex-wrap:wrap; gap:6px;}
+  .h-badge{font-family:'IBM Plex Mono', monospace; font-size:9px; letter-spacing:.03em; padding:2px 7px; border:1px solid rgba(255,255,255,.3); color:var(--text);}
+
+  .scroll-panel{order:1; padding:36px 24px 70px;}
+  .terminal-window{
+    background:rgba(9,20,32,.92); border:1px solid var(--line);
+    box-shadow:0 30px 80px rgba(0,0,0,.55); backdrop-filter:blur(2px);
+  }
+  .term-titlebar{
+    display:flex; align-items:center; gap:14px; padding:11px 16px; background:var(--blue-deep);
+    border-bottom:1px solid var(--line);
+  }
+  .term-dots{display:flex; gap:6px;}
+  .term-dots span{width:9px; height:9px; border-radius:50%; background:#2a3a48; border:1px solid var(--line);}
+  .term-tab{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted); display:flex; align-items:center; gap:8px;}
+  .term-tab .file{color:var(--cyan);}
+  .term-status{margin-left:auto; font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--ok); display:flex; align-items:center; gap:5px;}
+  .term-status .dot{width:5px; height:5px; border-radius:50%; background:var(--ok);}
+
+  .net-nav{padding:20px 24px; border-bottom:1px solid var(--line); background:rgba(13,35,56,.4); display:flex; justify-content:center;}
+  .net-nav svg{width:100%; max-width:480px; height:auto;}
+  .nn-node{cursor:pointer;}
+  .nn-node circle{fill:var(--blue-deep); stroke:var(--line); stroke-width:1.5; transition:stroke .3s ease, fill .3s ease;}
+  .nn-node:hover circle, .nn-node.active circle{stroke:var(--link); fill:var(--link-dim);}
+  .nn-node text{font-family:'IBM Plex Mono', monospace; font-size:9px; fill:var(--muted); text-anchor:middle; pointer-events:none;}
+  .nn-node.active text{fill:var(--cyan);}
+  .nn-edge{stroke:var(--line); stroke-width:1;}
+
+  .sheet{
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(201,142,217,.05), transparent 40%),
+      linear-gradient(rgba(28,58,86,.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(28,58,86,.35) 1px, transparent 1px);
+    background-size:auto, 48px 48px, 48px 48px;
+    background-color:var(--blue);
+  }
+  .content{padding:26px 30px 50px; background:rgba(5,12,20,.4);}
+  section{padding:32px 0; border-bottom:1px dashed var(--line); scroll-margin-top:20px;}
+  section:last-of-type{border-bottom:none;}
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity 1s ease, transform 1s cubic-bezier(.3,.4,.2,1);}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+
+  .blueprint-head{display:flex; align-items:center; gap:12px; margin-bottom:20px;}
+  .bp-tick{width:1px; height:22px; background:var(--cyan);}
+  .bp-num{font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--cyan); letter-spacing:.14em;}
+  section h2{font-family:'Noto Serif JP', serif; font-size:18px; font-weight:600; margin:0; color:#eef4f7; display:inline-block;}
+
+  .sticky-note{
+    display:inline-block; margin-left:14px; padding:4px 12px; background:#2a2010; color:#e8d9a8;
+    font-family:'Noto Serif JP', serif; font-size:12px; transform:rotate(-2deg);
+    border:1px solid rgba(232,217,168,.25); box-shadow:2px 3px 6px rgba(0,0,0,.35);
+    position:relative; top:-3px;
+  }
+
+  .parts-table{width:100%; border-collapse:collapse; font-size:13px;}
+  .parts-table tr{border-bottom:1px dashed var(--line);}
+  .parts-table tr:last-child{border-bottom:none;}
+  .parts-table th{
+    text-align:left; font-weight:400; color:var(--muted); padding:9px 14px 9px 0;
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; white-space:nowrap; width:140px; vertical-align:top;
+  }
+  .parts-table td{padding:9px 0; color:var(--text); vertical-align:top;}
+  .parts-table .ref{color:var(--cyan); font-family:'IBM Plex Mono', monospace; font-size:10px; margin-right:8px;}
+
+  .about-text p{margin:0 0 14px; font-size:13.5px; color:var(--text); max-width:62ch;}
+
+  .spec-card{
+    border:1px solid var(--line); border-left:2px solid var(--cyan); background:rgba(143,215,232,.03);
+    padding:18px 20px; margin-top:16px;
+    transition:transform .55s cubic-bezier(.3,.4,.2,1), border-color .55s ease;
+  }
+  .spec-card:hover{transform:translateX(2px); border-left-color:var(--link);}
+  .spec-card .label{font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--cyan); letter-spacing:.1em; text-transform:uppercase; margin-bottom:6px;}
+  .spec-card h3{font-size:14.5px; margin:0 0 9px; color:#eef4f7; font-weight:600;}
+  .spec-card p{margin:0; font-size:12.5px; color:var(--muted); line-height:1.85;}
+  .spec-card p + p{margin-top:9px;}
+  .spec-card ul{margin:9px 0 0; padding-left:16px; font-size:12px; color:var(--muted); line-height:1.85;}
+
+  .role-bar{margin:20px 0 0;}
+  .role-track{position:relative; height:5px; background:#0a1a2a; border:1px solid var(--line); margin-bottom:8px;}
+  .role-fill{position:absolute; top:0; bottom:0; right:0; width:24%; background:linear-gradient(90deg, transparent, var(--link));}
+  .role-marker{position:absolute; top:50%; right:24%; width:11px; height:11px; border-radius:50%; background:#eef4f7; border:2px solid var(--link); transform:translate(50%,-50%); box-shadow:0 0 8px rgba(201,142,217,.5);}
+  .role-labels{display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--muted);}
+  .role-labels .current{color:var(--link); font-weight:600;}
+
+  .item-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;}
+  .item-card{
+    border:1px solid var(--line); background:rgba(255,255,255,.015); padding:15px 17px;
+    transition:transform .5s cubic-bezier(.3,.4,.2,1), border-color .5s ease;
+  }
+  .item-card:hover{transform:translateY(-2px); border-color:var(--cyan);}
+  .item-card h3{font-size:12.5px; margin:0 0 7px; color:#eef4f7; font-weight:600;}
+  .item-card p{margin:0; font-size:11.5px; color:var(--muted); line-height:1.8;}
+  .item-card .pending{display:inline-block; margin-top:7px; font-family:'IBM Plex Mono', monospace; font-size:9px; color:var(--warn); border:1px solid var(--warn); padding:1px 5px;}
+
+  footer{padding:20px 24px; border-top:1px solid var(--line); background:rgba(13,35,56,.5); font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+
+  @media (max-width:900px){
+    .split{grid-template-columns:1fr;}
+    .portrait-panel{position:relative; height:56vw; min-height:260px; order:1;}
+    .scroll-panel{order:2; padding:20px 16px 50px;}
+    .item-grid{grid-template-columns:1fr;}
+    .net-nav svg{max-width:340px;}
+  }
+</style>
+</head>
+<body>
+
+<svg id="bg-net"></svg>
+
+<div class="split">
+
+  <div class="portrait-panel">
+    <img class="portrait-img" src="https://images-ng.pixai.art/gi/orig/e5c34d99-8859-4c5d-ac32-6f3f2ff062c9" alt="光黒 美采">
+    <div class="portrait-grid"></div>
+    <div class="portrait-fade"></div>
+    <div class="portrait-corner tl"></div><div class="portrait-corner tr"></div>
+    <div class="portrait-corner bl"></div><div class="portrait-corner br"></div>
+    <div class="portrait-scan"></div>
+    <div class="portrait-tag">TRACKING</div>
+
+    <div class="portrait-caption">
+      <div class="p-name">光黒 美采</div>
+      <div class="p-romaji">MITSUGURO Mito</div>
+      <div class="telemetry">
+        <div class="tel-row"><span>SIGNAL</span><span class="v">92%</span></div>
+        <div class="tel-bar"><i style="width:92%;"></i></div>
+        <div class="tel-row"><span>DRONE PWR</span><span class="v">67%</span></div>
+        <div class="tel-bar"><i style="width:67%;"></i></div>
+        <div class="tel-row"><span>やる気</span><span class="v" style="color:var(--warn);">9%</span></div>
+        <div class="tel-bar"><i style="width:9%; background:var(--warn);"></i></div>
+        <div class="tel-row"><span>LOAD</span><span class="v" id="tel-load">— —</span></div>
+      </div>
+      <div class="mood-note">……なんで私が。</div>
+      <div class="hud-badges">
+        <span class="h-badge">剛毅部門</span>
+        <span class="h-badge">日本支部</span>
+        <span class="h-badge">在籍中</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-panel">
+    <div class="terminal-window">
+
+      <div class="term-titlebar">
+        <div class="term-dots"><span></span><span></span><span></span></div>
+        <div class="term-tab">structure_scan.exe / <span class="file">mitsuguro_mito.profile</span></div>
+        <div class="term-status"><span class="dot"></span>LINK ACTIVE</div>
+      </div>
+
+      <nav class="net-nav">
+        <svg viewBox="0 0 520 110">
+          <line class="nn-edge" x1="50" y1="55" x2="150" y2="30"/>
+          <line class="nn-edge" x1="150" y1="30" x2="250" y2="70"/>
+          <line class="nn-edge" x1="250" y1="70" x2="360" y2="25"/>
+          <line class="nn-edge" x1="360" y1="25" x2="465" y2="55"/>
+          <g class="nn-node" data-target="#basic"><circle cx="50" cy="55" r="16"/><text x="50" y="82">基本</text></g>
+          <g class="nn-node" data-target="#overview"><circle cx="150" cy="30" r="16"/><text x="150" y="57">概要</text></g>
+          <g class="nn-node" data-target="#personality"><circle cx="250" cy="70" r="16"/><text x="250" y="97">性格</text></g>
+          <g class="nn-node" data-target="#combat"><circle cx="360" cy="25" r="16"/><text x="360" y="52">戦闘</text></g>
+          <g class="nn-node" data-target="#ability"><circle cx="465" cy="55" r="16"/><text x="465" y="82">結線</text></g>
+        </svg>
+      </nav>
+
+      <div class="sheet">
+        <div class="content">
+
+          <section id="basic" class="reveal">
+            <div class="blueprint-head"><div class="bp-tick"></div><div class="bp-num">FIG. 01 — BASIC DATA</div></div>
+            <h2>基本情報</h2>
+            <table class="parts-table">
+              <tr><th><span class="ref">01</span>性別</th><td>女性</td></tr>
+              <tr><th><span class="ref">02</span>年齢</th><td>25歳</td></tr>
+              <tr><th><span class="ref">03</span>身長</th><td>148cm</td></tr>
+              <tr><th><span class="ref">04</span>種族</th><td>人間</td></tr>
+              <tr><th><span class="ref">05</span>アライメント</th><td>秩序にして中立</td></tr>
+              <tr><th><span class="ref">06</span>種別</th><td>異能力者</td></tr>
+              <tr><th><span class="ref">07</span>所属</th><td>大陸魔導協会 日本支部 剛毅部門</td></tr>
+            </table>
+          </section>
+
+          <section id="overview" class="reveal">
+            <div class="blueprint-head"><div class="bp-tick"></div><div class="bp-num">FIG. 02 — OVERVIEW</div></div>
+            <h2>概要</h2>
+            <div class="about-text">
+              <p>大陸魔導協会に所属している魔導士。主に特定封鎖区域「空白」の内部調査を担う調査隊での活動に参加し、英知部門・節制部門などとの連携のもとで行動している。</p>
+              <p>ひょんなことから魔術書の存在を知ったことをきっかけに、好奇心から自身の異能と魔術書の相性を見出し情報を収集していた折に大陸魔導協会の存在を認知し、日本支部に所属。</p>
+              <p>それ以来、自身の異能により魔術書と科学技術を併用しながら剛毅部門で活動中。その異能の有用性から、他部門の担当へ支援として加わることもしばしばある。</p>
+            </div>
+          </section>
+
+          <section id="personality" class="reveal">
+            <div class="blueprint-head"><div class="bp-tick"></div><div class="bp-num">FIG. 03 — PERSONALITY</div></div>
+            <h2>性格<span class="sticky-note">省エネ、正義。</span></h2>
+            <div class="about-text">
+              <p>ダウナー寄りで、やや省エネな性格。自分から積極的に人の輪へ入ったり、騒いだりするタイプではなく、面倒事にはできれば関わりたくないと思っている……。</p>
+              <p>が、職人気質な節がありそのせいか何かと面倒見が良い。人から頼られると面倒だと思いながらも結局放っておけず、なんだかんだ手を貸してしまう。</p>
+              <p>あくまで好奇心から始めた仕事だが、業務に対しては遊び無く真面目に取り組む。もちろん業務の内容自体が困難で余裕が無いという理由が大きいが、だからこそ自身の異能や魔術書に対する探究には事欠かず、有意義だとやりがいを感じている。</p>
+            </div>
+          </section>
+
+          <section id="combat" class="reveal">
+            <div class="blueprint-head"><div class="bp-tick"></div><div class="bp-num">FIG. 04 — COMBAT PROFILE</div></div>
+            <h2>戦闘関連<span class="sticky-note">できれば出たくない。</span></h2>
+
+            <div class="spec-card">
+              <div class="label">基礎能力</div>
+              <h3>身体能力</h3>
+              <p>身体能力ははっきり言って一般人並み。本人にまともな戦闘能力は無いため、戦場に直接赴く際も矢面に立つことは無く、ドローンによる支援を主とする。</p>
+            </div>
+
+            <div class="role-bar">
+              <div class="role-track"><div class="role-fill"></div><div class="role-marker"></div></div>
+              <div class="role-labels"><span>前衛</span><span>中衛</span><span class="current">後衛(遠隔支援)</span></div>
+            </div>
+
+            <div class="item-grid">
+              <div class="item-card">
+                <h3>魔術書群</h3>
+                <p>異能により遠隔での使用が可能になったグリモワール群。主にClass D〜Cの、効果は弱いがありふれていてシンプルで、必要となる代償が軽微なものが揃っている。</p>
+                <span class="pending">詳細未定・要相談</span>
+              </div>
+              <div class="item-card">
+                <h3>グリモワール搭載戦闘支援ドローン</h3>
+                <p>魔術書を搭載したドローン群。攻撃型、対照的な防御型から偵察型、異能書を組み込んだ異界陣展開型まで様々な種類が揃っている……事にしたい。</p>
+                <span class="pending">詳細未定・要相談</span>
+              </div>
+            </div>
+          </section>
+
+          <section id="ability" class="reveal">
+            <div class="blueprint-head"><div class="bp-tick"></div><div class="bp-num">FIG. 05 — ABILITY</div></div>
+            <h2>異能「結線」</h2>
+
+            <div class="spec-card">
+              <div class="label">概要</div>
+              <h3>結線(けっせん)</h3>
+              <p>情報媒体同士を異能によって接続し、情報を伝達させる異能。対象となるのは、情報を保持する目的で作られた非生物の情報媒体。</p>
+              <p>本・写真・磁気媒体・光学ディスク・USBメモリ・スマートフォン・PC・カメラ・テレビ・ラジオなどのほか、異能的な術式が刻まれた魔術書《グリモワール》も対象にできる。</p>
+            </div>
+
+            <div class="spec-card">
+              <div class="label">能力詳細</div>
+              <h3>マーキング</h3>
+              <p>対象を《結線》で接続するには、あらかじめ本人が直接触れて専用の印を指で描く必要があり、事前準備は必須。マーキングには一定の時間が必要で、妨害されながら完成させることは困難であり、即自的なハッキングは不可能。</p>
+              <p>一度施した印は基本的に永続するが、以下の場合は消滅する。</p>
+              <ul>
+                <li>異能の無効化・中和</li>
+                <li>媒体が情報媒体として機能しなくなるほどの破損</li>
+                <li>本人による解除</li>
+              </ul>
+              <p>また例外的な条件として、生命が芽生えるなどにより異能の発動可能な対象から外れることでも消滅する。</p>
+            </div>
+
+            <div class="spec-card">
+              <div class="label">能力詳細</div>
+              <h3>接続</h3>
+              <p>同じ印を付けた媒体同士を、思考だけで接続できる。接続距離に実質的な制限はない。ただし、接続経路上に異能を阻害する要素が存在する場合、その領域を無視して接続することはできない。</p>
+              <p>接続数にも明確な上限はないが、接続する媒体が増えるほど本人の精神的負荷が増加するため、それが事実上の限界となっている。複雑なネットワークを扱うほど操作が難しくなり、混乱するとネットワークを組み直す必要が生じる。</p>
+              <p>一方、普段から使い込んでいる構成は脳内でパターン化されており、ほぼ反射的に操作できる。</p>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+      <footer>
+        <span>CAA / FORTIS-DEPT / PERSONNEL RECORD</span>
+        <span>J-014903</span>
+      </footer>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  (function(){
+    var svg = document.getElementById('bg-net');
+    var ns = 'http://www.w3.org/2000/svg';
+    var W = window.innerWidth, H = window.innerHeight;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+    var nodeCount = 22;
+    var nodes = [];
+    for(var i=0;i<nodeCount;i++){
+      nodes.push({ x: Math.random()*W, y: Math.random()*H, el:null });
+    }
+    nodes.forEach(function(n, i){
+      nodes.forEach(function(m, j){
+        if(j <= i) return;
+        var dx = n.x-m.x, dy = n.y-m.y;
+        var dist = Math.sqrt(dx*dx+dy*dy);
+        if(dist < 220){
+          var line = document.createElementNS(ns, 'line');
+          line.setAttribute('x1', n.x); line.setAttribute('y1', n.y);
+          line.setAttribute('x2', m.x); line.setAttribute('y2', m.y);
+          line.setAttribute('stroke', '#2a4a68'); line.setAttribute('stroke-width', '0.6');
+          line.classList.add('bg-edge');
+          svg.appendChild(line);
+        }
+      });
+    });
+    nodes.forEach(function(n){
+      var c = document.createElementNS(ns, 'circle');
+      c.setAttribute('cx', n.x); c.setAttribute('cy', n.y); c.setAttribute('r', 2.4);
+      c.setAttribute('fill', '#5f7688');
+      c.classList.add('bg-node');
+      c.style.animationDelay = (Math.random()*5) + 's';
+      svg.appendChild(c);
+      n.el = c;
+    });
+
+    var navNodes = document.querySelectorAll('.nn-node');
+    var targets = [];
+    navNodes.forEach(function(n){
+      var sel = n.getAttribute('data-target');
+      targets.push(document.querySelector(sel));
+      n.addEventListener('click', function(){
+        var t = document.querySelector(sel);
+        if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+    function onScroll(){
+      var pos = window.scrollY + 140;
+      var current = 0;
+      targets.forEach(function(t, i){ if(t && t.offsetTop <= pos) current = i; });
+      navNodes.forEach(function(n, i){ n.classList.toggle('active', i === current); });
+    }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+
+    var loadEl = document.getElementById('tel-load');
+    var loadVals = ['低', '低', '中', '低', '中', '安定'];
+    setInterval(function(){
+      loadEl.textContent = loadVals[Math.floor(Math.random()*loadVals.length)];
+    }, 2600);
+
+    if('IntersectionObserver' in window){
+      var revealTargets = document.querySelectorAll('.reveal');
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+            for(var k=0;k<3;k++){
+              (function(){
+                var n = nodes[Math.floor(Math.random()*nodes.length)];
+                if(n && n.el) n.el.classList.add('lit');
+              })();
+            }
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+      revealTargets.forEach(function(el){ io.observe(el); });
+    } else {
+      document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in-view'); });
+    }
+  })();
+</script>
+
+</body>
+</html>
